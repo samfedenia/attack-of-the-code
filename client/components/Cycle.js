@@ -49,22 +49,27 @@ const Cycle = () => {
     }, [])
 
     // console.log(headshots)
-    console.log(user)
+    // console.log(user)
     return (
         <>
-        <form className={styles.name}>
+        {/* <form className={styles.name}>
         <input type='text' placeholder='name' />
-        </form>
-        <div className={styles.avatar}>
-            <button onClick={() => goLeft(num)}>{`<`}</button>  
-            <img 
+        </form> */}
+        <div className={styles.avatar}
+                onAnimationEnd={() => setWobble(0)}
+                wobble={wobble}>
+            <button className={styles.arrow} onClick={() => goLeft(num)}>{`<`}</button> 
+            <div 
+                className={styles.innerAvatar}
+                style={{backgroundImage: `url(/star_wars_characters/${headshots[num]})`}}></div> 
+            {/* <img 
                 onClick={() => setWobble(1)}
                 onAnimationEnd={() => setWobble(0)}
                 wobble={wobble}
                 src={headshots.length > 0 ? `/star_wars_characters/${headshots[num]}` : null} 
                 
-            />
-            <button onClick={() => goRight(num)}>{`>`}</button>          
+            /> */}
+            <button className={styles.arrow} onClick={() => goRight(num)}>{`>`}</button>          
         </div>
         </>
     )
