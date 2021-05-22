@@ -1,22 +1,22 @@
 /* global describe beforeEach it */
 
-import {expect} from 'chai'
-import React from 'react'
-import enzyme, {shallow} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
-import { Home } from './home'
+// import {expect} from 'chai'
+// import React from 'react'
+// import enzyme, {shallow} from 'enzyme'
+// import Adapter from 'enzyme-adapter-react-16'
+// import { Home } from './home'
 
-const adapter = new Adapter()
-enzyme.configure({adapter})
+// const adapter = new Adapter()
+// enzyme.configure({adapter})
 
-describe('Home', () => {
-  let home
+// describe('Home', () => {
+//   let home
 
-  beforeEach(() => {
-    home = shallow(<Home username="cody" />)
-  })
+//   beforeEach(() => {
+//     home = shallow(<Home username="cody" />)
+//   })
 
-  it('renders the email in an h3', () => {
-    expect(home.find('h3').text()).to.be.equal('Welcome, cody')
-  })
-})
+//   it('renders the email in an h3', () => {
+//     expect(home.find('h3').text()).to.be.equal('Welcome, cody')
+//   })
+// })
