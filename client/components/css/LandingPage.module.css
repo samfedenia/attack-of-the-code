@@ -1,0 +1,80 @@
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color:rgba(0, 0, 0, 0.8);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    border-radius: 3rem;
+    box-shadow: 12px 12px 15px 2px rgba(0, 0, 0, .4);
+}
+
+.logo{
+    width: 105%;
+    padding-bottom: 2rem;
+}
+
+.cube {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cubeImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.cubeImg img{
+    height: 3rem;
+}
+
+.cubeImg img[wobble='1'] {
+  /* animation: wobble 0.25s 1; */
+  animation-name: wobble;
+  animation-duration: 0.25s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-iteration-count: 1;
+  animation-direction: alternate;
+}
+
+
+@keyframes wobble {
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.selectLanguage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.selectLanguage option {
+    text-align: center;
+}

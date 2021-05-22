@@ -1,5 +1,23 @@
+@font-face {
+  font-family: StarJedi;
+  src: url(/Starjedi.ttf);
+}
+
+@font-face {
+  font-family: AurekBesh;
+  src: url(/AurekBeshNarrow.ttf);
+}
+
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
+  font-family: StarJedi;
+  color: rgba(245, 245, 12, 0.865);
+  /* font-family: AurekBesh; */
+  /* background-color: black; */
+  background-image: url('/backgrounds/millenium.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 a {

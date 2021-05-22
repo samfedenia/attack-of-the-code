@@ -1,0 +1,69 @@
+.name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    background-color: white;
+}
+
+
+.innerAvatar {
+  animation-name: wobble;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.innerAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-size: 90%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 2rem;
+}
+
+.avatar button {
+    margin: 20px;
+    border-style: none;
+    font-size: 20px;
+    background-color: transparent;
+}
+
+
+.avatar img[wobble='1'] {
+  animation: wobble 1s 1;
+}
+
+.arrow {
+  color: white;
+}
+
+@keyframes wobble {
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
