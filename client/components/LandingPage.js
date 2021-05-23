@@ -27,10 +27,10 @@ const LandingPage = () => {
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
             </Row> */}
-      <img className={styles.logo} src='/attackOfTheCodeLOGO.png' />
+      <img className={styles.logo} src="/attackOfTheCodeLOGO.png" />
       <Row className={styles.cube}>
         <form className={styles.name}>
-          <input type='text' placeholder='name' />
+          <input type="text" placeholder="name" style={{ color: "white" }} />
         </form>
       </Row>
       <Row className={styles.cubeImg}>
@@ -38,16 +38,20 @@ const LandingPage = () => {
           onClick={() => setWobble(1)}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
-          src='/change_cube_transparent.png'
+          src="/change_cube_transparent.png"
         />
         <Cycle />
       </Row>
-      <TextInput id='TextInput-4' placeholder='Room Code' />
+      <TextInput
+        id="TextInput-4"
+        placeholder="Room Code"
+        style={{ color: "white" }}
+      />
       <Button
-        style={{ color: 'black', backgroundColor: 'rgb(245, 245, 12)' }}
-        className='col l2 offset-l1 offset-s4 s4'
-        node='button'
-        waves='red'
+        style={{ color: "black", backgroundColor: "rgb(245, 245, 12)" }}
+        className="col l2 offset-l1 offset-s4 s4"
+        node="button"
+        waves="red"
       >
         Join
       </Button>

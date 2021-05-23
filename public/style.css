@@ -30,6 +30,7 @@ nav a {
 }
 
 form div {
+  color: white;
   margin: 1em;
   display: inline-block;
 }
