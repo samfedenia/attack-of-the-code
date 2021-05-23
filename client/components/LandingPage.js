@@ -43,7 +43,7 @@ const LandingPage = () => {
   const socket = useContext(SocketContext);
   const newRoomCode = Math.random().toString(36).slice(-5);
   socket.emit('room', newRoomCode, 'anon');
-
+  console.log(backgrounds.length)
   return (
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
