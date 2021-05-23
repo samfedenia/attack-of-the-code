@@ -8,9 +8,8 @@ import GameContainer from './components/GameContainer';
 const App = () => {
   return (
     <div>
-      {/* <LandingPage /> */}
-      {/* <Cycle /> */}
-      <GameContainer />
+      <LandingPage />
+      {/* <GameContainer /> */}
     </div>
   );
 };

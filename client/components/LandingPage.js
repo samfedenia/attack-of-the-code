@@ -19,7 +19,15 @@ import { SocketContext } from '../components/context/socket';
 
 const LandingPage = () => {
   const [wobble, setWobble] = useState(0);
-  const [backgrounds, setBackgrounds] = useState([])
+  const [backgrounds, setBackgrounds] = useState([]);
+  const [headshots, setHeadshots] = useState([]);
+  const [num, setNum] = useState(0);
+  const [user, setUser] = useState({username: 'test', avatar: ''});
+
+  const getCharacters = async () => {
+        const {data: images} = await axios.get('/api/headshots');
+        return images
+    };
 
   const getBackgrounds = async () => {
         const {data: backgrounds} = await axios.get('/api/backgrounds');
@@ -27,16 +35,26 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
+    getCharacters()
+      .then((images) => {
+        setHeadshots(images)
+      })
+
     getBackgrounds()
       .then((backgrounds) => {
         setBackgrounds(backgrounds)
       })
+
     }, [])
 
-  const changeBg = () => {
+  const randomize = () => {
     setWobble(1)
     const randomNum = Math.floor(Math.random() * backgrounds.length); 
     document.body.style.backgroundImage= `url(/backgrounds/${backgrounds[randomNum]})` 
+
+    const randomIndex = Math.floor(Math.random() * headshots.length);
+    setNum(randomIndex)
+    setUser({...user, avatar: headshots[randomIndex]})
   }
 
   // socket connection logic
@@ -46,8 +64,6 @@ const LandingPage = () => {
 
   return (
     <Container className={styles.container}>
-      {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
-            </Row> */}
       <img className={styles.logo} src="/attackOfTheCodeLOGO.png" />
       <Row className={styles.cube}>
         <form className={styles.name}>
@@ -56,12 +72,18 @@ const LandingPage = () => {
       </Row>
       <Row className={styles.cubeImg}>
         <img
-          onClick={changeBg}
+          onClick={randomize}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
           src="/change_cube_transparent.png"
         />
-        <Cycle />
+        <Cycle 
+          headshots={headshots}  
+          user={user} 
+          setUser={setUser}
+          num={num}
+          setNum={setNum}
+          />
       </Row>
       <TextInput
         id="TextInput-4"
