@@ -1,4 +1,3 @@
-
 .container {
   color: white;
   max-width: 70%;
@@ -8,7 +7,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   padding-left: 0;
   padding-right: 0;
   padding-top: 2rem;
@@ -18,12 +17,12 @@
   margin-right: auto;
   margin-top: 5rem;
   border-radius: 3rem;
-  border: .15rem solid rgba(255, 255, 255, .5);
-  box-shadow: 12px 12px 20px 2px rgba(0, 0, 0, .5);
-  backdrop-filter: blur(.3rem);
+  border: 0.15rem solid rgba(255, 255, 255, 0.5);
+  box-shadow: 12px 12px 20px 2px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.3rem);
 }
 
-.logo{
+.logo {
   width: 105%;
   padding-bottom: 2rem;
 }
@@ -34,14 +33,21 @@
   align-items: center;
 }
 
-.cubeImg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
-.cubeImg img{
-    height: 3rem;
+
+.cubeImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.cubeImg img {
+  height: 3rem;
 }
 
 .cubeImg img[wobble='1'] {
@@ -70,11 +76,17 @@
 }
 
 .selectLanguage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.switch {
+  margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
