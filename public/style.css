@@ -9,7 +9,9 @@
 }
 
 body {
-  background-image: url('/backgrounds/millenium.jpeg');
+  background-image:
+  url('/backgrounds/millenium.jpeg'),
+  linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
