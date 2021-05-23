@@ -20,11 +20,19 @@ import { SocketContext } from '../components/context/socket';
 const LandingPage = () => {
   const [wobble, setWobble] = useState(0);
   const [backgrounds, setBackgrounds] = useState([]);
+  const [headshots, setHeadshots] = useState([]);
+  const [num, setNum] = useState(0);
   const [user, setUser] = useState({
+    avatar: '',
     playerName: '',
     roomCode: '',
     socket: useContext(SocketContext),
   });
+
+  const getCharacters = async () => {
+    const { data: images } = await axios.get('/api/headshots');
+    return images;
+  };
 
   const getBackgrounds = async () => {
     const { data: backgrounds } = await axios.get('/api/backgrounds');
@@ -32,18 +40,29 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
-    checkExistingUserSession();
+    getCharacters().then((images) => {
+      setHeadshots(images);
+    });
+
     getBackgrounds().then((backgrounds) => {
       setBackgrounds(backgrounds);
     });
   }, []);
 
-  const changeBg = () => {
+  useEffect(() => {
+    checkExistingUserSession();
+  }, []);
+
+  const randomize = () => {
     setWobble(1);
     const randomNum = Math.floor(Math.random() * backgrounds.length);
     document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]})`;
+
+    const randomIndex = Math.floor(Math.random() * headshots.length);
+    setNum(randomIndex);
     setUser({
       ...user,
+      avatar: headshots[randomIndex],
       playerName: 'Anon',
       roomCode: createRoomCode(),
     });
@@ -99,13 +118,19 @@ const LandingPage = () => {
       </Row>
       <Row className={styles.cubeImg}>
         <img
-          onClick={changeBg}
+          onClick={randomize}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
           src='/change_cube_transparent.png'
         />
       </Row>
-      <Cycle />
+      <Cycle
+        headshots={headshots}
+        user={user}
+        setUser={setUser}
+        num={num}
+        setNum={setNum}
+      />
       <Row className={styles.form}>
         <TextInput
           type='text'
@@ -135,6 +160,7 @@ const LandingPage = () => {
           }}
           className='blue-border'
         />
+
         <Button
           style={{
             color: 'black',
