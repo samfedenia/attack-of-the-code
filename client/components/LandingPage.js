@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
 import 'materialize-css';
 import {
   Container,
@@ -18,11 +19,31 @@ import { SocketContext } from '../components/context/socket';
 
 const LandingPage = () => {
   const [wobble, setWobble] = useState(0);
+  const [backgrounds, setBackgrounds] = useState([])
+
+  const getBackgrounds = async () => {
+        const {data: backgrounds} = await axios.get('/api/backgrounds');
+        return backgrounds
+  };
+
+  useEffect(() => {
+    getBackgrounds()
+      .then((backgrounds) => {
+        setBackgrounds(backgrounds)
+      })
+    }, [])
+
+  const changeBg = () => {
+    setWobble(1)
+    const randomNum = Math.floor(Math.random() * backgrounds.length); 
+    document.body.style.backgroundImage= `url(/backgrounds/${backgrounds[randomNum]})` 
+  }
 
   // socket connection logic
   const socket = useContext(SocketContext);
   const newRoomCode = Math.random().toString(36).slice(-5);
   socket.emit('room', newRoomCode, 'anon');
+
   return (
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
@@ -35,7 +56,7 @@ const LandingPage = () => {
       </Row>
       <Row className={styles.cubeImg}>
         <img
-          onClick={() => setWobble(1)}
+          onClick={changeBg}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
           src="/change_cube_transparent.png"
