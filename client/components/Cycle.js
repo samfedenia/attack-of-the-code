@@ -29,7 +29,7 @@ const Cycle = ({ headshots, user, setUser, num, setNum }) => {
             setUser({...user, avatar: headshots[num]})
         }
     }
-    console.log(user)
+    //console.log(user)
     return (
         <>
         <div className={styles.avatar}
