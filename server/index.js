@@ -6,7 +6,7 @@ const init = async () => {
   try {
     // start listening (and create a 'server' object representing our server)
     server = app.listen(PORT, () =>
-      console.log(`Mixing it up on port ${PORT}`)
+      console.log(`Power! Unlimited power! (port ${PORT})`)
     );
   } catch (ex) {
     console.log(ex);
