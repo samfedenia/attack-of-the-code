@@ -7,11 +7,11 @@ import GameContainer from './components/GameContainer';
 
 const App = () => {
   return (
-    <div>
-      {/* <LandingPage /> */}
+    <>
+      <LandingPage />
       {/* <Cycle /> */}
-      <GameContainer />
-    </div>
+      {/* <GameContainer /> */}
+    </>
   );
 };
 
