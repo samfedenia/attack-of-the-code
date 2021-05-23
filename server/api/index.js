@@ -23,7 +23,28 @@ router.get('/headshots', (req, res, next) => {
     } catch (error) {
         next(error)
     }
-})
+});
+
+router.get('/backgrounds', (req, res, next) => {
+    try {
+        const bgArr = [];
+        const bgs = path.join(__dirname, '../../public/backgrounds');
+        fs.readdir(bgs, (err, files) => {
+            try {
+              files.forEach(file => {
+                  if (!file.includes('.DS_Store')) {
+                      bgArr.push(file)
+                  }
+              })  
+            } catch (error) {
+                console.log('files error', error)
+            }
+            res.send(bgArr)
+        })
+    } catch (error) {
+        next(error)
+    }
+});
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
