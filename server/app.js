@@ -8,7 +8,7 @@ module.exports = app;
 // SSL force redirect except on localhost
 app.use(
   redirectSSL.create({
-    exclude: ["localhost"],
+    enabled: process.env.NODE_ENV === "production",
   })
 );
 
