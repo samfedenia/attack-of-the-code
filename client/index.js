@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
+// import { HashRouter as Router } from 'react-router-dom';
 import App from './app';
 import { SocketContext, socket } from './components/context/socket';
 
 ReactDOM.render(
   <SocketContext.Provider value={socket}>
-    <Router>
+    {/* <Router> */}
       <App />
-    </Router>
+    {/* </Router> */}
   </SocketContext.Provider>,
   document.getElementById("app")
 );
