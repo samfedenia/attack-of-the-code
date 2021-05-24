@@ -55,14 +55,12 @@ const LandingPage = () => {
     checkExistingUserSession();
   }, []);
 
-  const changeToAurekBesh = () => {
-    console.log('font:', font)
-    setFont('AurekBesh')
-  }
-
-  const changeToStarJedi = () => {
-    console.log('font:', font)
-    setFont('StarJedi')
+  const changeFont = () => {
+    if (font === 'StarJedi') {
+      setFont('Aurebesh')
+    } else {
+      setFont('StarJedi')
+    }
   }
 
   const randomize = () => {
@@ -123,7 +121,7 @@ const LandingPage = () => {
           >
             English
             <input 
-              onClick={font === 'StarJedi' ? changeToAurekBesh : changeToStarJedi}
+              onClick={changeFont}
               type='checkbox' />
             <span className='lever'></span>
             Aurebesh
