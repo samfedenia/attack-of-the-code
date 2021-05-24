@@ -16,6 +16,7 @@ import {
 import Cycle from './Cycle';
 import styles from './css/LandingPage.module.css';
 import { SocketContext } from '../components/context/socket';
+import { UserContext } from '../components/context/user';
 
 const LandingPage = () => {
   const [font, setFont] = useState('StarJedi');
@@ -30,6 +31,8 @@ const LandingPage = () => {
     roomCode: '',
     socket: useContext(SocketContext),
   });
+
+  const [userContext, setUserContext] = useContext(UserContext);
 
   const getCharacters = async () => {
     const { data: images } = await axios.get('/api/headshots');
@@ -95,6 +98,7 @@ const LandingPage = () => {
     window.sessionStorage.setItem('roomCode', user.roomCode);
     window.sessionStorage.setItem('playerName', user.playerName);
     user.socket.emit('room', user.roomCode, user.playerName);
+    setUserContext(user);
   }
 
   function checkExistingUserSession() {
