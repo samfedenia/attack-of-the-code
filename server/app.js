@@ -1,8 +1,16 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const redirectSSL = require("redirect-ssl");
 const app = express();
 module.exports = app;
+
+// SSL force redirect except on localhost
+app.use(
+  redirectSSL.create({
+    exclude: ["localhost"],
+  })
+);
 
 // logging middleware
 app.use(morgan('dev'));
