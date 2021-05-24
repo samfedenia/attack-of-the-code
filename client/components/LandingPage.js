@@ -19,6 +19,8 @@ import { SocketContext } from '../components/context/socket';
 import { UserContext } from '../components/context/user';
 
 const LandingPage = () => {
+  const [font, setFont] = useState('StarJedi');
+  const [toggle, setToggle] = useState(false)
   const [wobble, setWobble] = useState(0);
   const [backgrounds, setBackgrounds] = useState([]);
   const [headshots, setHeadshots] = useState([]);
@@ -56,10 +58,18 @@ const LandingPage = () => {
     checkExistingUserSession();
   }, []);
 
+  const changeFont = () => {
+    if (font === 'StarJedi') {
+      setFont('Aurebesh')
+    } else {
+      setFont('StarJedi')
+    }
+  }
+
   const randomize = () => {
     setWobble(1);
     const randomNum = Math.floor(Math.random() * backgrounds.length);
-    document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]})`;
+    document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
 
     const randomIndex = Math.floor(Math.random() * headshots.length);
     setNum(randomIndex);
@@ -107,14 +117,16 @@ const LandingPage = () => {
         <div className='switch'>
           <label
             style={{
-              fontFamily: 'StarJedi',
+              fontFamily: font,
               textShadow: 'black 0px 0px 2px',
               color: 'white',
               letterSpacing: '.1em',
             }}
           >
             English
-            <input type='checkbox' />
+            <input 
+              onClick={changeFont}
+              type='checkbox' />
             <span className='lever'></span>
             Aurebesh
           </label>
@@ -144,7 +156,7 @@ const LandingPage = () => {
           value={user.playerName}
           style={{
             color: 'white',
-            fontFamily: 'StarJedi',
+            fontFamily: font,
             textShadow: 'black 0px 0px 2px',
             letterSpacing: '.1em',
           }}
@@ -158,7 +170,7 @@ const LandingPage = () => {
           value={user.roomCode}
           style={{
             color: 'white',
-            fontFamily: 'StarJedi',
+            fontFamily: font,
             textShadow: 'black 0px 0px 2px',
             letterSpacing: '.1em',
           }}
