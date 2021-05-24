@@ -70,3 +70,11 @@ form div {
   border-bottom: 1px solid #fff103 !important;
   box-shadow: 0 1px 0 0 #fff103 !important;
 }
+
+/* positioning toast continer (override materialize css) */
+#toast-container {
+  bottom: auto !important;
+  left: auto !important;
+  top: 2%;
+  right: 6%;
+}

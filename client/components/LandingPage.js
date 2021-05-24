@@ -20,7 +20,7 @@ import { UserContext } from '../components/context/user';
 
 const LandingPage = () => {
   const [font, setFont] = useState('StarJedi');
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
   const [wobble, setWobble] = useState(0);
   const [backgrounds, setBackgrounds] = useState([]);
   const [headshots, setHeadshots] = useState([]);
@@ -60,11 +60,11 @@ const LandingPage = () => {
 
   const changeFont = () => {
     if (font === 'StarJedi') {
-      setFont('Aurebesh')
+      setFont('Aurebesh');
     } else {
-      setFont('StarJedi')
+      setFont('StarJedi');
     }
-  }
+  };
 
   const randomize = () => {
     setWobble(1);
@@ -93,10 +93,18 @@ const LandingPage = () => {
     });
   }
 
-  function handleClickJoin(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
     window.sessionStorage.setItem('roomCode', user.roomCode);
     window.sessionStorage.setItem('playerName', user.playerName);
+    window.sessionStorage.setItem(
+      'user',
+      JSON.stringify({
+        playerName: user.playerName,
+        roomCode: user.roomCode,
+        avatar: user.avatar,
+      })
+    );
     user.socket.emit('room', user.roomCode, user.playerName);
     setUserContext(user);
   }
@@ -124,9 +132,7 @@ const LandingPage = () => {
             }}
           >
             English
-            <input 
-              onClick={changeFont}
-              type='checkbox' />
+            <input onClick={changeFont} type='checkbox' />
             <span className='lever'></span>
             Aurebesh
           </label>
@@ -147,51 +153,53 @@ const LandingPage = () => {
         num={num}
         setNum={setNum}
       />
-      <Row className={styles.form}>
-        <TextInput
-          type='text'
-          placeholder='Name'
-          name='playerName'
-          onChange={handleChange}
-          value={user.playerName}
-          style={{
-            color: 'white',
-            fontFamily: font,
-            textShadow: 'black 0px 0px 2px',
-            letterSpacing: '.1em',
-          }}
-        />
+      <form onSubmit={handleSubmit} autoComplete='off'>
+        <Row className={styles.form}>
+          <TextInput
+            type='text'
+            placeholder='Name'
+            name='playerName'
+            onChange={handleChange}
+            value={user.playerName}
+            style={{
+              color: 'white',
+              fontFamily: font,
+              textShadow: 'black 0px 0px 2px',
+              letterSpacing: '.1em',
+            }}
+          />
 
-        <TextInput
-          id='TextInput-4'
-          placeholder='Room Code'
-          name='roomCode'
-          onChange={handleChange}
-          value={user.roomCode}
-          style={{
-            color: 'white',
-            fontFamily: font,
-            textShadow: 'black 0px 0px 2px',
-            letterSpacing: '.1em',
-          }}
-          className='blue-border'
-        />
+          <TextInput
+            id='TextInput-4'
+            placeholder='Room Code'
+            name='roomCode'
+            onChange={handleChange}
+            value={user.roomCode}
+            style={{
+              color: 'white',
+              fontFamily: font,
+              textShadow: 'black 0px 0px 2px',
+              letterSpacing: '.1em',
+            }}
+            className='blue-border'
+          />
 
-        <Button
-          style={{
-            color: 'black',
-            backgroundColor: '#fff103',
-            fontFamily: 'Verdana',
-            letterSpacing: '.1em',
-            width: '10rem',
-          }}
-          onClick={handleClickJoin}
-          node='button'
-          waves='red'
-        >
-          JOIN
-        </Button>
-      </Row>
+          <Button
+            style={{
+              color: 'black',
+              backgroundColor: '#fff103',
+              fontFamily: 'Verdana',
+              letterSpacing: '.1em',
+              width: '10rem',
+            }}
+            type='submit'
+            node='button'
+            waves='red'
+          >
+            JOIN
+          </Button>
+        </Row>
+      </form>
     </Container>
   );
 };

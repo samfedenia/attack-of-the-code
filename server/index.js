@@ -14,6 +14,7 @@ const init = async () => {
 };
 init();
 const io = new Server(server);
+
 // socket.io logic
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -25,6 +26,10 @@ io.on('connection', (socket) => {
     socket.join(room);
 
     io.in(room).emit('user-joined', { user, room });
+  });
+  socket.on('chat-message', (playerName, roomCode, message) => {
+    console.log('chat message', roomCode, message);
+    socket.to(roomCode).emit('chat-message', { playerName, message });
   });
   socket.on('leave-room', (room, user) => {
     console.log(`user: ${user}`, `left room: ${room}`);
