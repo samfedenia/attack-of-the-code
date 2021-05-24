@@ -10,5 +10,5 @@ ReactDOM.render(
       <App />
     </Router>
   </SocketContext.Provider>,
-  document.getElementById('app')
+  document.getElementById("app")
 );

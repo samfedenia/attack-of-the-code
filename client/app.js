@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import Home from './components/home';
-import Cycle from './components/Cycle';
 import LandingPage from './components/LandingPage';
 import GameContainer from './components/GameContainer';
+import { UserContext } from "./components/context/user";
 
 const App = () => {
+  const roomCode = window.sessionStorage.getItem("roomCode");
+
+  const [userContext, setUserContext] = useState({
+    avatar: "",
+    playerName: "",
+    roomCode: "",
+    socket: "",
+  });
+
   return (
-    <>
-      <LandingPage />
-      {/* <Cycle /> */}
-      {/* <GameContainer /> */}
-    </>
+    <UserContext.Provider value={[userContext, setUserContext]}>
+      <>{userContext.roomCode || roomCode ? <GameContainer /> : <LandingPage />}</>
+    </UserContext.Provider>
   );
 };
 
