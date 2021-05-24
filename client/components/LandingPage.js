@@ -18,6 +18,8 @@ import styles from './css/LandingPage.module.css';
 import { SocketContext } from '../components/context/socket';
 
 const LandingPage = () => {
+  const [font, setFont] = useState('StarJedi');
+  const [toggle, setToggle] = useState(false)
   const [wobble, setWobble] = useState(0);
   const [backgrounds, setBackgrounds] = useState([]);
   const [headshots, setHeadshots] = useState([]);
@@ -53,10 +55,20 @@ const LandingPage = () => {
     checkExistingUserSession();
   }, []);
 
+  const changeToAurekBesh = () => {
+    console.log('font:', font)
+    setFont('AurekBesh')
+  }
+
+  const changeToStarJedi = () => {
+    console.log('font:', font)
+    setFont('StarJedi')
+  }
+
   const randomize = () => {
     setWobble(1);
     const randomNum = Math.floor(Math.random() * backgrounds.length);
-    document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]})`;
+    document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
 
     const randomIndex = Math.floor(Math.random() * headshots.length);
     setNum(randomIndex);
@@ -103,14 +115,16 @@ const LandingPage = () => {
         <div className='switch'>
           <label
             style={{
-              fontFamily: 'StarJedi',
+              fontFamily: font,
               textShadow: 'black 0px 0px 2px',
               color: 'white',
               letterSpacing: '.1em',
             }}
           >
             English
-            <input type='checkbox' />
+            <input 
+              onClick={font === 'StarJedi' ? changeToAurekBesh : changeToStarJedi}
+              type='checkbox' />
             <span className='lever'></span>
             Aurebesh
           </label>
@@ -140,7 +154,7 @@ const LandingPage = () => {
           value={user.playerName}
           style={{
             color: 'white',
-            fontFamily: 'StarJedi',
+            fontFamily: font,
             textShadow: 'black 0px 0px 2px',
             letterSpacing: '.1em',
           }}
@@ -154,7 +168,7 @@ const LandingPage = () => {
           value={user.roomCode}
           style={{
             color: 'white',
-            fontFamily: 'StarJedi',
+            fontFamily: font,
             textShadow: 'black 0px 0px 2px',
             letterSpacing: '.1em',
           }}
