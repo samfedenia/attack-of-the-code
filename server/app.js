@@ -5,7 +5,7 @@ const redirectSSL = require("redirect-ssl");
 const app = express();
 module.exports = app;
 
-// SSL force redirect except on localhost
+// SSL force redirect in production node env
 app.use(
   redirectSSL.create({
     enabled: process.env.NODE_ENV === "production",
