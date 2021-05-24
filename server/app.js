@@ -1,8 +1,16 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const redirectSSL = require("redirect-ssl");
 const app = express();
 module.exports = app;
+
+// SSL force redirect in production node env
+app.use(
+  redirectSSL.create({
+    enabled: process.env.NODE_ENV === "production",
+  })
+);
 
 // logging middleware
 app.use(morgan('dev'));
