@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import 'materialize-css';
 import {
@@ -27,15 +27,25 @@ const Chat = () => {
   const [user, setUser] = useState(userContext);
   const [messageInput, setMessageInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
+  const [incomingMessage, setIncomingMessage] = useState({});
 
-  // useEffect(() => {
-  //   if (!user.playerName) {
-  //     const userFromSessionStorage = JSON.parse(
-  //       window.sessionStorage.getItem('user')
-  //     );
-  //     setUser({ ...userFromSessionStorage, socket: socket });
-  //   }
-  // }, [user]);
+  // const handleTabClose = (e) => {
+  //   e.preventDefault();
+  //   socket.emit('leave-room', userContext.roomCode, userContext.playerName);
+  // };
+
+  useEffect(() => {
+    window.onbeforeunload = (event) => {
+      const e = event || window.event;
+      e.preventDefault();
+      alert('some stuff');
+      socket.emit('leave-room', userContext.roomCode, userContext.playerName);
+      if (e) {
+        e.returnValue = '';
+      }
+      return '';
+    };
+  }, []);
 
   useEffect(() => {
     if (!userContext.playerName) {
@@ -48,8 +58,38 @@ const Chat = () => {
         userFromSessionStorage.playerName
       );
       setUserContext({ ...userFromSessionStorage, socket: socket });
+      setUser({ ...userFromSessionStorage, socket: socket });
     }
   }, [userContext]);
+
+  useEffect(() => {
+    if (userContext.socket) {
+      userContext.socket.on('user-joined', ({ user }) => {
+        setIncomingMessage({ user, message: 'joined' });
+      });
+      userContext.socket.on('chat-message', ({ playerName, message }) => {
+        setIncomingMessage({ user: playerName, message: message });
+      });
+      userContext.socket.on('user-left', ({ user }) => {
+        setIncomingMessage({ user, message: 'left!' });
+      });
+    }
+    return () => {
+      // userContext.socket.off('user-joined');
+      userContext.socket.off('chat-message');
+      // userContext.socket.off('user-left');
+    };
+  }, []);
+
+  function handleIncomingMessage(incomingMessage) {
+    setChatMessages([incomingMessage, ...chatMessages]);
+    setIncomingMessage({});
+  }
+
+  if (incomingMessage.message) {
+    console.log('handling incoming message', incomingMessage);
+    handleIncomingMessage(incomingMessage);
+  }
 
   function handleClickCopyRoomCode(evt) {
     evt.preventDefault();
@@ -68,10 +108,10 @@ const Chat = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    setChatMessages([
-      { user: userContext.playerName, message: messageInput },
-      ...chatMessages,
-    ]);
+    // setChatMessages([
+    //   { user: userContext.playerName, message: messageInput },
+    //   ...chatMessages,
+    // ]);
     userContext.socket.emit(
       'chat-message',
       userContext.playerName,
@@ -79,21 +119,6 @@ const Chat = () => {
       messageInput
     );
     setMessageInput('');
-  }
-  if (userContext.socket) {
-    console.log();
-    userContext.socket.on('user-joined', ({ user }) => {
-      setChatMessages([{ user, message: 'joined' }, ...chatMessages]);
-    });
-    userContext.socket.on('chat-message', ({ playerName, message }) => {
-      setChatMessages([
-        { user: playerName, message: message },
-        ...chatMessages,
-      ]);
-    });
-    userContext.socket.on('user-left', ({ user }) => {
-      setChatMessages([{ user, message: 'left!' }, ...chatMessages]);
-    });
   }
 
   return (

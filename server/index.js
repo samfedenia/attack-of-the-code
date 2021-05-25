@@ -24,16 +24,15 @@ io.on('connection', (socket) => {
   socket.on('room', (room, user) => {
     console.log(`user: ${user}`, `joined room: ${room}`);
     socket.join(room);
-
-    io.in(room).emit('user-joined', { user, room });
+    socket.to(room).emit('user-joined', { user, room });
   });
   socket.on('chat-message', (playerName, roomCode, message) => {
     console.log('chat message', roomCode, message);
-    socket.to(roomCode).emit('chat-message', { playerName, message });
+    io.in(roomCode).emit('chat-message', { playerName, message });
   });
   socket.on('leave-room', (room, user) => {
     console.log(`user: ${user}`, `left room: ${room}`);
-    io.in(room).emit('user-left', { user, room });
+    io.in(room).emit('user-left', { user });
     socket.leave(room);
   });
 });
