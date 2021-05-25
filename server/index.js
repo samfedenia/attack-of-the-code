@@ -16,13 +16,17 @@ init();
 const io = new Server(server);
 
 // socket.io logic
+const socketMemo = {};
+
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
   socket.on('room', (room, user) => {
     console.log(`user: ${user}`, `joined room: ${room}`);
+    const userTuple = [user, socket.id];
+    if (socketMemo[room]) socketMemo[room] = [...socketMemo[room], userTuple];
+    else socketMemo[room] = [userTuple];
+
+    console.log(socketMemo);
     socket.join(room);
     socket.to(room).emit('user-joined', { user, room });
   });
@@ -30,9 +34,25 @@ io.on('connection', (socket) => {
     console.log('chat message', roomCode, message);
     io.in(roomCode).emit('chat-message', { playerName, message });
   });
-  socket.on('leave-room', (room, user) => {
-    console.log(`user: ${user}`, `left room: ${room}`);
-    io.in(room).emit('user-left', { user });
-    socket.leave(room);
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+    const disconnectedUserId = socket.id;
+    console.log('disconnected user', disconnectedUserId);
+    for ([k, v] of Object.entries(socketMemo)) {
+      console.log('key', k);
+      for (let i = 0; i < v.length; i++) {
+        if (v[i][1] === socket.id) {
+          console.log('found disconnecting user: ', v[i][0]);
+          io.in(k).emit('user-left', { user: v[i][0] });
+          if (socketMemo[k]) {
+            socketMemo[k] = [
+              ...socketMemo[k].filter((usr) => usr[1] != v[i][1]),
+            ];
+          }
+          if (socketMemo[k].length === 0) delete socketMemo[k];
+          console.log(socketMemo);
+        }
+      }
+    }
   });
 });
