@@ -14,21 +14,27 @@ const init = async () => {
 };
 init();
 const io = new Server(server);
-// socket.io logic
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-  socket.on('room', (room, user) => {
-    console.log(`user: ${user}`, `joined room: ${room}`);
-    socket.join(room);
 
-    io.in(room).emit('user-joined', { user, room });
+// socket.io logic
+
+// denormalizedSocketMemo = { usersSocket.id: [playerName, roomCode], ... }
+const denormalizedSocketMemo = {};
+
+// handles the initial connection from client side
+io.on('connection', (socket) => {
+  socket.on('room', (roomCode, playerName) => {
+    if (socket.id) denormalizedSocketMemo[socket.id] = [roomCode, playerName];
+    socket.join(roomCode);
+    socket.to(roomCode).emit('user-joined', { playerName });
   });
-  socket.on('leave-room', (room, user) => {
-    console.log(`user: ${user}`, `left room: ${room}`);
-    io.in(room).emit('user-left', { user, room });
-    socket.leave(room);
+
+  socket.on('chat-message', (roomCode, playerName, message) => {
+    io.in(roomCode).emit('chat-message', { playerName, message });
+  });
+
+  socket.on('disconnect', () => {
+    const [roomCode, departedUser] = denormalizedSocketMemo[socket.id];
+    delete denormalizedSocketMemo[socket.id];
+    io.in(roomCode).emit('user-left', { playerName: departedUser });
   });
 });
