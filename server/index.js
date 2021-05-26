@@ -16,8 +16,13 @@ init();
 const io = new Server(server);
 
 // socket.io logic
+// socket memo keeps track of {roomCode: [[playername1, socketId], [playername2, socketId], ...]}
 const socketMemo = {};
 
+// implement a denormalized socketMemo with socket.id as the key
+// denoSocketMemo = { usersSocket.id: [playerName, roomCode], ... }
+
+// handles the initial connection from client side
 io.on('connection', (socket) => {
   // console.log('a user connected');
   socket.on('room', (room, user) => {
@@ -28,12 +33,15 @@ io.on('connection', (socket) => {
 
     // console.log(socketMemo);
     socket.join(room);
+    // clean up variable names to match client side and get rid of extra variables
     socket.to(room).emit('user-joined', { user, room });
   });
+
   socket.on('chat-message', (playerName, roomCode, message) => {
     // console.log('chat message', roomCode, message);
     io.in(roomCode).emit('chat-message', { playerName, message });
   });
+
   socket.on('disconnect', () => {
     // console.log('user disconnected');
     // const disconnectedUserId = socket.id;
