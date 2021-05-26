@@ -29,11 +29,10 @@ const LandingPage = () => {
     avatar: '',
     playerName: '',
     roomCode: '',
-    socket: useContext(SocketContext),
   });
 
   const [userContext, setUserContext] = useContext(UserContext);
-
+  const socket = useContext(SocketContext);
   const getCharacters = async () => {
     const { data: images } = await axios.get('/api/headshots');
     return images;
@@ -105,7 +104,7 @@ const LandingPage = () => {
         avatar: user.avatar,
       })
     );
-    user.socket.emit('room', user.roomCode, user.playerName);
+    socket.emit('room', user.roomCode, user.playerName);
     setUserContext(user);
   }
 

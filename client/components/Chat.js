@@ -24,11 +24,11 @@ const Chat = () => {
   const socket = useContext(SocketContext);
   // get user context
   const [userContext, setUserContext] = useContext(UserContext);
-  // const [user, setUser] = useState(userContext);
   const [messageInput, setMessageInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState({});
 
+  // take another look at this
   useEffect(() => {
     if (!userContext.playerName) {
       const userFromSessionStorage = JSON.parse(
@@ -39,25 +39,25 @@ const Chat = () => {
         userFromSessionStorage.roomCode,
         userFromSessionStorage.playerName
       );
-      setUserContext({ ...userFromSessionStorage, socket: socket });
+      setUserContext({ ...userFromSessionStorage });
     }
   }, [userContext]);
 
   useEffect(() => {
-    socket.on('user-joined', ({ user }) => {
-      setIncomingMessage({ user, message: 'joined' });
+    socket.on('user-joined', ({ playerName }) => {
+      setIncomingMessage({ playerName, message: 'joined' });
     });
     socket.on('chat-message', ({ playerName, message }) => {
-      setIncomingMessage({ user: playerName, message: message });
+      setIncomingMessage({ playerName, message });
     });
-    socket.on('user-left', ({ user }) => {
-      setIncomingMessage({ user, message: 'left' });
+    socket.on('user-left', ({ playerName }) => {
+      setIncomingMessage({ playerName, message: 'left' });
     });
 
     return () => {
-      // socket.off('user-joined');
+      socket.off('user-joined');
       socket.off('chat-message');
-      // socket.off('user-left');
+      socket.off('user-left');
     };
   }, []);
 
@@ -82,7 +82,6 @@ const Chat = () => {
   }
 
   if (incomingMessage.message) {
-    console.log('handling incoming message', incomingMessage);
     handleIncomingMessage(incomingMessage);
     handleSaveChatHistory();
   }
@@ -97,6 +96,7 @@ const Chat = () => {
     });
     navigator.clipboard.writeText(userContext.roomCode);
   }
+
   function handleChange(evt) {
     evt.preventDefault();
     setMessageInput(evt.target.value);
@@ -107,8 +107,8 @@ const Chat = () => {
 
     socket.emit(
       'chat-message',
-      userContext.playerName,
       userContext.roomCode,
+      userContext.playerName,
       messageInput
     );
     setMessageInput('');
@@ -138,16 +138,16 @@ const Chat = () => {
                   className={styles.messageCard}
                   style={{
                     backgroundColor:
-                      msg.user === userContext.playerName
+                      msg.playerName === userContext.playerName
                         ? 'rgb(55,132,214)'
                         : 'lightgray',
                     color:
-                      msg.user === userContext.playerName
+                      msg.playerName === userContext.playerName
                         ? 'whitesmoke'
                         : 'black',
                   }}
                 >
-                  {msg.user}: {msg.message}
+                  {msg.playerName}: {msg.message}
                 </Card>
               );
             })}
