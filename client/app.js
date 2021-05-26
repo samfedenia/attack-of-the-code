@@ -17,7 +17,7 @@ const App = () => {
     socket: "",
   });
 
-  const [view, setView] = useState({loading: false});
+  const [view, setView] = useState({loading: true});
 
   return view.loading ? (<Loading />) : (
     <UserContext.Provider value={[userContext, setUserContext]}>
