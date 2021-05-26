@@ -130,7 +130,7 @@ const quotes = [
   "You can change who you are, but you cannot run from yourself."
 ];
 
-module.exports = quotes;
+export default quotes;
 
 
 // const string = `S5-E16 – Morality separates heroes from villains.
