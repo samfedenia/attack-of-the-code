@@ -85,7 +85,7 @@ const LandingPage = () => {
   };
 
   function handleChange(evt) {
-    const value = evt.target.value;
+    const value = evt.target.value.toLowerCase();
     setUser({
       ...user,
       [evt.target.name]: value,
