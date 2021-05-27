@@ -24,9 +24,17 @@ const App = () => {
   }, [])
 
 
-  return view.loading ? (<Loading />) : (
+  return view.loading ? (
+    <Loading />
+  ) : (
     <UserContext.Provider value={[userContext, setUserContext]}>
-      <>{userContext.roomCode || roomCode ? <GameContainer /> : <LandingPage />}</>
+      <>
+        {userContext.roomCode || roomCode ? (
+          <GameContainer view={view} setView={setView} />
+        ) : (
+          <LandingPage view={view} setView={setView} />
+        )}
+      </>
     </UserContext.Provider>
   );
 };
