@@ -69,8 +69,21 @@ const Editor = () => {
 
     return (
         <div className='wrapper'>
-        <button onClick={changeTheme}>Dark Side/Prof Side</button>
-         <br />
+        <div className='switch'>
+          <label
+            style={{
+              fontFamily: 'StarJedi',
+              textShadow: 'black 0px 0px 2px',
+              color: 'white',
+              letterSpacing: '.1em',
+            }}
+          >
+            Dark Side
+            <input onClick={changeTheme} type='checkbox' />
+            <span className='lever'></span>
+            Prof Side
+          </label>
+        </div>
         <AceEditor
             height='30rem'
             width='50%'

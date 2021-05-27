@@ -42,6 +42,11 @@ form div {
 /* .switch label .lever {
   background-color: #79ff4d;
 } */
+.switch {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .switch label input[type='checkbox']:checked + .lever {
   background-color: #fff2035d;
 }
