@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 // import { Route } from 'react-router-dom';
 import Home from './components/home';
 import LandingPage from './components/LandingPage';
@@ -17,11 +17,24 @@ const App = () => {
     socket: "",
   });
 
-  const [view, setView] = useState({loading: false});
+  const [view, setView] = useState({loading: true});
 
-  return view.loading ? (<Loading />) : (
+  useEffect(() => {
+    setTimeout(() => setView({ loading: false }), 2000);
+  }, [])
+
+
+  return view.loading ? (
+    <Loading />
+  ) : (
     <UserContext.Provider value={[userContext, setUserContext]}>
-      <>{userContext.roomCode || roomCode ? <GameContainer /> : <LandingPage />}</>
+      <>
+        {userContext.roomCode || roomCode ? (
+          <GameContainer view={view} setView={setView} />
+        ) : (
+          <LandingPage view={view} setView={setView} />
+        )}
+      </>
     </UserContext.Provider>
   );
 };

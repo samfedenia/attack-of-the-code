@@ -18,7 +18,7 @@ import styles from './css/LandingPage.module.css';
 import { SocketContext } from '../components/context/socket';
 import { UserContext } from '../components/context/user';
 
-const LandingPage = () => {
+const LandingPage = ({view, setView}) => {
   const [font, setFont] = useState('StarJedi');
   const [toggle, setToggle] = useState(false);
   const [wobble, setWobble] = useState(0);
@@ -94,6 +94,8 @@ const LandingPage = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    view.loading = true;
+    setTimeout(() => setView({ loading: false }), 2000);
     window.sessionStorage.setItem('roomCode', user.roomCode);
     window.sessionStorage.setItem('playerName', user.playerName);
     window.sessionStorage.setItem(
