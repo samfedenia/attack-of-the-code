@@ -33,8 +33,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    const [roomCode, departedUser] = denormalizedSocketMemo[socket.id];
-    delete denormalizedSocketMemo[socket.id];
-    io.in(roomCode).emit('user-left', { playerName: departedUser });
+    let roomCode, departedUser;
+    if (denormalizedSocketMemo[socket.id]) {
+      [roomCode, departedUser] = denormalizedSocketMemo[socket.id];
+      delete denormalizedSocketMemo[socket.id];
+    }
+    if (roomCode) {
+      io.in(roomCode).emit('user-left', { playerName: departedUser });
+    }
   });
 });
