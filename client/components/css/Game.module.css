@@ -31,7 +31,8 @@
 
 .game {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   border-left: 0.15rem solid rgba(255, 255, 255, 0.5);
   border-right: 0.15rem solid rgba(255, 255, 255, 0.5);
   width: 60%;
@@ -94,4 +95,16 @@ button {
 
 .clipboardToast {
   border-radius: 2rem;
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.challenge {
+  border: 0.15rem solid rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  padding: 2rem;
 }

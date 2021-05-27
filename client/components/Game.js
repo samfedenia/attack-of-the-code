@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
-import "materialize-css";
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import 'materialize-css';
 import {
   Container,
   Button,
@@ -12,10 +12,11 @@ import {
   Row,
   Col,
   Select,
-} from "react-materialize";
-import Cycle from "./Cycle";
-import styles from "./css/Game.module.css";
-import { SocketContext } from "./context/socket";
+} from 'react-materialize';
+import Cycle from './Cycle';
+import styles from './css/Game.module.css';
+import { SocketContext } from './context/socket';
+import Prompt from './Prompt';
 
 const Game = () => {
   // // socket connection logic
@@ -25,6 +26,7 @@ const Game = () => {
 
   return (
     <div className={styles.game}>
+      <Prompt />
       <h1>game</h1>
     </div>
   );
