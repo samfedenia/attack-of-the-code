@@ -186,6 +186,7 @@ html, body {
 
 .editor__console {
     background-color: #ccc;
+    color: black;
     width: 100%;
     height: 130px;
     margin-top: .9em;

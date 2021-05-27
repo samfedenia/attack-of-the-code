@@ -17,6 +17,7 @@ import Cycle from './Cycle';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import Prompt from './Prompt';
+import Editor from './Editor';
 
 const Game = () => {
   // // socket connection logic
@@ -27,6 +28,7 @@ const Game = () => {
   return (
     <div className={styles.game}>
       <Prompt />
+      <Editor />
       <h1>game</h1>
     </div>
   );
