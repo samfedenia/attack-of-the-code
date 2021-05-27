@@ -17,12 +17,13 @@ import Cycle from './Cycle';
 import styles from './css/LandingPage.module.css';
 import { SocketContext } from '../components/context/socket';
 import { UserContext } from '../components/context/user';
+import { BackgroundContext } from './context/background';
 
 const LandingPage = ({view, setView}) => {
   const [font, setFont] = useState('StarJedi');
   const [toggle, setToggle] = useState(false);
   const [wobble, setWobble] = useState(0);
-  const [backgrounds, setBackgrounds] = useState([]);
+  //const [backgrounds, setBackgrounds] = useState([]);
   const [headshots, setHeadshots] = useState([]);
   const [num, setNum] = useState(0);
   const [user, setUser] = useState({
@@ -32,25 +33,26 @@ const LandingPage = ({view, setView}) => {
   });
 
   const [userContext, setUserContext] = useContext(UserContext);
+  const [backgrounds, setBackgrounds] = useContext(BackgroundContext);
   const socket = useContext(SocketContext);
   const getCharacters = async () => {
     const { data: images } = await axios.get('/api/headshots');
     return images;
   };
 
-  const getBackgrounds = async () => {
-    const { data: backgrounds } = await axios.get('/api/backgrounds');
-    return backgrounds;
-  };
+  // const getBackgrounds = async () => {
+  //   const { data: backgrounds } = await axios.get('/api/backgrounds');
+  //   return backgrounds;
+  // };
 
   useEffect(() => {
     getCharacters().then((images) => {
       setHeadshots(images);
     });
 
-    getBackgrounds().then((backgrounds) => {
-      setBackgrounds(backgrounds);
-    });
+    // getBackgrounds().then((backgrounds) => {
+    //   setBackgrounds(backgrounds);
+    // });
   }, []);
 
   useEffect(() => {

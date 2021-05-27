@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Sval from 'sval';
 import AceEditor from "react-ace";
 import 'ace-builds/src-noconflict/mode-javascript';
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-github";
+import { BackgroundContext } from './context/background';
 
 const Editor = () => {
+    const [backgrounds, setBackgrounds] = useContext(BackgroundContext);
     const [theme, setTheme] = useState('monokai');
     const [userCode, setUserCode] = useState(`function() {
     return 2
@@ -13,7 +15,7 @@ const Editor = () => {
   // Sval options
   const options = {
     // ECMA Version of the code (5 | 6 | 7 | 8 | 9 | 10 | 2015 | 2016 | 2017 | 2018 | 2019)
-    ecmaVer: 2015,
+    ecmaVer: 2019,
     // Whether the code runs in a sandbox
     sandBox: true,
   };
@@ -24,13 +26,14 @@ const Editor = () => {
 
   function onClickTest() {
     const interpreter = new Sval(options);
+    console.log('interpreter', interpreter)
     interpreter.import('window.console');
     interpreter.run(`
       const result = ${userCode}
       exports.result = result;
     `);
     const outputDiv = document.querySelector('#result');
-    console.log(interpreter.exports.result);
+    console.log('interpreter.exports.result', interpreter.exports.result);
     outputDiv.innerText = interpreter.exports.result;
   }
 
@@ -56,17 +59,31 @@ const Editor = () => {
    const changeTheme = () => {
         if (theme === 'monokai') {
         setTheme('github')
-        document.body.style.backgroundImage = `url(/public/jedi-prof.png), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+        document.body.style.backgroundImage = `url(/jedi-prof.png), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
         } else {
         setTheme('monokai');
-        document.body.style.backgroundImage = 'none';
+        const randomNum = Math.floor(Math.random() * backgrounds.length);
+        document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
         }
   }
 
     return (
         <div className='wrapper'>
-        <button onClick={changeTheme}>Dark Side/Prof Side</button>
-         <br />
+        <div className='switch'>
+          <label
+            style={{
+              fontFamily: 'StarJedi',
+              textShadow: 'black 0px 0px 2px',
+              color: 'white',
+              letterSpacing: '.1em',
+            }}
+          >
+            Dark Side
+            <input onClick={changeTheme} type='checkbox' />
+            <span className='lever'></span>
+            Prof Side
+          </label>
+        </div>
         <AceEditor
             height='30rem'
             width='50%'
