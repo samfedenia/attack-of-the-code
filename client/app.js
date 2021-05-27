@@ -6,6 +6,7 @@ import GameContainer from './components/GameContainer';
 import { UserContext } from "./components/context/user";
 import { ViewContext } from "./components/context/view";
 import Loading from './components/Loading';
+import Editor from './components/Editor';
 
 const App = () => {
   const roomCode = window.sessionStorage.getItem("roomCode");
@@ -27,6 +28,7 @@ const App = () => {
   return view.loading ? (
     <Loading />
   ) : (
+    // <Editor />
     <UserContext.Provider value={[userContext, setUserContext]}>
       <>
         {userContext.roomCode || roomCode ? (
