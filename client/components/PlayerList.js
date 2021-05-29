@@ -16,16 +16,31 @@ import {
 import Cycle from "./Cycle";
 import styles from "./css/Game.module.css";
 import { SocketContext } from "../components/context/socket";
+import { UserContext } from "./context/user";
 
 const PlayerList = () => {
   // // socket connection logic
-  // const socket = useContext(SocketContext);
-  // const newRoomCode = Math.random().toString(36).slice(-5);
-  // socket.emit("room", newRoomCode, "anon");
+  const socket = useContext(SocketContext);
+  const [user, _] = useContext(UserContext);
+  console.log(user)
+
+  const [playerList, updatePlayerList] = useState([])
+
+  useEffect(() => {
+    socket.on('user-list', (allPlayers) => {
+      updatePlayerList(allPlayers);
+      if (playerList.length === 0) updatePlayerList(allPlayers);
+    });
+  }, []);
 
   return (
     <div className={styles.playerList}>
-      <h1>playerList</h1>
+      <h3>playerList</h3>
+      <div className={styles.players}>
+        {
+          playerList.map((player, idx) => <div className={styles.player} key={idx}>{player}</div>)
+        }
+      </div>
     </div>
   );
 };

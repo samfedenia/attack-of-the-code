@@ -19,13 +19,19 @@ const io = new Server(server);
 
 // denormalizedSocketMemo = { usersSocket.id: [playerName, roomCode], ... }
 const denormalizedSocketMemo = {};
+const rooms = {}; // roomCode: [[playerName, usersSocket.id], ...]
 
 // handles the initial connection from client side
 io.on('connection', (socket) => {
   socket.on('room', (roomCode, playerName) => {
     if (socket.id) denormalizedSocketMemo[socket.id] = [roomCode, playerName];
+
+    if (rooms[roomCode]) rooms[roomCode] = [...rooms[roomCode], [playerName, socket.id]];
+    else rooms[roomCode] = [[playerName, socket.id]];
+
     socket.join(roomCode);
     socket.to(roomCode).emit('user-joined', { playerName });
+    io.in(roomCode).emit('user-list', rooms[roomCode].map(user => user[0]));
   });
 
   socket.on('chat-message', (roomCode, playerName, message) => {
@@ -40,6 +46,10 @@ io.on('connection', (socket) => {
     }
     if (roomCode) {
       io.in(roomCode).emit('user-left', { playerName: departedUser });
+    }
+    if (rooms[roomCode]) {
+      rooms[roomCode].filter((user) => user[1] !== socket.id);
+      if (rooms[roomCode].length === 0) delete rooms[roomCode];
     }
   });
 });

@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
+const app = require('../app');
 const router = require('express').Router();
+const challenges = require('../challenges');
 module.exports = router;
 
 
@@ -14,7 +16,7 @@ router.get('/headshots', (req, res, next) => {
                   if (!file.includes('.DS_Store')) {
                       imagesArr.push(file)
                   }
-              })  
+              })
             } catch (error) {
                 console.log('files error', error)
             }
@@ -35,7 +37,7 @@ router.get('/backgrounds', (req, res, next) => {
                   if (!file.includes('.DS_Store')) {
                       bgArr.push(file)
                   }
-              })  
+              })
             } catch (error) {
                 console.log('files error', error)
             }
@@ -44,6 +46,11 @@ router.get('/backgrounds', (req, res, next) => {
     } catch (error) {
         next(error)
     }
+});
+
+router.get('/gamedata/:level', (req, res, next) => {
+    if(challenges[req.params.level]) res.send(challenges[req.params.level]);
+    else res.sendStatus(404);
 });
 
 router.use((req, res, next) => {
