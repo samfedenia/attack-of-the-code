@@ -13,12 +13,10 @@ import {
   Col,
   Select,
 } from 'react-materialize';
-import Cycle from './Cycle';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import Prompt from './Prompt';
 import CodePenClone from './CodePenClone';
-import NewCodePenClone from './NewCodePenClone';
 
 const Game = () => {
   // // socket connection logic
