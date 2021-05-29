@@ -25,6 +25,10 @@ const Game = () => {
   // const newRoomCode = Math.random().toString(36).slice(-5);
   // socket.emit("room", newRoomCode, "anon");
 
+  useEffect(async() => {
+    console.log(await axios.get('/api/gamedata/demo'));
+  }, []);
+
   return (
     <div className={styles.game}>
       <Prompt />
