@@ -28,7 +28,7 @@ const Game = () => {
     const [result, setResult] = useState('');
 
     const runCode = () => {
-        // console.log(js)
+        console.log('js', js)
         setResult(eval(js))
         setSrcDoc(`
             <html>
