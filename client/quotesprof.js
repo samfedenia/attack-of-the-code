@@ -1,0 +1,32 @@
+const quotesprof = [
+  "I'm gonna cheat a little bit.",
+  "You could end up...",
+  "Wouldn't it be nice...",
+  "Nothing is preventing you...",
+  "My name is Eric Katz, better known as Prof",
+  "I'm gonna cheat a little bit.",
+  "acme_db",
+  "Moe, Larry, Curly, Lucy, and Ethyl",
+  "{foo: 'bar', bazz: 'quq'}",
+  "We can just splat it out...",
+  "I'm gonna cheat a little bit.",
+  "To start, just dial it back.",
+  "It wouldn't be the worst thing in the world...",
+  "Happy path!",
+  "I'm gonna be optimistic here...",
+  "I'm just gonna keep it a little bit simpler here.",
+  "I always make this mistake with the async",
+  "I always forget to bring in path",
+  "We can always just build this out first",
+  "I'm gonna cheat a little bit.",
+  "It's about intention.",
+  "Dodgerblue, cornsilk",
+  "Verdana",
+  "<hr />",
+  "It's good to do this from scratch, but for now...",
+  "We'll separate this out later",
+  "I like to do this, it's good muscle memory",
+  "I'm gonna cheat a little bit."
+];
+
+export default quotesprof;

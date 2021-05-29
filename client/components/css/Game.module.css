@@ -24,9 +24,14 @@
   border-radius: 3rem 0 0 3rem;
   display: flex;
   justify-content: center;
+  flex-flow: column nowrap;
   /* border: .15rem solid rgba(255, 255, 255, .5); */
   width: 20%;
   height: 100vh;
+}
+
+.players {
+  flex-wrap: wrap;
 }
 
 .game {
