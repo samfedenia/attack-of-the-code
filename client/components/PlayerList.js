@@ -16,12 +16,15 @@ import {
 import Cycle from "./Cycle";
 import styles from "./css/Game.module.css";
 import { SocketContext } from "../components/context/socket";
+import { use } from "../../server/api";
 
 const PlayerList = () => {
   // // socket connection logic
-  // const socket = useContext(SocketContext);
-  // const newRoomCode = Math.random().toString(36).slice(-5);
-  // socket.emit("room", newRoomCode, "anon");
+  const socket = useContext(SocketContext);
+
+  useEffect(() => {
+    socket.on('user-list', (playerList) => console.log(playerList));
+  }, [])
 
   return (
     <div className={styles.playerList}>
