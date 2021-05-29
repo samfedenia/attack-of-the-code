@@ -58,6 +58,26 @@ const Game = () => {
         }
     }
 
+    const resetCode = () => {
+      setJs('')
+      setSrcDoc(`
+            <html>
+              <style>
+                * {
+                  font-family: Verdana;
+                }
+              </style>
+                <body>
+                    <div id="result"></div>
+                </body>
+                <script>
+                    const result = document.getElementById('result');
+                    result.innerText = ''
+                </script>
+            </html>
+        `)
+    }
+
     //console.log('result', result)
   
 
@@ -71,6 +91,7 @@ const Game = () => {
         <div className='run-btn'>
           <button onClick={runCode}>Run</button>
           <button onClick={checkCode}>Submit</button>
+          <button onClick={resetCode}>Reset</button>
         </div>
         <div className="pane">
             <iframe 
