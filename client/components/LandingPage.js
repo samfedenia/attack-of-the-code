@@ -28,7 +28,7 @@ const LandingPage = ({view, setView}) => {
   const [num, setNum] = useState(0);
   const [user, setUser] = useState({
     avatar: '',
-    playerName: '',
+    playerName: 'padawan',
     roomCode: '',
   });
 

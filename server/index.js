@@ -19,7 +19,7 @@ const io = new Server(server);
 
 // denormalizedSocketMemo = { usersSocket.id: [playerName, roomCode], ... }
 const denormalizedSocketMemo = {};
-const rooms = {} // roomCode: [[playerName, usersSocket.id], ...]
+const rooms = {}; // roomCode: [[playerName, usersSocket.id], ...]
 
 // handles the initial connection from client side
 io.on('connection', (socket) => {
