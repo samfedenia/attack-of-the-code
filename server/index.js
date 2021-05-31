@@ -32,19 +32,20 @@ io.on('connection', (socket) => {
 
     socket.join(roomCode);
     socket.to(roomCode).emit('user-joined', { playerName });
-
-    io.in(roomCode).emit(
-      'user-list',
-      rooms[roomCode].map((user) => user[0])
-    );
-
-    // workaround for setting userlist for new user join
-    setTimeout(() => {
-      io.to(socket.id).emit(
+    if (rooms[roomCode]) {
+      io.in(roomCode).emit(
         'user-list',
         rooms[roomCode].map((user) => user[0])
       );
-    }, 2000);
+
+      // workaround for setting userlist for new user join
+      setTimeout(() => {
+        io.to(socket.id).emit(
+          'user-list',
+          rooms[roomCode].map((user) => user[0])
+        );
+      }, 2000);
+    }
   });
 
   socket.on('chat-message', (roomCode, playerName, message) => {
