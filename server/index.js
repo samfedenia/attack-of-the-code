@@ -37,7 +37,6 @@ io.on('connection', (socket) => {
       'user-list',
       rooms[roomCode].map((user) => user[0])
     );
-    console.log(rooms[roomCode]);
 
     // workaround for setting userlist for new user join
     setTimeout(() => {
@@ -63,6 +62,10 @@ io.on('connection', (socket) => {
     }
     if (rooms[roomCode]) {
       rooms[roomCode] = rooms[roomCode].filter((user) => user[1] !== socket.id);
+      io.in(roomCode).emit(
+        'user-list',
+        rooms[roomCode].map((user) => user[0])
+      );
       if (rooms[roomCode].length === 0) delete rooms[roomCode];
     }
   });
