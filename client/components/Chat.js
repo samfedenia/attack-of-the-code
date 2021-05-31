@@ -5,16 +5,11 @@ import {
   Container,
   Button,
   TextInput,
-  Dropdown,
-  Divider,
-  Icon,
   Card,
   Row,
   Col,
-  Select,
   Chip,
 } from 'react-materialize';
-import Cycle from './Cycle';
 import styles from './css/Game.module.css';
 import { SocketContext } from '../components/context/socket';
 import { UserContext } from '../components/context/user';
@@ -117,18 +112,19 @@ const Chat = () => {
   return (
     <Container className={styles.chat}>
       <Col>
-        <Row>
-          <h1>chat</h1>
-        </Row>
-        <Row>
-          <Chip onClick={handleClickCopyRoomCode}>
-            <i className='tiny material-icons'>content_copy</i>
-            <span>{'  '}</span>
-            Room: {userContext.roomCode}
-          </Chip>
-          <Chip>Player: {userContext.playerName}</Chip>
-        </Row>
-
+        <div className={styles.chatInfo}>
+          <Row>
+            <h1>chat</h1>
+          </Row>
+          <Row>
+            <Chip onClick={handleClickCopyRoomCode}>
+              <i className='tiny material-icons'>content_copy</i>
+              <span>{'  '}</span>
+              Room: {userContext.roomCode}
+            </Chip>
+            <Chip>Player: {userContext.playerName}</Chip>
+          </Row>
+        </div>
         <Row>
           <div id='chat-window' className={styles.messageContainer}>
             {chatMessages.map((msg, idx) => {
@@ -147,7 +143,9 @@ const Chat = () => {
                         : 'black',
                   }}
                 >
-                  {msg.playerName}: {msg.message}
+                  <div className={styles.chatMessageContent}>
+                    <strong>{msg.playerName}:</strong> {msg.message}
+                  </div>
                 </Card>
               );
             })}
@@ -156,11 +154,12 @@ const Chat = () => {
         <Row>
           <form onSubmit={handleSubmit} autoComplete='off'>
             <TextInput
-              style={{ color: 'white' }}
+              style={{ color: 'white', overflowWrap: 'break-word' }}
               type='text'
               onChange={handleChange}
               value={messageInput}
               placeholder='Say something!'
+              maxlength='100'
             ></TextInput>
             <Button
               type='submit'
