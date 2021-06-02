@@ -21,20 +21,20 @@ const demo = [
   }
 ];
 
+const youngling = [];
+
 const padawan = [];
 
-const apprentice = [];
+const jedi = [];
 
 const master = [];
 
 const sith = [];
 
-const jedi = [];
-
 module.exports = {
   demo,
+  youngling,
   padawan,
-  apprentice,
   master,
   sith,
   jedi

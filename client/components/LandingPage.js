@@ -25,7 +25,7 @@ const LandingPage = ({ view, setView }) => {
   const [wobble, setWobble] = useState(0);
   //const [backgrounds, setBackgrounds] = useState([]);
   const [headshots, setHeadshots] = useState([]);
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState(0); // index for background array
   const [user, setUser] = useState({
     avatar: '',
     playerName: 'padawan',
