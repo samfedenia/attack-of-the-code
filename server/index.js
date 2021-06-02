@@ -26,12 +26,26 @@ io.on('connection', (socket) => {
   socket.on('room', (roomCode, playerName) => {
     if (socket.id) denormalizedSocketMemo[socket.id] = [roomCode, playerName];
 
-    if (rooms[roomCode]) rooms[roomCode] = [...rooms[roomCode], [playerName, socket.id]];
+    if (rooms[roomCode])
+      rooms[roomCode] = [...rooms[roomCode], [playerName, socket.id]];
     else rooms[roomCode] = [[playerName, socket.id]];
 
     socket.join(roomCode);
     socket.to(roomCode).emit('user-joined', { playerName });
-    io.in(roomCode).emit('user-list', rooms[roomCode].map(user => user[0]));
+    if (rooms[roomCode]) {
+      io.in(roomCode).emit(
+        'user-list',
+        rooms[roomCode].map((user) => user[0])
+      );
+
+      // workaround for setting userlist for new user join
+      setTimeout(() => {
+        io.to(socket.id).emit(
+          'user-list',
+          rooms[roomCode].map((user) => user[0])
+        );
+      }, 2000);
+    }
   });
 
   socket.on('chat-message', (roomCode, playerName, message) => {
@@ -48,7 +62,11 @@ io.on('connection', (socket) => {
       io.in(roomCode).emit('user-left', { playerName: departedUser });
     }
     if (rooms[roomCode]) {
-      rooms[roomCode].filter((user) => user[1] !== socket.id);
+      rooms[roomCode] = rooms[roomCode].filter((user) => user[1] !== socket.id);
+      io.in(roomCode).emit(
+        'user-list',
+        rooms[roomCode].map((user) => user[0])
+      );
       if (rooms[roomCode].length === 0) delete rooms[roomCode];
     }
   });
