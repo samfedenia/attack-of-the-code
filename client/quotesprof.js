@@ -26,6 +26,17 @@ const quotesprof = [
   "It's good to do this from scratch, but for now...",
   "We'll separate this out later",
   "I like to do this, it's good muscle memory",
+  "I'm gonna cheat a little bit.",
+  "You could look at the documentation here",
+  "We'll build that out later",
+  "These should absolutely be in separate files",
+  "There's one other thing we could do here...",
+  "Let me just fix this",
+  "I'm gonna refresh it again",
+  "One more time...",
+  "It's a little bit tricky",
+  "Let's just see...",
+  "This is gonna be await, in which case this will be async",
   "I'm gonna cheat a little bit."
 ];
 

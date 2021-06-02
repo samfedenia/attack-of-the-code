@@ -18,6 +18,8 @@ const App = () => {
     playerName: "",
     roomCode: "",
     socket: "",
+    score: 0,
+    submitted: false,
   });
 
   const [view, setView] = useState({loading: true});
