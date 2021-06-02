@@ -19,7 +19,7 @@ import { SocketContext } from '../components/context/socket';
 import { UserContext } from '../components/context/user';
 import { BackgroundContext } from './context/background';
 
-const LandingPage = ({view, setView}) => {
+const LandingPage = ({ view, setView }) => {
   const [font, setFont] = useState('StarJedi');
   const [toggle, setToggle] = useState(false);
   const [wobble, setWobble] = useState(0);
@@ -199,7 +199,7 @@ const LandingPage = ({view, setView}) => {
             node='button'
             waves='red'
           >
-            JOIN
+            Join
           </Button>
         </Row>
       </form>
