@@ -8,6 +8,7 @@ import { UserContext } from './components/context/user';
 import { ViewContext } from './components/context/view';
 import { BackgroundContext } from './components/context/background';
 import { GameContext } from './components/context/game';
+// import { CombinedContextProvider } from './components/context/index';
 import Loading from './components/Loading';
 import Editor from './components/Editor';
 
@@ -74,3 +75,10 @@ const App = () => {
 };
 
 export default App;
+
+// return view.loading ? (
+//   <Loading />
+// ) : (
+//   // <Editor />
+//   <CombinedContextProvider backgroundTuple={} viewTuple={}>{userState.roomCode || roomCode ? <GameContainer /> : <LandingPage />}</CombinedContextProvider>
+// );
