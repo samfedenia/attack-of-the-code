@@ -18,14 +18,14 @@ const Chat = () => {
   // get socketContext
   const socket = useContext(SocketContext);
   // get user context
-  const [userContext, setUserContext] = useContext(UserContext);
+  const [userState, setUserState] = useContext(UserContext);
   const [messageInput, setMessageInput] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState({});
 
   // take another look at this
   useEffect(() => {
-    if (!userContext.playerName) {
+    if (!userState.playerName) {
       const userFromSessionStorage = JSON.parse(
         window.sessionStorage.getItem('user')
       );
@@ -34,9 +34,9 @@ const Chat = () => {
         userFromSessionStorage.roomCode,
         userFromSessionStorage.playerName
       );
-      setUserContext({ ...userFromSessionStorage });
+      setUserState({ ...userFromSessionStorage });
     }
-  }, [userContext]);
+  }, [userState]);
 
   useEffect(() => {
     socket.on('user-joined', ({ playerName }) => {
@@ -89,7 +89,7 @@ const Chat = () => {
       displayLength: 1000,
       classes: clipboardToast,
     });
-    navigator.clipboard.writeText(userContext.roomCode);
+    navigator.clipboard.writeText(userState.roomCode);
   }
 
   function handleChange(evt) {
@@ -102,8 +102,8 @@ const Chat = () => {
 
     socket.emit(
       'chat-message',
-      userContext.roomCode,
-      userContext.playerName,
+      userState.roomCode,
+      userState.playerName,
       messageInput
     );
     setMessageInput('');
@@ -118,15 +118,15 @@ const Chat = () => {
           </Row>
           <Row>
             <Chip onClick={handleClickCopyRoomCode}>
-              <i className='tiny material-icons'>content_copy</i>
+              <i className="tiny material-icons">content_copy</i>
               <span>{'  '}</span>
-              Room: {userContext.roomCode}
+              Room: {userState.roomCode}
             </Chip>
-            <Chip>Player: {userContext.playerName}</Chip>
+            <Chip>Player: {userState.playerName}</Chip>
           </Row>
         </div>
         <Row>
-          <div id='chat-window' className={styles.messageContainer}>
+          <div id="chat-window" className={styles.messageContainer}>
             {chatMessages.map((msg, idx) => {
               return (
                 <Card
@@ -134,11 +134,11 @@ const Chat = () => {
                   className={styles.messageCard}
                   style={{
                     backgroundColor:
-                      msg.playerName === userContext.playerName
+                      msg.playerName === userState.playerName
                         ? 'rgb(55,132,214)'
                         : 'lightgray',
                     color:
-                      msg.playerName === userContext.playerName
+                      msg.playerName === userState.playerName
                         ? 'whitesmoke'
                         : 'black',
                   }}
@@ -152,17 +152,17 @@ const Chat = () => {
           </div>
         </Row>
         <Row>
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <TextInput
               style={{ color: 'white', overflowWrap: 'break-word' }}
-              type='text'
+              type="text"
               onChange={handleChange}
               value={messageInput}
-              placeholder='Say something!'
-              maxlength='100'
+              placeholder="Say something!"
+              maxLength="100"
             ></TextInput>
             <Button
-              type='submit'
+              type="submit"
               style={{
                 color: 'black',
                 backgroundColor: '#fff103',
