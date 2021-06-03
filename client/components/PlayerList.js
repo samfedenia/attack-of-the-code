@@ -22,14 +22,11 @@ const PlayerList = () => {
   // // socket connection logic
   const socket = useContext(SocketContext);
   const [user, _] = useContext(UserContext);
-  console.log(user);
 
   const [playerList, updatePlayerList] = useState([]);
 
   useEffect(() => {
     socket.on('user-list', (allPlayers) => {
-      console.log('playerlist: ', playerList);
-      console.log('allplayers', allPlayers);
       updatePlayerList(allPlayers);
       if (playerList.length === 0) updatePlayerList(allPlayers);
     });
