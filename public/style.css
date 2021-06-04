@@ -164,6 +164,7 @@ html, body {
 .code-mirror-wrapper {
   flex-grow: 1;
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.7)
 }
 
 .run-btn {
