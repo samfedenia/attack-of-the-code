@@ -1,14 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-// import { Route } from 'react-router-dom';
-import Home from './components/home';
 import LandingPage from './components/LandingPage';
 import GameContainer from './components/GameContainer';
-import { UserContext } from './components/context/user';
-import { ViewContext } from './components/context/view';
-import { BackgroundContext } from './components/context/background';
-import { GameContext } from './components/context/game';
-// import { CombinedContextProvider } from './components/context/index';
+import { CombinedContextProvider } from './components/context';
 import Loading from './components/Loading';
 import Editor from './components/Editor';
 
@@ -57,28 +51,15 @@ const App = () => {
   return view.loading ? (
     <Loading />
   ) : (
-    // <Editor />
-    <ViewContext.Provider value={[view, setView]}>
-      <GameContext.Provider value={[gameState, setGameState]}>
-        <UserContext.Provider value={[userState, setUserState]}>
-          <BackgroundContext.Provider value={[backgrounds, setBackgrounds]}>
-            {userState.roomCode || roomCode ? (
-              <GameContainer />
-            ) : (
-              <LandingPage />
-            )}
-          </BackgroundContext.Provider>
-        </UserContext.Provider>
-      </GameContext.Provider>
-    </ViewContext.Provider>
+    <CombinedContextProvider
+      userProfs={[userState, setUserState]}
+      gameProfs={[gameState, setGameState]}
+      viewProfs={[view, setView]}
+      backgroundProfs={[backgrounds, setBackgrounds]}
+    >
+      {userState.roomCode || roomCode ? <GameContainer /> : <LandingPage />}
+    </CombinedContextProvider>
   );
 };
 
 export default App;
-
-// return view.loading ? (
-//   <Loading />
-// ) : (
-//   // <Editor />
-//   <CombinedContextProvider backgroundTuple={} viewTuple={}>{userState.roomCode || roomCode ? <GameContainer /> : <LandingPage />}</CombinedContextProvider>
-// );
