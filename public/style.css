@@ -134,9 +134,15 @@ html, body {
 
 /* CodePenClone Styling */
 .editor-container {
-  margin-top: 1rem;
-  height: 30rem;
-  width: 80%;
+    margin-top: 1rem;
+    height: 30rem;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-grow: 0.5;
+    flex-basis: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .pane {
@@ -147,13 +153,6 @@ html, body {
     width: 80%;
     height: 130px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.editor-container {
-    flex-grow: 0.5;
-    flex-basis: 0;
-    display: flex;
-    flex-direction: column;
 }
 
 .CodeMirror {
