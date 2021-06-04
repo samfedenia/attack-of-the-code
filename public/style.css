@@ -132,6 +132,11 @@ html, body {
     padding-top: 3rem;
 }
 
+.switch {
+  display: flex;
+  justify-content: center;
+}
+
 /* CodePenClone Styling */
 .editor-container {
     margin-top: 1rem;
