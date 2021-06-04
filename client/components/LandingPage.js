@@ -18,22 +18,24 @@ import styles from './css/LandingPage.module.css';
 import { SocketContext } from '../components/context/socket';
 import { UserContext } from '../components/context/user';
 import { BackgroundContext } from './context/background';
+import { ViewContext } from './context/view';
 
-const LandingPage = ({view, setView}) => {
+const LandingPage = () => {
   const [font, setFont] = useState('StarJedi');
   const [toggle, setToggle] = useState(false);
   const [wobble, setWobble] = useState(0);
   //const [backgrounds, setBackgrounds] = useState([]);
   const [headshots, setHeadshots] = useState([]);
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState(0); // index for background array
   const [user, setUser] = useState({
     avatar: '',
     playerName: 'padawan',
     roomCode: '',
   });
 
-  const [userContext, setUserContext] = useContext(UserContext);
+  const [userState, setUserState] = useContext(UserContext);
   const [backgrounds, setBackgrounds] = useContext(BackgroundContext);
+  const [view, setView] = useContext(ViewContext);
   const socket = useContext(SocketContext);
   const getCharacters = async () => {
     const { data: images } = await axios.get('/api/headshots');
@@ -109,7 +111,7 @@ const LandingPage = ({view, setView}) => {
       })
     );
     socket.emit('room', user.roomCode, user.playerName);
-    setUserContext(user);
+    setUserState(user);
   }
 
   function checkExistingUserSession() {
@@ -123,9 +125,9 @@ const LandingPage = ({view, setView}) => {
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
             </Row> */}
-      <img className={styles.logo} src='/attackOfTheCodeLOGO.png' />
+      <img className={styles.logo} src="/attackOfTheCodeLOGO.png" />
       <Row className={styles.switch}>
-        <div className='switch'>
+        <div className="switch">
           <label
             style={{
               fontFamily: font,
@@ -135,8 +137,8 @@ const LandingPage = ({view, setView}) => {
             }}
           >
             English
-            <input onClick={changeFont} type='checkbox' />
-            <span className='lever'></span>
+            <input onClick={changeFont} type="checkbox" />
+            <span className="lever"></span>
             Aurebesh
           </label>
         </div>
@@ -146,7 +148,7 @@ const LandingPage = ({view, setView}) => {
           onClick={randomize}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
-          src='/change_cube_transparent.png'
+          src="/change_cube_transparent.png"
         />
       </Row>
       <Cycle
@@ -156,12 +158,12 @@ const LandingPage = ({view, setView}) => {
         num={num}
         setNum={setNum}
       />
-      <form onSubmit={handleSubmit} autoComplete='off'>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <Row className={styles.form}>
           <TextInput
-            type='text'
-            placeholder='Name'
-            name='playerName'
+            type="text"
+            placeholder="Name"
+            name="playerName"
             onChange={handleChange}
             value={user.playerName}
             style={{
@@ -173,9 +175,9 @@ const LandingPage = ({view, setView}) => {
           />
 
           <TextInput
-            id='TextInput-4'
-            placeholder='Room Code'
-            name='roomCode'
+            id="TextInput-4"
+            placeholder="Room Code"
+            name="roomCode"
             onChange={handleChange}
             value={user.roomCode}
             style={{
@@ -184,7 +186,7 @@ const LandingPage = ({view, setView}) => {
               textShadow: 'black 0px 0px 2px',
               letterSpacing: '.1em',
             }}
-            className='blue-border'
+            className="blue-border"
           />
 
           <Button
@@ -195,11 +197,11 @@ const LandingPage = ({view, setView}) => {
               letterSpacing: '.1em',
               width: '10rem',
             }}
-            type='submit'
-            node='button'
-            waves='red'
+            type="submit"
+            node="button"
+            waves="red"
           >
-            JOIN
+            Join
           </Button>
         </Row>
       </form>
