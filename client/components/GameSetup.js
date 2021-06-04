@@ -13,7 +13,7 @@ const GameSetup = () => {
       gameStatus: "playing",
     };
     setGameState(newGameState);
-    window.sessionStorage.setItem(newGameState);
+    window.sessionStorage.setItem('gameStatus', JSON.stringify(newGameState));
   };
 
   useEffect(() => {
