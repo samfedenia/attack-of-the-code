@@ -215,7 +215,7 @@ export const quotes = [
 
 
 
-export const quotesprof = [
+export const quotesp = [
   "I'm gonna cheat a little bit.",
   "You could end up...",
   "Wouldn't it be nice...",

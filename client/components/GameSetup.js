@@ -1,23 +1,30 @@
-import React, { useContext } from 'react';
-import { quotesprof } from '../quotes';
+import React, { useContext, useEffect } from 'react';
+import { quotesp } from '../quotes';
 import { GameContext } from './context/game';
 
 
 const GameSetup = () => {
-  const idx = Math.floor(Math.random() * quotesprof.length);
+  const idx = Math.floor(Math.random() * quotesp.length);
   const [gameState, setGameState] = useContext(GameContext);
 
   const changeGameState = () => {
-    setGameState({
+    const newGameState = {
       ...gameState,
-      gameStatus: 'playing'
-    })
-  }
+      gameStatus: "playing",
+    };
+    setGameState(newGameState);
+    window.sessionStorage.setItem(newGameState);
+  };
+
+  useEffect(() => {
+    const game = JSON.parse(window.sessionStorage.getItem('gameStatus'));
+    if (game) setGameState(game);
+  }, []);
 
   return (
     <div>
-      F this browser<br />
-      {quotesprof[idx]}
+      <br />
+      {quotesp[idx]}<br /> -prof
       <div>
         <button onClick={changeGameState}>Play the game</button>
       </div>
