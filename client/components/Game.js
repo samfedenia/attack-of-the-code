@@ -62,31 +62,35 @@ const Game = () => {
 
   //console.log('result', result)
 
-  useEffect(async () => {
-    console.log(await axios.get('/api/gamedata/demo'));
+  useEffect(() => {
+    // console.log(await axios.get('/api/gamedata/demo'));
     console.log('Game state', gameState);
   }, []);
 
   return (
     <div className={styles.game}>
-      <GameSetup />
-      <div></div>
-      <Prompt />
-      <CodePenClone value={js} onChange={setJs} />
-      <div className="run-btn">
-        <button onClick={runCode}>Run</button>
-        <button onClick={checkCode}>Submit</button>
-      </div>
-      <div className="pane">
-        <iframe
-          srcDoc={srcDoc}
-          title="output"
-          sandbox="allow-scripts"
-          frameBorder="0"
-          width="100%"
-          height="100%"
-        />
-      </div>
+      {
+        gameState.gameStatus === 'setup' ?
+        <GameSetup /> :
+        <div>
+          <Prompt />
+          <CodePenClone value={js} onChange={setJs} />
+          <div className="run-btn">
+            <button onClick={runCode}>Run</button>
+            <button onClick={checkCode}>Submit</button>
+          </div>
+          <div className="pane">
+            <iframe
+              srcDoc={srcDoc}
+              title="output"
+              sandbox="allow-scripts"
+              frameBorder="0"
+              width="100%"
+              height="100%"
+            />
+          </div>
+        </div>
+}
     </div>
   );
 };

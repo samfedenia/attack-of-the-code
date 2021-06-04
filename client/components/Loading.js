@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./css/Loading.module.css";
 
-import quotes from '../quotes';
+import { quotes } from '../quotes';
 
 const Loading = () => {
   const idx = Math.floor(Math.random() * (128 + 1));

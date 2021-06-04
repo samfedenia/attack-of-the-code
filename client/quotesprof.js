@@ -37,7 +37,10 @@ const quotesprof = [
   "It's a little bit tricky",
   "Let's just see...",
   "This is gonna be await, in which case this will be async",
-  "I'm gonna cheat a little bit."
+  "I'm gonna cheat a little bit.",
+  "It's perfectly legitimate",
+  "There's other ways to do this...",
+  "I'll leave it as an exercise for you to do later..."
 ];
 
 export default quotesprof;

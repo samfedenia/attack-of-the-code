@@ -1,4 +1,4 @@
-const quotes = [
+export const quotes = [
   "Great leaders inspire greatness in others.",
   "Belief is not a matter of choice, but of conviction.",
   "Easy is the path to wisdom for those not blinded by ego.",
@@ -130,9 +130,6 @@ const quotes = [
   "You can change who you are, but you cannot run from yourself."
 ];
 
-export default quotes;
-
-
 // const string = `S5-E16 – Morality separates heroes from villains.
 // S5-E17 – Sometimes even the smallest doubt can shake the greatest belief.
 // S5-E18 – Courage begins by trusting oneself.
@@ -183,3 +180,82 @@ export default quotes;
 // //     console.log(fs.readFileSync("quotes.txt", "utf8"));
 // //   }
 // // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const quotesprof = [
+  "I'm gonna cheat a little bit.",
+  "You could end up...",
+  "Wouldn't it be nice...",
+  "Nothing is preventing you...",
+  "My name is Eric Katz, better known as Prof",
+  "I'm gonna cheat a little bit.",
+  "acme_db",
+  "Moe, Larry, Curly, Lucy, and Ethyl",
+  "{foo: 'bar', bazz: 'quq'}",
+  "We can just splat it out...",
+  "I'm gonna cheat a little bit.",
+  "To start, just dial it back.",
+  "It wouldn't be the worst thing in the world...",
+  "Happy path!",
+  "I'm gonna be optimistic here...",
+  "I'm just gonna keep it a little bit simpler here.",
+  "I always make this mistake with the async",
+  "I always forget to bring in path",
+  "We can always just build this out first",
+  "I'm gonna cheat a little bit.",
+  "It's about intention.",
+  "Dodgerblue, cornsilk",
+  "Verdana",
+  "<hr />",
+  "It's good to do this from scratch, but for now...",
+  "We'll separate this out later",
+  "I like to do this, it's good muscle memory",
+  "I'm gonna cheat a little bit.",
+  "You could look at the documentation here",
+  "We'll build that out later",
+  "These should absolutely be in separate files",
+  "There's one other thing we could do here...",
+  "Let me just fix this",
+  "I'm gonna refresh it again",
+  "One more time...",
+  "It's a little bit tricky",
+  "Let's just see...",
+  "This is gonna be await, in which case this will be async",
+  "I'm gonna cheat a little bit.",
+  "It's perfectly legitimate",
+  "There's other ways to do this...",
+  "I'll leave it as an exercise for you to do later..."
+];
