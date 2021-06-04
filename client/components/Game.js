@@ -17,20 +17,22 @@ import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import Prompt from './Prompt';
 import CodePenClone from './CodePenClone';
+import GameSetup from './GameSetup';
+import { GameContext } from './context/game';
 
 const Game = () => {
   // // socket connection logic
   // const socket = useContext(SocketContext);
   // const newRoomCode = Math.random().toString(36).slice(-5);
   // socket.emit("room", newRoomCode, "anon");
-    const [js, setJs] = useState('');
-    const [srcDoc, setSrcDoc] = useState('');
-    const [result, setResult] = useState('');
-
-    const runCode = () => {
-        console.log('js', js)
-        setResult(eval(js))
-        setSrcDoc(`
+  const [js, setJs] = useState('');
+  const [srcDoc, setSrcDoc] = useState('');
+  const [result, setResult] = useState('');
+  const [gameState, setGameState] = useContext(GameContext);
+  const runCode = () => {
+    // console.log(js)
+    setResult(eval(js));
+    setSrcDoc(`
             <html>
               <style>
                 * {
@@ -45,16 +47,16 @@ const Game = () => {
                     result.innerText = '${eval(js)}'
                 </script>
             </html>
-        `)
-    };
+        `);
+  };
 
-    const checkCode = () => {
-        if (result === 2) {
-            alert('The answer was 2 you are correct')
-        } else {
-            alert('incorrect')
-        }
+  const checkCode = () => {
+    if (result === 2) {
+      alert('The answer was 2 you are correct');
+    } else {
+      alert('incorrect');
     }
+  };
 
     const resetCode = () => {
       setJs('')
@@ -79,32 +81,36 @@ const Game = () => {
     //console.log('result', result)
   
 
-  useEffect(async() => {
-    console.log(await axios.get('/api/gamedata/demo'));
+  useEffect(() => {
+    // console.log(await axios.get('/api/gamedata/demo'));
+    console.log('Game state', gameState);
   }, []);
 
   return (
     <div className={styles.game}>
-        <Prompt />
-        <CodePenClone 
-            value={js}
-            onChange={setJs}
-        />
-        <div className='run-btn'>
-          <button onClick={runCode}>Run</button>
-          <button onClick={checkCode}>Submit</button>
-          <button onClick={resetCode}>Reset</button>
-        </div>
-        <div className="pane">
-            <iframe 
-                srcDoc={srcDoc}
-                title="output"
-                sandbox="allow-scripts"
-                frameBorder="0"
-                width="100%"
-                height="100%"
+      {
+        gameState.gameStatus === 'setup' ?
+        <GameSetup /> :
+        <div>
+          <Prompt />
+          <CodePenClone value={js} onChange={setJs} />
+          <div className="run-btn">
+            <button onClick={runCode}>Run</button>
+            <button onClick={checkCode}>Submit</button>
+            <button onClick={resetCode}>Reset</button>
+          </div>
+          <div className="pane">
+            <iframe
+              srcDoc={srcDoc}
+              title="output"
+              sandbox="allow-scripts"
+              frameBorder="0"
+              width="100%"
+              height="100%"
             />
+          </div>
         </div>
+      }
     </div>
   );
 };

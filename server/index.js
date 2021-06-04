@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
       setTimeout(() => {
         io.to(socket.id).emit(
           'user-list',
-          rooms[roomCode].map((user) => user[0])
+          rooms[roomCode]?.map((user) => user[0])
         );
       }, 2000);
     }
