@@ -4,16 +4,16 @@ import LandingPage from './components/LandingPage';
 import GameContainer from './components/GameContainer';
 import { CombinedContextProvider } from './components/context';
 import Loading from './components/Loading';
-import Editor from './components/Editor';
 
 const App = () => {
-  const roomCode = window.sessionStorage.getItem('roomCode');
+  const userFromSessionStorage = JSON.parse(
+    window.sessionStorage.getItem('user')
+  );
 
   const [userState, setUserState] = useState({
     avatar: '',
     playerName: '',
     roomCode: '',
-    socket: '',
     score: 0,
     submitted: false,
   });
@@ -57,7 +57,11 @@ const App = () => {
       viewProfs={[view, setView]}
       backgroundProfs={[backgrounds, setBackgrounds]}
     >
-      {userState.roomCode || roomCode ? <GameContainer /> : <LandingPage />}
+      {userState?.roomCode || userFromSessionStorage?.roomCode ? (
+        <GameContainer />
+      ) : (
+        <LandingPage />
+      )}
     </CombinedContextProvider>
   );
 };

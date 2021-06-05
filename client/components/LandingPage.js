@@ -100,8 +100,6 @@ const LandingPage = () => {
     evt.preventDefault();
     view.loading = true;
     setTimeout(() => setView({ loading: false }), 2000);
-    window.sessionStorage.setItem('roomCode', user.roomCode);
-    window.sessionStorage.setItem('playerName', user.playerName);
     window.sessionStorage.setItem(
       'user',
       JSON.stringify({
@@ -115,19 +113,17 @@ const LandingPage = () => {
   }
 
   function checkExistingUserSession() {
-    const roomCode = window.sessionStorage.getItem('roomCode');
-    const playerName = window.sessionStorage.getItem('playerName');
-    if (playerName && roomCode)
-      setUser({ ...user, playerName: playerName, roomCode: roomCode });
+    const user = JSON.parse(window.sessionStorage.getItem('user'));
+    if (user) setUser(user);
   }
 
   return (
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
             </Row> */}
-      <img className={styles.logo} src="/attackOfTheCodeLOGO.png" />
+      <img className={styles.logo} src='/attackOfTheCodeLOGO.png' />
       <Row className={styles.switch}>
-        <div className="switch">
+        <div className='switch'>
           <label
             style={{
               fontFamily: font,
@@ -137,8 +133,8 @@ const LandingPage = () => {
             }}
           >
             English
-            <input onClick={changeFont} type="checkbox" />
-            <span className="lever"></span>
+            <input onClick={changeFont} type='checkbox' />
+            <span className='lever'></span>
             Aurebesh
           </label>
         </div>
@@ -148,7 +144,7 @@ const LandingPage = () => {
           onClick={randomize}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
-          src="/change_cube_transparent.png"
+          src='/change_cube_transparent.png'
         />
       </Row>
       <Cycle
@@ -158,12 +154,12 @@ const LandingPage = () => {
         num={num}
         setNum={setNum}
       />
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form onSubmit={handleSubmit} autoComplete='off'>
         <Row className={styles.form}>
           <TextInput
-            type="text"
-            placeholder="Name"
-            name="playerName"
+            type='text'
+            placeholder='Name'
+            name='playerName'
             onChange={handleChange}
             value={user.playerName}
             style={{
@@ -175,9 +171,9 @@ const LandingPage = () => {
           />
 
           <TextInput
-            id="TextInput-4"
-            placeholder="Room Code"
-            name="roomCode"
+            id='TextInput-4'
+            placeholder='Room Code'
+            name='roomCode'
             onChange={handleChange}
             value={user.roomCode}
             style={{
@@ -186,7 +182,7 @@ const LandingPage = () => {
               textShadow: 'black 0px 0px 2px',
               letterSpacing: '.1em',
             }}
-            className="blue-border"
+            className='blue-border'
           />
 
           <Button
@@ -197,9 +193,9 @@ const LandingPage = () => {
               letterSpacing: '.1em',
               width: '10rem',
             }}
-            type="submit"
-            node="button"
-            waves="red"
+            type='submit'
+            node='button'
+            waves='red'
           >
             Join
           </Button>
