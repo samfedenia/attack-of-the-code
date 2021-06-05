@@ -52,6 +52,10 @@ io.on('connection', (socket) => {
     io.in(roomCode).emit('chat-message', { playerName, message });
   });
 
+  socket.on('new-game-state', (gameState, roomCode) => {
+    io.in(roomCode).emit('game-state', gameState)
+  });
+
   socket.on('disconnect', () => {
     let roomCode, departedUser;
     if (denormalizedSocketMemo[socket.id]) {

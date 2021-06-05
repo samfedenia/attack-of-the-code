@@ -17,16 +17,28 @@ import Cycle from './Cycle';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import { GameContext } from './context/game';
+// import { UserContext } from './context/user';
 import PlayerList from './PlayerList';
 import Chat from './Chat';
 import Game from './Game';
 
 const GameContainer = () => {
-  // socket connection logic
-  // const socket = useContext(SocketContext);
-  // const newRoomCode = Math.random().toString(36).slice(-5);
-  // socket.emit("room", newRoomCode, "anon");
+  const socket = useContext(SocketContext);
+
   const [gameState, setGameState] = useContext(GameContext);
+
+  useEffect(() => {
+    socket.on('game-state', (gameState) => {
+      setGameState(gameState);
+      window.sessionStorage.setItem('gameStatus', JSON.stringify(gameState))
+    });
+
+    return () => {
+      socket.off('game-state');
+    };
+  }, [])
+
+
   return (
     <Container className={styles.container}>
       <PlayerList />
