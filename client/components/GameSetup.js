@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { quotesp } from '../quotes';
 import { GameContext } from './context/game';
 
@@ -20,6 +20,17 @@ const GameSetup = () => {
     const game = JSON.parse(window.sessionStorage.getItem('gameStatus'));
     if (game) setGameState(game);
   }, []);
+
+  // //trying useRef()
+  // const prevGameState = useRef('');
+
+  // const changeGameState = () => {
+  //   setGameState({...gameState, gameStatus: "playing"})
+  //   window.sessionStorage.setItem('gameStatus', gameState);
+  // };
+  // useEffect(() => {
+  //   prevGameState.current = gameState;
+  // }, [gameState])
 
   return (
     <div>

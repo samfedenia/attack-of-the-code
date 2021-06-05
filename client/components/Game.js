@@ -13,12 +13,10 @@ import {
   Col,
   Select,
 } from 'react-materialize';
-import Cycle from './Cycle';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import Prompt from './Prompt';
 import CodePenClone from './CodePenClone';
-import NewCodePenClone from './NewCodePenClone';
 import GameSetup from './GameSetup';
 import { GameContext } from './context/game';
 
@@ -60,7 +58,28 @@ const Game = () => {
     }
   };
 
-  //console.log('result', result)
+    const resetCode = () => {
+      setJs('')
+      setSrcDoc(`
+            <html>
+              <style>
+                * {
+                  font-family: Verdana;
+                }
+              </style>
+                <body>
+                    <div id="result"></div>
+                </body>
+                <script>
+                    const result = document.getElementById('result');
+                    result.innerText = ''
+                </script>
+            </html>
+        `)
+    }
+
+    //console.log('result', result)
+  
 
   useEffect(() => {
     // console.log(await axios.get('/api/gamedata/demo'));
@@ -78,6 +97,7 @@ const Game = () => {
           <div className="run-btn">
             <button onClick={runCode}>Run</button>
             <button onClick={checkCode}>Submit</button>
+            <button onClick={resetCode}>Reset</button>
           </div>
           <div className="pane">
             <iframe
