@@ -30,14 +30,13 @@ const GameContainer = () => {
   useEffect(() => {
     socket.on('game-state', (gameState) => {
       setGameState(gameState);
-      window.sessionStorage.setItem('gameStatus', JSON.stringify(gameState))
+      window.sessionStorage.setItem('gameStatus', JSON.stringify(gameState));
     });
 
     return () => {
       socket.off('game-state');
     };
-  }, [])
-
+  }, []);
 
   return (
     <Container className={styles.container}>

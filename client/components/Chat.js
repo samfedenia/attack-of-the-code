@@ -13,17 +13,18 @@ import {
 import styles from './css/Game.module.css';
 import { SocketContext } from '../components/context/socket';
 import { UserContext } from '../components/context/user';
+import { ACTIONS, ChatContext } from './context/chat';
 
 const Chat = () => {
-  // get socketContext
   const socket = useContext(SocketContext);
-  // get user context
   const [userState, setUserState] = useContext(UserContext);
+  const { state, dispatch } = useContext(ChatContext);
   const [messageInput, setMessageInput] = useState('');
-  const [chatMessages, setChatMessages] = useState([]);
-  const [incomingMessage, setIncomingMessage] = useState({});
 
-  // take another look at this
+  useEffect(() => {
+    console.log(state);
+  }, []);
+  // change this once userContext properly set up
   useEffect(() => {
     if (!userState.playerName) {
       const userFromSessionStorage = JSON.parse(
@@ -40,13 +41,22 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on('user-joined', ({ playerName }) => {
-      setIncomingMessage({ playerName, message: 'joined' });
+      dispatch({
+        type: ACTIONS.USER_JOINED,
+        payload: { playerName, message: 'joined' },
+      });
     });
     socket.on('chat-message', ({ playerName, message }) => {
-      setIncomingMessage({ playerName, message });
+      dispatch({
+        type: ACTIONS.CHAT_MESSAGE,
+        payload: { playerName, message },
+      });
     });
     socket.on('user-left', ({ playerName }) => {
-      setIncomingMessage({ playerName, message: 'left' });
+      dispatch({
+        type: ACTIONS.USER_LEFT,
+        payload: { playerName, message: 'left' },
+      });
     });
 
     return () => {
@@ -55,31 +65,6 @@ const Chat = () => {
       socket.off('user-left');
     };
   }, []);
-
-  useEffect(() => {
-    const chatHistoryRecovered = JSON.parse(
-      window.sessionStorage.getItem('chat-history')
-    );
-    if (chatHistoryRecovered && chatHistoryRecovered.length > 0)
-      setChatMessages(chatHistoryRecovered);
-  }, []);
-
-  function handleIncomingMessage(incomingMessage) {
-    setChatMessages([incomingMessage, ...chatMessages]);
-    setIncomingMessage({});
-  }
-
-  function handleSaveChatHistory() {
-    window.sessionStorage.setItem(
-      'chat-history',
-      JSON.stringify([incomingMessage, ...chatMessages])
-    );
-  }
-
-  if (incomingMessage.message) {
-    handleIncomingMessage(incomingMessage);
-    handleSaveChatHistory();
-  }
 
   function handleClickCopyRoomCode(evt) {
     evt.preventDefault();
@@ -99,7 +84,7 @@ const Chat = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-
+    console.log(state);
     socket.emit(
       'chat-message',
       userState.roomCode,
@@ -118,7 +103,7 @@ const Chat = () => {
           </Row>
           <Row>
             <Chip onClick={handleClickCopyRoomCode}>
-              <i className="tiny material-icons">content_copy</i>
+              <i className='tiny material-icons'>content_copy</i>
               <span>{'  '}</span>
               Room: {userState.roomCode}
             </Chip>
@@ -126,8 +111,8 @@ const Chat = () => {
           </Row>
         </div>
         <Row>
-          <div id="chat-window" className={styles.messageContainer}>
-            {chatMessages.map((msg, idx) => {
+          <div id='chat-window' className={styles.messageContainer}>
+            {state.map((msg, idx) => {
               return (
                 <Card
                   key={idx}
@@ -152,17 +137,17 @@ const Chat = () => {
           </div>
         </Row>
         <Row>
-          <form onSubmit={handleSubmit} autoComplete="off">
+          <form onSubmit={handleSubmit} autoComplete='off'>
             <TextInput
               style={{ color: 'white', overflowWrap: 'break-word' }}
-              type="text"
+              type='text'
               onChange={handleChange}
               value={messageInput}
-              placeholder="Say something!"
-              maxLength="100"
+              placeholder='Say something!'
+              maxLength='100'
             ></TextInput>
             <Button
-              type="submit"
+              type='submit'
               style={{
                 color: 'black',
                 backgroundColor: '#fff103',
