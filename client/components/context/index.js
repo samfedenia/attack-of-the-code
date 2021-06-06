@@ -3,7 +3,7 @@ import { UserContext } from './user';
 import { ViewContext } from './view';
 import { BackgroundContext } from './background';
 import { GameContext } from './game';
-import { SocketContext, socket } from './socket';
+import { SocketProvider } from './socket';
 import { ChatProvider } from './chat';
 
 // change names later?
@@ -15,7 +15,7 @@ export const CombinedContextProvider = ({
   children,
 }) => {
   return (
-    <SocketContext.Provider value={socket}>
+    <SocketProvider>
       <UserContext.Provider value={userProfs}>
         <ViewContext.Provider value={viewProfs}>
           <BackgroundContext.Provider value={backgroundProfs}>
@@ -27,6 +27,6 @@ export const CombinedContextProvider = ({
           </BackgroundContext.Provider>
         </ViewContext.Provider>
       </UserContext.Provider>
-    </SocketContext.Provider>
+    </SocketProvider>
   );
 };

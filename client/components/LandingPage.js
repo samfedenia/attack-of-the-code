@@ -15,8 +15,8 @@ import {
 } from 'react-materialize';
 import Cycle from './Cycle';
 import styles from './css/LandingPage.module.css';
-import { SocketContext } from '../components/context/socket';
-import { UserContext } from '../components/context/user';
+import { SocketContext } from './context/socket';
+import { UserContext } from './context/user';
 import { BackgroundContext } from './context/background';
 import { ViewContext } from './context/view';
 

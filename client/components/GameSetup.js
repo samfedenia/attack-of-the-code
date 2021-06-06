@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { quotesp } from '../quotes';
 import { GameContext } from './context/game';
 import { UserContext } from './context/user';
@@ -13,10 +13,10 @@ const GameSetup = () => {
   const changeGameState = () => {
     const newGameState = {
       ...gameState,
-      gameStatus: "playing",
+      gameStatus: 'playing',
     };
     setGameState(newGameState);
-    socket.emit('new-game-state', newGameState, userState.roomCode)
+    socket.emit('new-game-state', newGameState, userState.roomCode);
     window.sessionStorage.setItem('gameStatus', JSON.stringify(newGameState));
   };
 
@@ -27,8 +27,7 @@ const GameSetup = () => {
 
   return (
     <div>
-      <br />
-      "{quotesp[idx]}"<br /> -prof
+      <br />"{quotesp[idx]}"<br /> -prof
       <div>
         <button onClick={changeGameState}>Play the game</button>
       </div>
