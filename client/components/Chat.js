@@ -94,9 +94,9 @@ const Chat = () => {
     <Container className={styles.chat}>
       <Col>
         <div className={styles.chatInfo}>
-          <Row>
+          {/* <Row>
             <h1>chat</h1>
-          </Row>
+          </Row> */}
           <Row>
             <Chip onClick={handleClickCopyRoomCode}>
               <i className='tiny material-icons'>content_copy</i>
