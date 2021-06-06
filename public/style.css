@@ -9,7 +9,7 @@
 }
 
 body {
-  background: url('/backgrounds/millenium.jpeg') no-repeat center center fixed;
+  background: url('/backgrounds/millenium.jpeg') no-repeat center center fixed, linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));;
   background-size: 100% 100% cover;
 }
 
