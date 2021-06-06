@@ -28,7 +28,7 @@ const GameSetup = () => {
   return (
     <div>
       <br />
-      {quotesp[idx]}<br /> -prof
+      "{quotesp[idx]}"<br /> -prof
       <div>
         <button onClick={changeGameState}>Play the game</button>
       </div>

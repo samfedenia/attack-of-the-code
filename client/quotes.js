@@ -230,7 +230,7 @@ export const quotesp = [
   "To start, just dial it back.",
   "It wouldn't be the worst thing in the world...",
   "Happy path!",
-  "I'm gonna be optimistic here...",
+  "I'm gonna be a little optimistic here...",
   "I'm just gonna keep it a little bit simpler here.",
   "I always make this mistake with the async",
   "I always forget to bring in path",
@@ -257,5 +257,7 @@ export const quotesp = [
   "I'm gonna cheat a little bit.",
   "It's perfectly legitimate",
   "There's other ways to do this...",
-  "I'll leave it as an exercise for you to do later..."
+  "I'll leave it as an exercise for you to do later...",
+  "I just want you to know what it's doing under the covers.",
+  "Code Smell"
 ];
