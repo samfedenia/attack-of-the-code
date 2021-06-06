@@ -1,30 +1,12 @@
-import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import 'materialize-css';
-import {
-  Container,
-  Button,
-  TextInput,
-  Dropdown,
-  Divider,
-  Icon,
-  Card,
-  Row,
-  Col,
-  Select,
-} from 'react-materialize';
 import styles from './css/Game.module.css';
-import { SocketContext } from './context/socket';
 import Prompt from './Prompt';
 import CodePenClone from './CodePenClone';
 import GameSetup from './GameSetup';
 import { GameContext } from './context/game';
 
 const Game = () => {
-  // // socket connection logic
-  // const socket = useContext(SocketContext);
-  // const newRoomCode = Math.random().toString(36).slice(-5);
-  // socket.emit("room", newRoomCode, "anon");
   const [js, setJs] = useState('');
   const [srcDoc, setSrcDoc] = useState('');
   const [result, setResult] = useState('');
@@ -58,9 +40,9 @@ const Game = () => {
     }
   };
 
-    const resetCode = () => {
-      setJs('')
-      setSrcDoc(`
+  const resetCode = () => {
+    setJs('');
+    setSrcDoc(`
             <html>
               <style>
                 * {
@@ -75,11 +57,10 @@ const Game = () => {
                     result.innerText = ''
                 </script>
             </html>
-        `)
-    }
+        `);
+  };
 
-    //console.log('result', result)
-  
+  //console.log('result', result)
 
   useEffect(() => {
     // console.log(await axios.get('/api/gamedata/demo'));
@@ -88,29 +69,29 @@ const Game = () => {
 
   return (
     <div className={styles.game}>
-      {
-        gameState.gameStatus === 'setup' ?
-        <GameSetup /> :
+      {gameState.gameStatus === 'setup' ? (
+        <GameSetup />
+      ) : (
         <div>
           <Prompt />
           <CodePenClone value={js} onChange={setJs} />
-          <div className="run-btn">
+          <div className='run-btn'>
             <button onClick={runCode}>Run</button>
             <button onClick={checkCode}>Submit</button>
             <button onClick={resetCode}>Reset</button>
           </div>
-          <div className="pane">
+          <div className='pane'>
             <iframe
               srcDoc={srcDoc}
-              title="output"
-              sandbox="allow-scripts"
-              frameBorder="0"
-              width="100%"
-              height="100%"
+              title='output'
+              sandbox='allow-scripts'
+              frameBorder='0'
+              width='100%'
+              height='100%'
             />
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };

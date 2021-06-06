@@ -1,11 +1,15 @@
 import React, { useReducer, createContext, useMemo } from 'react';
+
+// exports: ChatContext, ACTIONS, ChatProvider
+
 export const ChatContext = createContext();
-// todo
+
 export const ACTIONS = {
   USER_JOINED: 'USER_JOINED',
   USER_LEFT: 'USER_LEFT',
   CHAT_MESSAGE: 'CHAT_MESSAGE',
 };
+
 const chatHistoryRecovered = JSON.parse(
   window.sessionStorage.getItem('chat-history')
 );
@@ -18,8 +22,8 @@ const handleSaveChatHistory = (state, action) => {
 };
 
 const initialState = chatHistoryRecovered ? chatHistoryRecovered : [];
+
 const reducer = (state, action) => {
-  console.log(action);
   handleSaveChatHistory(state, action);
   switch (action.type) {
     case ACTIONS.USER_JOINED:
@@ -32,12 +36,14 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
 export const ChatProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // (**)
+
   const contextValue = useMemo(() => {
     return { state, dispatch };
   }, [state, dispatch]);
+
   return (
     <ChatContext.Provider value={contextValue}>{children}</ChatContext.Provider>
   );

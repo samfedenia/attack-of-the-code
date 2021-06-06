@@ -11,8 +11,8 @@ import {
   Chip,
 } from 'react-materialize';
 import styles from './css/Game.module.css';
-import { SocketContext } from '../components/context/socket';
-import { UserContext } from '../components/context/user';
+import { SocketContext } from './context/socket';
+import { UserContext } from './context/user';
 import { ACTIONS, ChatContext } from './context/chat';
 
 const Chat = () => {
@@ -21,10 +21,7 @@ const Chat = () => {
   const { state, dispatch } = useContext(ChatContext);
   const [messageInput, setMessageInput] = useState('');
 
-  useEffect(() => {
-    console.log(state);
-  }, []);
-  // change this once userContext properly set up
+  // change this once userContext provider properly set up
   useEffect(() => {
     if (!userState.playerName) {
       const userFromSessionStorage = JSON.parse(
@@ -68,11 +65,11 @@ const Chat = () => {
 
   function handleClickCopyRoomCode(evt) {
     evt.preventDefault();
-    const clipboardToast = styles.clipboardToast;
+
     window.M.toast({
       html: 'Copied to clipboard!',
       displayLength: 1000,
-      classes: clipboardToast,
+      classes: styles.clipboardToast,
     });
     navigator.clipboard.writeText(userState.roomCode);
   }
@@ -84,7 +81,6 @@ const Chat = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log(state);
     socket.emit(
       'chat-message',
       userState.roomCode,

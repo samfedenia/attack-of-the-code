@@ -1,23 +1,9 @@
-import axios from 'axios';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import 'materialize-css';
-import {
-  Container,
-  Button,
-  TextInput,
-  Dropdown,
-  Divider,
-  Icon,
-  Card,
-  Row,
-  Col,
-  Select,
-} from 'react-materialize';
-import Cycle from './Cycle';
+import { Container } from 'react-materialize';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import { GameContext } from './context/game';
-// import { UserContext } from './context/user';
 import PlayerList from './PlayerList';
 import Chat from './Chat';
 import Game from './Game';
