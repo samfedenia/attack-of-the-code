@@ -4,6 +4,7 @@ import { ViewContext } from './view';
 import { BackgroundContext } from './background';
 import { GameContext } from './game';
 import { SocketContext, socket } from './socket';
+import { ChatProvider } from './chat';
 
 // change names later?
 export const CombinedContextProvider = ({
@@ -18,9 +19,11 @@ export const CombinedContextProvider = ({
       <UserContext.Provider value={userProfs}>
         <ViewContext.Provider value={viewProfs}>
           <BackgroundContext.Provider value={backgroundProfs}>
-            <GameContext.Provider value={gameProfs}>
-              {children}
-            </GameContext.Provider>
+            <ChatProvider>
+              <GameContext.Provider value={gameProfs}>
+                {children}
+              </GameContext.Provider>
+            </ChatProvider>
           </BackgroundContext.Provider>
         </ViewContext.Provider>
       </UserContext.Provider>
