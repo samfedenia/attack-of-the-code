@@ -17,14 +17,13 @@ import Cycle from './Cycle';
 import styles from './css/LandingPage.module.css';
 import { SocketContext } from './context/socket';
 import { UserContext } from './context/user';
-import { BackgroundContext } from './context/background';
+import { BackgroundContext, BACKGROUNDS_ACTIONS } from './context/background';
 import { ViewContext } from './context/view';
 
 const LandingPage = () => {
   const [font, setFont] = useState('StarJedi');
   const [toggle, setToggle] = useState(false);
   const [wobble, setWobble] = useState(0);
-  //const [backgrounds, setBackgrounds] = useState([]);
   const [headshots, setHeadshots] = useState([]);
   const [num, setNum] = useState(0); // index for background array
   const [user, setUser] = useState({
@@ -34,7 +33,7 @@ const LandingPage = () => {
   });
 
   const [userState, setUserState] = useContext(UserContext);
-  const [backgrounds, setBackgrounds] = useContext(BackgroundContext);
+  const { backgroundsState, backgroundsDispatch} = useContext(BackgroundContext);
   const [view, setView] = useContext(ViewContext);
   const socket = useContext(SocketContext);
   const getCharacters = async () => {
@@ -42,23 +41,24 @@ const LandingPage = () => {
     return images;
   };
 
-  // const getBackgrounds = async () => {
-  //   const { data: backgrounds } = await axios.get('/api/backgrounds');
-  //   return backgrounds;
-  // };
-
   useEffect(() => {
     getCharacters().then((images) => {
       setHeadshots(images);
     });
-
-    // getBackgrounds().then((backgrounds) => {
-    //   setBackgrounds(backgrounds);
-    // });
   }, []);
+
+  const getBackgrounds = async () => {
+    const backgrounds = await axios.get('/api/backgrounds');
+    return backgrounds.data;
+  };
 
   useEffect(() => {
     checkExistingUserSession();
+    getBackgrounds().then(response => backgroundsDispatch(
+      {
+        type: BACKGROUNDS_ACTIONS.SET_BACKGROUNDS, 
+        payload: response
+      }))
   }, []);
 
   const changeFont = () => {
@@ -71,8 +71,8 @@ const LandingPage = () => {
 
   const randomize = () => {
     setWobble(1);
-    const randomNum = Math.floor(Math.random() * backgrounds.length);
-    document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+    const randomNum = Math.floor(Math.random() * backgroundsState.length);
+    document.body.style.backgroundImage = `url(/backgrounds/${backgroundsState[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
 
     const randomIndex = Math.floor(Math.random() * headshots.length);
     setNum(randomIndex);
