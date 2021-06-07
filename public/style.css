@@ -9,8 +9,11 @@
 }
 
 body {
-  background: url('/backgrounds/millenium.jpeg') no-repeat center center fixed, linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
-  background-size: 100% 100% contain;
+  background: url('/backgrounds/millenium.jpeg'), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
 }
 
 
@@ -152,7 +155,7 @@ html, body {
     display: flex;
     background-color: #ccc;
     width: 80%;
-    height: 130px;
+    height: 8rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -164,7 +167,8 @@ html, body {
 .code-mirror-wrapper {
   flex-grow: 1;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.7)
+  background: rgba(0, 0, 0, 0.7);
+  line-break: anywhere;
 }
 
 .run-btn {

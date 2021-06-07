@@ -72,7 +72,10 @@ const LandingPage = () => {
   const randomize = () => {
     setWobble(1);
     const randomNum = Math.floor(Math.random() * backgroundsState.length);
-    document.body.style.background = `url(/backgrounds/${backgroundsState[randomNum]}) no-repeat center center fixed, linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+    document.body.style.background = `url(/backgrounds/${backgroundsState[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+    document.body.style.backgroundRepeat = 'no-repeat'
+    document.body.style.backgroundAttachment = 'fixed'
+    document.body.style.backgroundPosition = 'center center'
 
     const randomIndex = Math.floor(Math.random() * headshots.length);
     setNum(randomIndex);
