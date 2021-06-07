@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserContext } from './user';
 import { ViewContext } from './view';
-import { BackgroundContext } from './background';
+import { BackgroundProvider } from './background';
 import { GameContext } from './game';
 import { SocketProvider } from './socket';
 import { ChatProvider } from './chat';
@@ -10,7 +10,6 @@ import { ChatProvider } from './chat';
 export const CombinedContextProvider = ({
   userProfs,
   viewProfs,
-  backgroundProfs,
   gameProfs,
   children,
 }) => {
@@ -18,13 +17,13 @@ export const CombinedContextProvider = ({
     <SocketProvider>
       <UserContext.Provider value={userProfs}>
         <ViewContext.Provider value={viewProfs}>
-          <BackgroundContext.Provider value={backgroundProfs}>
+          <BackgroundProvider>
             <ChatProvider>
               <GameContext.Provider value={gameProfs}>
                 {children}
               </GameContext.Provider>
             </ChatProvider>
-          </BackgroundContext.Provider>
+          </BackgroundProvider>
         </ViewContext.Provider>
       </UserContext.Provider>
     </SocketProvider>

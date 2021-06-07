@@ -31,22 +31,10 @@ const App = () => {
     font: '',
   });
 
-  const [backgrounds, setBackgrounds] = useState([]);
-
   useEffect(() => {
     setTimeout(() => setView({ loading: false }), 2000);
   }, []);
 
-  const getBackgrounds = async () => {
-    const { data: backgrounds } = await axios.get('/api/backgrounds');
-    return backgrounds;
-  };
-
-  useEffect(() => {
-    getBackgrounds().then((backgrounds) => {
-      setBackgrounds(backgrounds);
-    });
-  }, []);
 
   return view.loading ? (
     <Loading />
@@ -55,7 +43,6 @@ const App = () => {
       userProfs={[userState, setUserState]}
       gameProfs={[gameState, setGameState]}
       viewProfs={[view, setView]}
-      backgroundProfs={[backgrounds, setBackgrounds]}
     >
       {userState?.roomCode || userFromSessionStorage?.roomCode ? (
         <GameContainer />
