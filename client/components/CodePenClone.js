@@ -8,7 +8,7 @@ import 'codemirror/addon/edit/matchbrackets';
 import { BackgroundContext } from './context/background';
 
 const CodePenClone = ({ value, onChange }) => {
-    const [backgrounds, setBackgrounds] = useContext(BackgroundContext);
+    const { backgroundsState, backgroundsDispatch} = useContext(BackgroundContext);
     const [theme, setTheme] = useState('material');
 
     const handleChange = (editor, data, value) => {
@@ -18,12 +18,13 @@ const CodePenClone = ({ value, onChange }) => {
 
     const changeTheme = () => {
         if (theme === 'material') {
-        setTheme('default')
-        document.body.style.backgroundImage = `url(/jedi-prof.png), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+          setTheme('default')
+          document.body.style.backgroundImage = `url(/jedi-prof.png), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
         } else {
-        setTheme('material');
-        const randomNum = Math.floor(Math.random() * backgrounds.length);
-        document.body.style.backgroundImage = `url(/backgrounds/${backgrounds[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+          console.log('backgroundsState', backgroundsState)
+          setTheme('material');
+          const randomNum = Math.floor(Math.random() * backgroundsState.length);
+          document.body.style.backgroundImage = `url(/backgrounds/${backgroundsState[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
         }
   }
 

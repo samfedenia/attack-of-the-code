@@ -9,18 +9,10 @@
 }
 
 body {
-  background: url('/backgrounds/millenium.jpeg') no-repeat center center fixed, linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));;
+  background: url('/backgrounds/millenium.jpeg') no-repeat center center fixed, linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
   background-size: 100% 100% cover;
 }
 
-/* body {
-  margin: 0;
-  background-image: url('/backgrounds/millenium.jpeg'),
-    linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-} */
 
 a {
   text-decoration: none;
