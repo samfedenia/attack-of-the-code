@@ -17,7 +17,7 @@ import Cycle from './Cycle';
 import styles from './css/LandingPage.module.css';
 import { SocketContext } from './context/socket';
 import { UserContext } from './context/user';
-import { BackgroundContext, BACKGROUNDS_ACTIONS } from './context/background';
+import { BackgroundContext } from './context/background';
 import { ViewContext } from './context/view';
 
 const LandingPage = () => {
@@ -33,7 +33,7 @@ const LandingPage = () => {
   });
 
   const [userState, setUserState] = useContext(UserContext);
-  const { backgroundsState, backgroundsDispatch} = useContext(BackgroundContext);
+  const { backgroundsState } = useContext(BackgroundContext);
   const [view, setView] = useContext(ViewContext);
   const socket = useContext(SocketContext);
   const getCharacters = async () => {
@@ -42,24 +42,12 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
+    checkExistingUserSession();
     getCharacters().then((images) => {
       setHeadshots(images);
     });
   }, []);
 
-  const getBackgrounds = async () => {
-    const backgrounds = await axios.get('/api/backgrounds');
-    return backgrounds.data;
-  };
-
-  useEffect(() => {
-    checkExistingUserSession();
-    getBackgrounds().then(response => backgroundsDispatch(
-      {
-        type: BACKGROUNDS_ACTIONS.SET_BACKGROUNDS, 
-        payload: response
-      }))
-  }, []);
 
   const changeFont = () => {
     if (font === 'StarJedi') {
