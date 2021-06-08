@@ -17,8 +17,11 @@ const reducer = (state, action) => {
     }
 }
 
+
+
 export const BackgroundProvider = ({ children }) => {
     const [backgroundsState, backgroundsDispatch] = useReducer(reducer, initialState);
+    console.log('backgroundsState in reducer', backgroundsState)
 
     const backgroundContextValue = useMemo(() => {
         return { backgroundsState, backgroundsDispatch };

@@ -38,8 +38,12 @@ const CodePenClone = ({ value, onChange }) => {
     const changeTheme = () => {
         if (theme === 'material') {
           setTheme('default')
-          document.body.style.background = `url(/jedi-prof.png) no-repeat center center fixed, linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
-          document.body.style.backgroundSize = 'cover';
+          document.body.style.background = `url(/jedi-prof.png), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+          document.body.style.backgroundRepeat = 'no-repeat'
+          document.body.style.backgroundPosition = 'center center'
+          document.body.style.backgroundSize = 'cover'
+          document.body.style.backgroundAttachment = 'fixed'
+          
         } else {
           setTheme('material');
           const randomNum = Math.floor(Math.random() * backgroundsState.length);
