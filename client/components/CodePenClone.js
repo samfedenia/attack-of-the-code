@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useEffect, useContext } from "react";
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -6,32 +5,14 @@ import 'codemirror/mode/javascript/javascript';
 import { Controlled as ControlledEditor } from 'react-codemirror2';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
-import { BackgroundContext, BACKGROUNDS_ACTIONS } from './context/background';
+import { BackgroundContext } from './context/background';
 
 const CodePenClone = ({ value, onChange }) => {
-    const { backgroundsState, backgroundsDispatch} = useContext(BackgroundContext);
+    const { backgroundsState } = useContext(BackgroundContext);
     const [theme, setTheme] = useState('material');
-
-    console.log('backgroundsState', backgroundsState)
-
-    //populate the backgrounds array
-    const getBackgrounds = async () => {
-      const backgrounds = await axios.get('/api/backgrounds');
-      return backgrounds.data;
-    };
-    
-    useEffect(() => {
-      getBackgrounds().then(response => backgroundsDispatch(
-        {
-          type: BACKGROUNDS_ACTIONS.SET_BACKGROUNDS, 
-          payload: response
-        }))
-    }, []);
-
 
 
     const handleChange = (editor, data, value) => {
-        //console.log(value)
         onChange(value)
     }
 

@@ -1,4 +1,5 @@
-import React, { createContext, useReducer, useMemo } from 'react';
+import axios from 'axios';
+import React, { createContext, useEffect, useReducer, useMemo } from 'react';
 
 export const BackgroundContext = createContext();
 
@@ -18,10 +19,21 @@ const reducer = (state, action) => {
 }
 
 
-
 export const BackgroundProvider = ({ children }) => {
+    const getBackgrounds = async () => {
+    const backgrounds = await axios.get('/api/backgrounds');
+    return backgrounds.data;
+  };
+
     const [backgroundsState, backgroundsDispatch] = useReducer(reducer, initialState);
-    console.log('backgroundsState in reducer', backgroundsState)
+
+    useEffect(() => {
+        getBackgrounds().then(response => backgroundsDispatch(
+        {
+            type: BACKGROUNDS_ACTIONS.SET_BACKGROUNDS, 
+            payload: response
+        }))
+    }, []);
 
     const backgroundContextValue = useMemo(() => {
         return { backgroundsState, backgroundsDispatch };
