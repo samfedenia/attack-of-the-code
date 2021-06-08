@@ -1,7 +1,7 @@
 .container {
   color: white;
   min-width: 90%;
-  height: 90vh;
+  height: 95vh;
   /* position: relative; */
   display: flex;
   justify-content: space-evenly;
