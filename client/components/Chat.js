@@ -13,45 +13,35 @@ import {
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import { UserContext } from './context/user';
-import { ACTIONS, ChatContext } from './context/chat';
+import { ChatContext, CHAT_ACTIONS } from './context/chat';
 
 const Chat = () => {
   const socket = useContext(SocketContext);
-  const [userState, setUserState] = useContext(UserContext);
-  const { state, dispatch } = useContext(ChatContext);
+  const { userState } = useContext(UserContext);
+  const { chatState, chatDispatch } = useContext(ChatContext);
+  const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
 
-  // change this once userContext provider properly set up
   useEffect(() => {
-    if (!userState.playerName) {
-      const userFromSessionStorage = JSON.parse(
-        window.sessionStorage.getItem('user')
-      );
-      socket.emit(
-        'room',
-        userFromSessionStorage.roomCode,
-        userFromSessionStorage.playerName
-      );
-      setUserState({ ...userFromSessionStorage });
-    }
-  }, [userState]);
+    setMessages(chatState);
+  }, [chatState]);
 
   useEffect(() => {
     socket.on('user-joined', ({ playerName }) => {
-      dispatch({
-        type: ACTIONS.USER_JOINED,
+      chatDispatch({
+        type: CHAT_ACTIONS.USER_JOINED,
         payload: { playerName, message: 'joined' },
       });
     });
-    socket.on('chat-message', ({ playerName, message }) => {
-      dispatch({
-        type: ACTIONS.CHAT_MESSAGE,
-        payload: { playerName, message },
+    socket.on('chat-message', ({ playerName, message, socketId }) => {
+      chatDispatch({
+        type: CHAT_ACTIONS.CHAT_MESSAGE,
+        payload: { playerName, message, socketId },
       });
     });
     socket.on('user-left', ({ playerName }) => {
-      dispatch({
-        type: ACTIONS.USER_LEFT,
+      chatDispatch({
+        type: CHAT_ACTIONS.USER_LEFT,
         payload: { playerName, message: 'left' },
       });
     });
@@ -94,9 +84,6 @@ const Chat = () => {
     <Container className={styles.chat}>
       <Col>
         <div className={styles.chatInfo}>
-          {/* <Row>
-            <h1>chat</h1>
-          </Row> */}
           <Row>
             <Chip onClick={handleClickCopyRoomCode}>
               <i className='tiny material-icons'>content_copy</i>
@@ -108,20 +95,17 @@ const Chat = () => {
         </div>
         <Row>
           <div id='chat-window' className={styles.messageContainer}>
-            {state.map((msg, idx) => {
+            {messages.map((msg, idx) => {
               return (
                 <Card
                   key={idx}
                   className={styles.messageCard}
                   style={{
                     backgroundColor:
-                      msg.playerName === userState.playerName
+                      msg.socketId === socket.id
                         ? 'rgb(55,132,214)'
                         : 'lightgray',
-                    color:
-                      msg.playerName === userState.playerName
-                        ? 'whitesmoke'
-                        : 'black',
+                    color: msg.socketId === socket.id ? 'whitesmoke' : 'black',
                   }}
                 >
                   <div className={styles.chatMessageContent}>

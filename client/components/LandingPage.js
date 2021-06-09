@@ -16,7 +16,7 @@ import {
 import Cycle from './Cycle';
 import styles from './css/LandingPage.module.css';
 import { SocketContext } from './context/socket';
-import { UserContext } from './context/user';
+import { UserContext, USER_ACTIONS } from './context/user';
 import { BackgroundContext } from './context/background';
 import { ViewContext } from './context/view';
 
@@ -26,13 +26,13 @@ const LandingPage = () => {
   const [wobble, setWobble] = useState(0);
   const [headshots, setHeadshots] = useState([]);
   const [num, setNum] = useState(0); // index for background array
-  const [user, setUser] = useState({
+  const [formState, setFormState] = useState({
     avatar: '',
     playerName: 'padawan',
     roomCode: '',
   });
 
-  const [userState, setUserState] = useContext(UserContext);
+  const { userDispatch } = useContext(UserContext);
   const { backgroundsState } = useContext(BackgroundContext);
   const [view, setView] = useContext(ViewContext);
   const socket = useContext(SocketContext);
@@ -48,7 +48,6 @@ const LandingPage = () => {
     });
   }, []);
 
-
   const changeFont = () => {
     if (font === 'StarJedi') {
       setFont('Aurebesh');
@@ -61,15 +60,15 @@ const LandingPage = () => {
     setWobble(1);
     const randomNum = Math.floor(Math.random() * backgroundsState.length);
     document.body.style.background = `url(/backgrounds/${backgroundsState[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
-    document.body.style.backgroundRepeat = 'no-repeat'
-    document.body.style.backgroundPosition = 'center center'
-    document.body.style.backgroundSize = 'cover'
-    document.body.style.backgroundAttachment = 'fixed'
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center center';
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundAttachment = 'fixed';
 
     const randomIndex = Math.floor(Math.random() * headshots.length);
     setNum(randomIndex);
-    setUser({
-      ...user,
+    setFormState({
+      ...formState,
       avatar: headshots[randomIndex],
       playerName: 'Anon',
       roomCode: createRoomCode(),
@@ -82,8 +81,8 @@ const LandingPage = () => {
 
   function handleChange(evt) {
     const value = evt.target.value.toLowerCase();
-    setUser({
-      ...user,
+    setFormState({
+      ...formState,
       [evt.target.name]: value,
     });
   }
@@ -95,27 +94,27 @@ const LandingPage = () => {
     window.sessionStorage.setItem(
       'user',
       JSON.stringify({
-        playerName: user.playerName,
-        roomCode: user.roomCode,
-        avatar: user.avatar,
+        playerName: formState.playerName,
+        roomCode: formState.roomCode,
+        avatar: formState.avatar,
       })
     );
-    socket.emit('room', user.roomCode, user.playerName);
-    setUserState(user);
+    socket.emit('room', formState.roomCode, formState.playerName);
+    userDispatch({ type: USER_ACTIONS.UPDATE_USER, payload: formState });
   }
 
   function checkExistingUserSession() {
-    const user = JSON.parse(window.sessionStorage.getItem('user'));
-    if (user) setUser(user);
+    const formState = JSON.parse(window.sessionStorage.getItem('user'));
+    if (formState) setFormState(formState);
   }
 
   return (
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
             </Row> */}
-      <img className={styles.logo} src='/attackOfTheCodeLOGO.png' />
+      <img className={styles.logo} src="/attackOfTheCodeLOGO.png" />
       <Row className={styles.switch}>
-        <div className='switch'>
+        <div className="switch">
           <label
             style={{
               fontFamily: font,
@@ -125,8 +124,8 @@ const LandingPage = () => {
             }}
           >
             English
-            <input onClick={changeFont} type='checkbox' />
-            <span className='lever'></span>
+            <input onClick={changeFont} type="checkbox" />
+            <span className="lever"></span>
             Aurebesh
           </label>
         </div>
@@ -136,24 +135,18 @@ const LandingPage = () => {
           onClick={randomize}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
-          src='/change_cube_transparent.png'
+          src="/change_cube_transparent.png"
         />
       </Row>
-      <Cycle
-        headshots={headshots}
-        user={user}
-        setUser={setUser}
-        num={num}
-        setNum={setNum}
-      />
-      <form onSubmit={handleSubmit} autoComplete='off'>
+      <Cycle headshots={headshots} num={num} setNum={setNum} />
+      <form onSubmit={handleSubmit} autoComplete="off">
         <Row className={styles.form}>
           <TextInput
-            type='text'
-            placeholder='Name'
-            name='playerName'
+            type="text"
+            placeholder="Name"
+            name="playerName"
             onChange={handleChange}
-            value={user.playerName}
+            value={formState.playerName}
             style={{
               color: 'white',
               fontFamily: font,
@@ -163,18 +156,18 @@ const LandingPage = () => {
           />
 
           <TextInput
-            id='TextInput-4'
-            placeholder='Room Code'
-            name='roomCode'
+            id="TextInput-4"
+            placeholder="Room Code"
+            name="roomCode"
             onChange={handleChange}
-            value={user.roomCode}
+            value={formState.roomCode}
             style={{
               color: 'white',
               fontFamily: font,
               textShadow: 'black 0px 0px 2px',
               letterSpacing: '.1em',
             }}
-            className='blue-border'
+            className="blue-border"
           />
 
           <Button
@@ -185,9 +178,9 @@ const LandingPage = () => {
               letterSpacing: '.1em',
               width: '10rem',
             }}
-            type='submit'
-            node='button'
-            waves='red'
+            type="submit"
+            node="button"
+            waves="red"
           >
             Join
           </Button>
