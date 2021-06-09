@@ -12,12 +12,12 @@ import {
 } from 'react-materialize';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
-import { UserContext } from './context/user';
+import { UserContext, USER_ACTIONS } from './context/user';
 import { ACTIONS, ChatContext } from './context/chat';
 
 const Chat = () => {
   const socket = useContext(SocketContext);
-  const [userState, setUserState] = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
   const { state, dispatch } = useContext(ChatContext);
   const [messageInput, setMessageInput] = useState('');
 
@@ -32,7 +32,10 @@ const Chat = () => {
         userFromSessionStorage.roomCode,
         userFromSessionStorage.playerName
       );
-      setUserState({ ...userFromSessionStorage });
+      userDispatch({
+        type: USER_ACTIONS.UPDATE_USER,
+        payload: userFromSessionStorage,
+      });
     }
   }, [userState]);
 
@@ -99,7 +102,7 @@ const Chat = () => {
           </Row> */}
           <Row>
             <Chip onClick={handleClickCopyRoomCode}>
-              <i className='tiny material-icons'>content_copy</i>
+              <i className="tiny material-icons">content_copy</i>
               <span>{'  '}</span>
               Room: {userState.roomCode}
             </Chip>
@@ -107,7 +110,7 @@ const Chat = () => {
           </Row>
         </div>
         <Row>
-          <div id='chat-window' className={styles.messageContainer}>
+          <div id="chat-window" className={styles.messageContainer}>
             {state.map((msg, idx) => {
               return (
                 <Card
@@ -133,17 +136,17 @@ const Chat = () => {
           </div>
         </Row>
         <Row>
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <TextInput
               style={{ color: 'white', overflowWrap: 'break-word' }}
-              type='text'
+              type="text"
               onChange={handleChange}
               value={messageInput}
-              placeholder='Say something!'
-              maxLength='100'
+              placeholder="Say something!"
+              maxLength="100"
             ></TextInput>
             <Button
-              type='submit'
+              type="submit"
               style={{
                 color: 'black',
                 backgroundColor: '#fff103',

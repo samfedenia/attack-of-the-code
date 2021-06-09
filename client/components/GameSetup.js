@@ -7,7 +7,7 @@ import { SocketContext } from './context/socket';
 const GameSetup = () => {
   const idx = Math.floor(Math.random() * quotesp.length);
   const [gameState, setGameState] = useContext(GameContext);
-  const [userState, setUserState] = useContext(UserContext);
+  const { userState } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
   const changeGameState = () => {

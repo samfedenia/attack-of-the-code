@@ -32,7 +32,7 @@ const LandingPage = () => {
     roomCode: '',
   });
 
-  const { userState, userDispatch } = useContext(UserContext);
+  const { userDispatch } = useContext(UserContext);
   const { backgroundsState } = useContext(BackgroundContext);
   const [view, setView] = useContext(ViewContext);
   const socket = useContext(SocketContext);
