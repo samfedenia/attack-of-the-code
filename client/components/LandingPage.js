@@ -64,6 +64,8 @@ const LandingPage = () => {
     document.body.style.backgroundPosition = 'center center';
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundAttachment = 'fixed';
+    userDispatch({ type: USER_ACTIONS.UPDATE_USER, payload: { background: backgroundsState[randomNum] } });
+    
 
     const randomIndex = Math.floor(Math.random() * headshots.length);
     setNum(randomIndex);
