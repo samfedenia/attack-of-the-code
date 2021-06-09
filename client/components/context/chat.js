@@ -4,7 +4,7 @@ import React, { useReducer, createContext, useMemo } from 'react';
 
 export const ChatContext = createContext();
 
-export const ACTIONS = {
+export const CHAT_ACTIONS = {
   USER_JOINED: 'USER_JOINED',
   USER_LEFT: 'USER_LEFT',
   CHAT_MESSAGE: 'CHAT_MESSAGE',
@@ -24,13 +24,14 @@ const handleSaveChatHistory = (state, action) => {
 const initialState = chatHistoryRecovered ? chatHistoryRecovered : [];
 
 const reducer = (state, action) => {
+  console.log('in chat reducer: ', action);
   handleSaveChatHistory(state, action);
   switch (action.type) {
-    case ACTIONS.USER_JOINED:
+    case CHAT_ACTIONS.USER_JOINED:
       return [action.payload, ...state];
-    case ACTIONS.USER_LEFT:
+    case CHAT_ACTIONS.USER_LEFT:
       return [action.payload, ...state];
-    case ACTIONS.CHAT_MESSAGE:
+    case CHAT_ACTIONS.CHAT_MESSAGE:
       return [action.payload, ...state];
     default:
       return state;
@@ -38,11 +39,11 @@ const reducer = (state, action) => {
 };
 
 export const ChatProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [chatState, chatDispatch] = useReducer(reducer, initialState);
 
   const contextValue = useMemo(() => {
-    return { state, dispatch };
-  }, [state, dispatch]);
+    return { chatState, chatDispatch };
+  }, [chatState, chatDispatch]);
 
   return (
     <ChatContext.Provider value={contextValue}>{children}</ChatContext.Provider>
