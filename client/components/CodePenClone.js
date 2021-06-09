@@ -29,6 +29,10 @@ const CodePenClone = ({ value, onChange }) => {
           setTheme('material');
           const randomNum = Math.floor(Math.random() * backgroundsState.length);
           document.body.style.background = `url(/backgrounds/${backgroundsState[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+          document.body.style.backgroundRepeat = 'no-repeat'
+          document.body.style.backgroundPosition = 'center center'
+          document.body.style.backgroundSize = 'cover'
+          document.body.style.backgroundAttachment = 'fixed'
         }
     }
 
