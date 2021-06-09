@@ -8,6 +8,7 @@ export const USER_ACTIONS = {
 
 const initialState = {
   avatar: '',
+  background: '',
   playerName: '',
   roomCode: '',
   score: 0,

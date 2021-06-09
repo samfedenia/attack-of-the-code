@@ -6,11 +6,14 @@ import { Controlled as ControlledEditor } from 'react-codemirror2';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
 import { BackgroundContext } from './context/background';
+import { UserContext, USER_ACTIONS } from './context/user';
 
 const CodePenClone = ({ value, onChange }) => {
     const { backgroundsState } = useContext(BackgroundContext);
+    const { userState } = useContext(UserContext);
     const [theme, setTheme] = useState('material');
 
+    console.log('userState', userState)
 
     const handleChange = (editor, data, value) => {
         onChange(value)
@@ -28,7 +31,7 @@ const CodePenClone = ({ value, onChange }) => {
         } else {
           setTheme('material');
           const randomNum = Math.floor(Math.random() * backgroundsState.length);
-          document.body.style.background = `url(/backgrounds/${backgroundsState[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+          document.body.style.background = `url(/backgrounds/${userState.background}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
           document.body.style.backgroundRepeat = 'no-repeat'
           document.body.style.backgroundPosition = 'center center'
           document.body.style.backgroundSize = 'cover'
