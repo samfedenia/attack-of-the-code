@@ -1,17 +1,17 @@
 import React from 'react';
 import { UserProvider } from './user';
-import { ViewContext } from './view';
+import { ViewProvider } from './view';
 import { BackgroundProvider } from './background';
 import { GameContext } from './game';
 import { SocketProvider } from './socket';
 import { ChatProvider } from './chat';
 
 // change names later?
-export const CombinedContextProvider = ({ viewProfs, gameProfs, children }) => {
+export const CombinedContextProvider = ({ gameProfs, children }) => {
   return (
     <SocketProvider>
       <UserProvider>
-        <ViewContext.Provider value={viewProfs}>
+        <ViewProvider>
           <BackgroundProvider>
             <ChatProvider>
               <GameContext.Provider value={gameProfs}>
@@ -19,7 +19,7 @@ export const CombinedContextProvider = ({ viewProfs, gameProfs, children }) => {
               </GameContext.Provider>
             </ChatProvider>
           </BackgroundProvider>
-        </ViewContext.Provider>
+        </ViewProvider>
       </UserProvider>
     </SocketProvider>
   );
