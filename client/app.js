@@ -4,14 +4,14 @@ import GameContainer from './components/GameContainer';
 import { CombinedContextProvider } from './components/context';
 import { UserContext } from './components/context/user';
 import Loading from './components/Loading';
+import { ViewContext, VIEW_ACTIONS } from './components/context/view';
 
 const App = () => {
   const userFromSessionStorage = JSON.parse(
     window.sessionStorage.getItem('user')
   );
-
   const { userState } = useContext(UserContext);
-
+  const { viewState, viewDispatch } = useContext(ViewContext);
   const [gameState, setGameState] = useState({
     timeLimit: 90,
     gameStatus: 'setup', //playing, between, gameover
@@ -19,23 +19,21 @@ const App = () => {
     round: 1,
   });
 
-  const [view, setView] = useState({
-    loading: true,
-    background: '',
-    font: '',
-  });
-
   useEffect(() => {
-    setTimeout(() => setView({ loading: false }), 2000);
+    setTimeout(
+      () =>
+        viewDispatch({
+          type: VIEW_ACTIONS.CHANGE_VIEW,
+          payload: { loading: false },
+        }),
+      2000
+    );
   }, []);
 
-  return view.loading ? (
+  return viewState.loading ? (
     <Loading />
   ) : (
-    <CombinedContextProvider
-      gameProfs={[gameState, setGameState]}
-      viewProfs={[view, setView]}
-    >
+    <CombinedContextProvider gameProfs={[gameState, setGameState]}>
       {userState?.roomCode || userFromSessionStorage?.roomCode ? (
         <GameContainer />
       ) : (

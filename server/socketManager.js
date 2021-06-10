@@ -25,7 +25,7 @@ const createSocketServer = (server) => {
         setTimeout(() => {
           io.in(roomCode).emit(
             'user-list',
-            rooms[roomCode].map((user) => user[0])
+            rooms[roomCode]?.map((user) => user[0])
           );
         }, 3000);
       }
