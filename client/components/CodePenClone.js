@@ -7,13 +7,15 @@ import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
 import { BackgroundContext } from './context/background';
 import { UserContext, USER_ACTIONS } from './context/user';
+import styles from './css/Game.module.css';
+import editorStyles from './css/Editor.module.css';
 
 const CodePenClone = ({ value, onChange }) => {
     const { backgroundsState } = useContext(BackgroundContext);
     const { userState } = useContext(UserContext);
     const [theme, setTheme] = useState('material');
 
-    console.log('userState', userState)
+    console.log('userState', userState) //background and avatar blank out on refresh
 
     const handleChange = (editor, data, value) => {
         onChange(value)
@@ -42,7 +44,7 @@ const CodePenClone = ({ value, onChange }) => {
 
     return (
         <>
-        <div className='switch'>
+        <div className="switch">
           <label
             style={{
               fontFamily: 'StarJedi',
@@ -57,11 +59,11 @@ const CodePenClone = ({ value, onChange }) => {
             Prof Side
           </label>
         </div>
-        <div className="editor-container">
+        <div className={editorStyles.editorContainer}>
             <ControlledEditor 
                 onBeforeChange={handleChange}
                 value={value}
-                className="code-mirror-wrapper"
+                className={editorStyles.codeMirrorWrapper}
                 options={{
                     lineWrapping: true,
                     lint: true,

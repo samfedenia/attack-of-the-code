@@ -32,7 +32,7 @@ const LandingPage = () => {
     roomCode: '',
   });
 
-  const { userDispatch } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
   const { backgroundsState } = useContext(BackgroundContext);
   const { viewState, viewDispatch } = useContext(ViewContext);
   const socket = useContext(SocketContext);
@@ -108,6 +108,7 @@ const LandingPage = () => {
         playerName: formState.playerName,
         roomCode: formState.roomCode,
         avatar: formState.avatar,
+        background: userState.background
       })
     );
     socket.emit('room', formState.roomCode, formState.playerName);
@@ -118,7 +119,8 @@ const LandingPage = () => {
     const formState = JSON.parse(window.sessionStorage.getItem('user'));
     if (formState) setFormState(formState);
   }
-
+console.log('formState', formState)
+console.log('userState inside LandingPage', userState)
   return (
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>

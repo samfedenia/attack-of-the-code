@@ -1,7 +1,7 @@
 .container {
   color: white;
   min-width: 90%;
-  height: 95vh;
+  height: 90vh;
   /* position: relative; */
   display: flex;
   justify-content: space-evenly;
@@ -20,21 +20,20 @@
   backdrop-filter: blur(0.3rem) saturate(40%);
 }
 
-.playerList {
+/* .playerList {
   border-radius: 3rem 0 0 3rem;
   display: flex;
   justify-content: center;
   flex-flow: column nowrap;
-  /* border: .15rem solid rgba(255, 255, 255, .5); */
   width: 20%;
   height: 100vh;
-}
+} */
 
 .players {
   flex-wrap: wrap;
 }
 
-.game {
+/* .game {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +41,7 @@
   border-right: 0.15rem solid rgba(255, 255, 255, 0.5);
   width: 60%;
   height: 100vh;
-}
+} */
 
 .chat {
   margin: 0;
@@ -60,9 +59,17 @@
   /* margin: 0.2rem; */
 }
 .chat > * {
-  max-width: fit-content;
+  /* max-width: fit-content; */
   /* align-self: center; */
+  margin-top: 3rem;
 }
+
+.chatInfo {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .messageContainer {
   display: flex;
   flex-flow: column-reverse nowrap;
@@ -72,7 +79,7 @@
   /* justify-content: flex-start; */
   align-items: left;
   height: 350px;
-  width: 200px;
+  width: 100%;
   min-height: min-content;
   flex: 1 1 90%;
   overflow: auto;
@@ -117,10 +124,4 @@ button {
   border-radius: 1rem;
   padding: 2rem;
   margin: 1.5rem;
-}
-
-.chatInfo {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
 }

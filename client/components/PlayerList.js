@@ -17,7 +17,6 @@ const PlayerList = () => {
 
   return (
     <div className={styles.playerList}>
-      <h3>playerList</h3>
       <div className={styles.players}>
         {playerList.map((player, idx) => (
           <div className={styles.player} key={idx}>

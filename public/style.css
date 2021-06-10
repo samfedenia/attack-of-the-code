@@ -84,10 +84,12 @@ form div {
 }
 
 
-
-
-
 /* Editor Styles */
+.CodeMirror {
+  height: 100% !important;
+  font-size: 1rem;
+}
+
 /* Variables */
 :root {
     --editor-bg: #333;
@@ -102,11 +104,6 @@ form div {
     font-family: 'Courier New'
 }
 
-html, body {
-    height: 100%;
-    width: 100%;
-}
-
 .testImg {
     display: flex;
     justify-content: center;
@@ -118,67 +115,91 @@ html, body {
     margin: 1.5rem;
 }
 
-.prompt {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-}
-
-.challenge {
-    padding-top: 3rem;
-}
-
 .switch {
   display: flex;
   justify-content: center;
 }
 
-/* CodePenClone Styling */
-.editor-container {
-    margin-top: 1rem;
-    height: 30rem;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    flex-grow: 0.5;
-    flex-basis: 0;
-    display: flex;
-    flex-direction: column;
-}
 
-.pane {
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    background-color: #ccc;
-    width: 80%;
-    height: 10vh;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
 
-.CodeMirror {
-  height: 100% !important;
-  font-size: 1rem;
-}
 
-.code-mirror-wrapper {
-  flex-grow: 1;
+
+
+/* CSS Grid Tests */
+.grid-container {
+  position: relative;
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.7);
-  line-break: anywhere;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  height: 10%;
+  border-radius: 3rem;
+  border: 0.15rem solid rgba(255, 255, 255, 0.5);
+  box-shadow: 12px 12px 20px 2px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.3rem) saturate(40%);
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1em;
 }
 
-.run-btn {
-  display: flex;
-  width: 80%;
+.grid-item {
+  position: relative;
+  padding: 5rem;
+  padding-top: 3rem;
+  color: rgb(255, 255, 255);
+  min-width: 10rem;
   margin-left: auto;
   margin-right: auto;
 }
 
-.run-btn button {
-  padding: 0.2rem;
-  margin: 0.5rem;
+.grid-item-2 {
+  padding-top: 3rem;
+  color: rgb(255, 255, 255);
+  border-left: 0.15rem solid rgba(255, 255, 255, 0.5);
+  border-right: 0.15rem solid rgba(255, 255, 255, 0.5);
+  min-width: 30rem;
+}
+
+.grid-item-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.grid-item::before {
+  position: relative;
+  font-size: 25px;
+  top: 0;
+  display: block;
+  text-align: center;
+}
+
+.grid-item-1::before {
+  content: 'Player List';
+  font-family: 'StarJedi';
+  color: #fff103;
+}
+
+.grid-item-2::before {
+  /* content: 'Challenge'; */
+}
+
+.grid-item-3::before {
+  content: 'Chat';
+  font-family: 'StarJedi';
+  color: #fff103;
+  padding-top: 3rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.marquee-sw {
+  font-family: 'Aurebesh';
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0px 0px 10px white, 0 0 25px dodgerblue, 0 0 25px dodgerblue;
+  width: 111%;
 }
