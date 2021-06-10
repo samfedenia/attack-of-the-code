@@ -11,7 +11,7 @@ const initialState = [];
 
 const reducer = (state, action) => {
     switch(action.type) {
-        case BACKGROUNDS_ACTIONS.SET_BACKGROUNDS: 
+        case BACKGROUNDS_ACTIONS.SET_BACKGROUNDS:
             return [...state, ...action.payload]
         default:
             return state;
@@ -21,16 +21,16 @@ const reducer = (state, action) => {
 
 export const BackgroundProvider = ({ children }) => {
     const getBackgrounds = async () => {
-    const backgrounds = await axios.get('/api/backgrounds');
-    return backgrounds.data;
-  };
+        const backgrounds = await axios.get('/api/backgrounds');
+        return backgrounds.data;
+    };
 
     const [backgroundsState, backgroundsDispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
         getBackgrounds().then(response => backgroundsDispatch(
         {
-            type: BACKGROUNDS_ACTIONS.SET_BACKGROUNDS, 
+            type: BACKGROUNDS_ACTIONS.SET_BACKGROUNDS,
             payload: response
         }))
     }, []);

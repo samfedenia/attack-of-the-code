@@ -4,13 +4,13 @@ import styles from './css/Game.module.css';
 import Prompt from './Prompt';
 import CodePenClone from './CodePenClone';
 import GameSetup from './GameSetup';
-import { GameContext } from './context/game';
+import { GameContext, GAME_ACTIONS } from './context/game';
 
 const Game = () => {
   const [js, setJs] = useState('');
   const [srcDoc, setSrcDoc] = useState('');
   const [result, setResult] = useState('');
-  const [gameState, setGameState] = useContext(GameContext);
+  const { gameState, gameDispatch } = useContext(GameContext);
   const runCode = () => {
     // console.log(js)
     setResult(eval(js));
