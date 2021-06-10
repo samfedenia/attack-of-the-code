@@ -1,8 +1,8 @@
 /* CodePenClone Styling */
 .editorContainer {
     margin-top: 1rem;
-    height: 30rem;
-    width: 80%;
+    height: 40vh;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     flex-grow: 0.5;
@@ -16,7 +16,7 @@
     margin-right: auto;
     display: flex;
     background-color: #ccc;
-    width: 80%;
+    width: 100%;
     height: 12vh;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -43,4 +43,5 @@
 .runBtn button {
   padding: 0.2rem;
   margin: 0.5rem;
+  font-size: 1rem;
 }

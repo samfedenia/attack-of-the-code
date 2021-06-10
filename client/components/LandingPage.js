@@ -120,7 +120,7 @@ const LandingPage = () => {
     if (formState) setFormState(formState);
   }
 console.log('formState', formState)
-console.log('formState userState', userState)
+console.log('userState inside LandingPage', userState)
   return (
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>

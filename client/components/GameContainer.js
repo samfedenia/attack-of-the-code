@@ -25,11 +25,20 @@ const GameContainer = () => {
   }, []);
 
   return (
-    <Container className={styles.container}>
-      <PlayerList />
-      <Game />
-      <Chat />
-    </Container>
+    // <Container className={styles.container}>
+    //   <PlayerList />
+    //   <Game />
+    //   <Chat />
+    // </Container>
+    <div className="grid-container">
+        <div className="grid-item grid-item-1"><PlayerList /></div>
+        <div className="grid-item grid-item-2"><Game /></div>
+        <div className="grid-item grid-item-3">
+          <marquee scrollamount=
+          '10' className="marquee-sw">May the Force be with You</marquee>
+          <Chat />
+        </div>
+    </div>
   );
 };
 
