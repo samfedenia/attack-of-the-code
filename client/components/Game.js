@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import 'materialize-css';
 import styles from './css/Game.module.css';
+import editorStyles from './css/Editor.module.css';
 import Prompt from './Prompt';
 import CodePenClone from './CodePenClone';
 import GameSetup from './GameSetup';
@@ -75,12 +76,12 @@ const Game = () => {
         <div>
           <Prompt />
           <CodePenClone value={js} onChange={setJs} />
-          <div className='run-btn'>
+          <div className={editorStyles.runBtn}>
             <button onClick={runCode}>Run</button>
             <button onClick={checkCode}>Submit</button>
             <button onClick={resetCode}>Reset</button>
           </div>
-          <div className='pane'>
+          <div className={editorStyles.pane}>
             <iframe
               srcDoc={srcDoc}
               title='output'
