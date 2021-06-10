@@ -18,7 +18,7 @@ import styles from './css/LandingPage.module.css';
 import { SocketContext } from './context/socket';
 import { UserContext, USER_ACTIONS } from './context/user';
 import { BackgroundContext } from './context/background';
-import { ViewContext } from './context/view';
+import { ViewContext, VIEW_ACTIONS } from './context/view';
 
 const LandingPage = () => {
   const [font, setFont] = useState('StarJedi');
@@ -34,7 +34,7 @@ const LandingPage = () => {
 
   const { userDispatch } = useContext(UserContext);
   const { backgroundsState } = useContext(BackgroundContext);
-  const [view, setView] = useContext(ViewContext);
+  const { viewState, viewDispatch } = useContext(ViewContext);
   const socket = useContext(SocketContext);
   const getCharacters = async () => {
     const { data: images } = await axios.get('/api/headshots');
@@ -64,8 +64,10 @@ const LandingPage = () => {
     document.body.style.backgroundPosition = 'center center';
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundAttachment = 'fixed';
-    userDispatch({ type: USER_ACTIONS.UPDATE_USER, payload: { background: backgroundsState[randomNum] } });
-    
+    userDispatch({
+      type: USER_ACTIONS.UPDATE_USER,
+      payload: { background: backgroundsState[randomNum] },
+    });
 
     const randomIndex = Math.floor(Math.random() * headshots.length);
     setNum(randomIndex);
@@ -91,8 +93,15 @@ const LandingPage = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    view.loading = true;
-    setTimeout(() => setView({ loading: false }), 2000);
+    viewState.loading = true;
+    setTimeout(
+      () =>
+        viewDispatch({
+          type: VIEW_ACTIONS.CHANGE_VIEW,
+          payload: { loading: false },
+        }),
+      2000
+    );
     window.sessionStorage.setItem(
       'user',
       JSON.stringify({
