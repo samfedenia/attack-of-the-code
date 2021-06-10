@@ -3,7 +3,7 @@ import 'materialize-css';
 import { Container } from 'react-materialize';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
-import { GameContext } from './context/game';
+import { GameContext, GAME_ACTIONS } from "./context/game";
 import PlayerList from './PlayerList';
 import Chat from './Chat';
 import Game from './Game';
@@ -11,11 +11,11 @@ import Game from './Game';
 const GameContainer = () => {
   const socket = useContext(SocketContext);
 
-  const [gameState, setGameState] = useContext(GameContext);
+  const { gameDispatch } = useContext(GameContext);
 
   useEffect(() => {
     socket.on('game-state', (gameState) => {
-      setGameState(gameState);
+      gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: gameState });
       window.sessionStorage.setItem('gameStatus', JSON.stringify(gameState));
     });
 
