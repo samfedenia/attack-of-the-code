@@ -3,6 +3,7 @@ import { quotesp } from '../quotes';
 import { GameContext, GAME_ACTIONS } from './context/game';
 import { UserContext } from './context/user';
 import { SocketContext } from './context/socket';
+import axios from 'axios';
 
 const GameSetup = () => {
   const idx = Math.floor(Math.random() * quotesp.length);
@@ -10,10 +11,17 @@ const GameSetup = () => {
   const { userState } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
-  const changeGameState = () => {
+  const changeGameState = async () => {
+    const level = 'demo';
+    const totalRounds = 2;
+    const { data: challenges } = await axios.get(
+      `http://localhost:3000/api/gamedata/${level}/${totalRounds}`
+    );
+
     const newGameState = {
       ...gameState,
       gameStatus: 'playing',
+      challenges,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
     socket.emit('new-game-state', newGameState, userState.roomCode);

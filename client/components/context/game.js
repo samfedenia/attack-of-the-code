@@ -10,8 +10,9 @@ const initialState = {
   timeLimit: 90,
   gameStatus: 'setup', //playing, between, gameover
   level: 'demo',
-  totalRounds: 1,
+  totalRounds: 2,
   challenges: null,
+  currentRound: 0,
 };
 
 const gameReducer = (state, action) => {
