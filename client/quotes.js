@@ -259,5 +259,7 @@ export const quotesp = [
   "There's other ways to do this...",
   "I'll leave it as an exercise for you to do later...",
   "I just want you to know what it's doing under the covers.",
-  "Code Smell"
+  "Code Smell",
+  "Let's just say, for the sake of argument...",
+  "I'm gonna cheat a little bit."
 ];
