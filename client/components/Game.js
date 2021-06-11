@@ -72,7 +72,8 @@ const Game = () => {
   };
 
   const resetCode = () => {
-    setJs("");
+    const { challenges, currentRound } = gameState;
+    setJs(challenges[currentRound]?.start);
     setSrcDoc(`
             <html>
               <style>
