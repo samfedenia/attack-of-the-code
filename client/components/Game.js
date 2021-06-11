@@ -12,8 +12,13 @@ const Game = () => {
   const [srcDoc, setSrcDoc] = useState('');
   const [result, setResult] = useState('');
   const { gameState, gameDispatch } = useContext(GameContext);
+
+  useEffect(() => {
+    setJs('const test = () => {\n\n};');
+  }, []);
+
   const runCode = () => {
-    // console.log(js)
+    console.log(js);
     setResult(eval(js));
     setSrcDoc(`
             <html>
@@ -34,8 +39,13 @@ const Game = () => {
   };
 
   const checkCode = () => {
-    if (result === 2) {
-      alert('The answer was 2 you are correct');
+    let answer1, answer2;
+    answer1 = eval(js + '\ntest(2)');
+    answer2 = eval(js + '\ntest(3)');
+
+    // setResult(eval(js + '\ntest()'));
+    if (answer1 === 2 && answer2 === 3) {
+      alert(`The answer was ${answer1} you are correct`);
     } else {
       alert('incorrect');
     }

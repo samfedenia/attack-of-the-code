@@ -1,27 +1,26 @@
-import React, { createContext, useReducer, useMemo } from "react";
+import React, { createContext, useReducer, useMemo } from 'react';
 
 export const GameContext = createContext();
 
 export const GAME_ACTIONS = {
-  SET_GAME: 'SET_GAME'
+  SET_GAME: 'SET_GAME',
 };
 
 const initialState = {
   timeLimit: 90,
-  gameStatus: "setup", //playing, between, gameover
-  level: "demo",
-  round: 1,
+  gameStatus: 'setup', //playing, between, gameover
+  level: 'demo',
+  totalRounds: 1,
+  challenges: null,
 };
 
 const gameReducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case GAME_ACTIONS.SET_GAME:
-      return {...state,
-        ...action.payload
-      }
+      return { ...state, ...action.payload };
     default:
-      return state
-  };
+      return state;
+  }
 };
 
 export const GameProvider = ({ children }) => {
@@ -31,5 +30,9 @@ export const GameProvider = ({ children }) => {
     return { gameState, gameDispatch };
   }, [gameState, gameDispatch]);
 
-  return <GameContext.Provider value={contextProvider}>{ children }</GameContext.Provider>
+  return (
+    <GameContext.Provider value={contextProvider}>
+      {children}
+    </GameContext.Provider>
+  );
 };
