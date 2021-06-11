@@ -15,8 +15,6 @@ const CodePenClone = ({ value, onChange }) => {
     const { userState } = useContext(UserContext);
     const [theme, setTheme] = useState('material');
 
-    console.log('userState', userState) //background and avatar blank out on refresh
-
     const handleChange = (editor, data, value) => {
         onChange(value)
     }
@@ -29,7 +27,7 @@ const CodePenClone = ({ value, onChange }) => {
           document.body.style.backgroundPosition = 'center center'
           document.body.style.backgroundSize = 'cover'
           document.body.style.backgroundAttachment = 'fixed'
-          
+
         } else {
           setTheme('material');
           const randomNum = Math.floor(Math.random() * backgroundsState.length);
@@ -60,7 +58,7 @@ const CodePenClone = ({ value, onChange }) => {
           </label>
         </div>
         <div className={editorStyles.editorContainer}>
-            <ControlledEditor 
+            <ControlledEditor
                 onBeforeChange={handleChange}
                 value={value}
                 className={editorStyles.codeMirrorWrapper}
