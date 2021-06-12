@@ -5,7 +5,7 @@ const createSocketServer = (server) => {
 
   // socket.io logic
 
-  // socketMemo = { usersSocket.id: {playerName, roomCode}, ... }
+  // socketMemo = { usersSocket.id: {playerName, socketId, roomCode, avatar}, ... }
   const socketMemo = {};
   const rooms = {}; // roomCode: [{playerName, socketId, roomCode, avatar}, ...]
 
@@ -52,7 +52,6 @@ const createSocketServer = (server) => {
 
     socket.on("disconnect", () => {
       console.log("socket disconnected");
-      // let roomCode, playerName;
       const { roomCode, playerName } = socketMemo[socket.id];
       if (socketMemo[socket.id]) {
         delete socketMemo[socket.id];
@@ -62,7 +61,6 @@ const createSocketServer = (server) => {
       }
       if (rooms[roomCode]) {
         rooms[roomCode] = rooms[roomCode].filter(
-          // {playerName, socketId, roomCode, avatar}
           (user) => user.socketId !== socket.id
         );
         io.in(roomCode).emit(
