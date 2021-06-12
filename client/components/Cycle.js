@@ -3,7 +3,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext, USER_ACTIONS } from './context/user';
 import styles from './css/Cycle.module.css';
 
-const Cycle = ({ headshots, num, setNum }) => {
+const Cycle = ({ headshots, num, setNum, formState, setFormState }) => {
+  const { avatar } = formState;
   const [wobble, setWobble] = useState(0);
 
   const { userState, userDispatch } = useContext(UserContext);
@@ -13,28 +14,32 @@ const Cycle = ({ headshots, num, setNum }) => {
     payload: { avatar: headshots[num] },
   });
 
+  const setAvatar = (num) => {
+        setWobble(1)
+        userDispatch(userObject(num));
+        setFormState({...formState, avatar: headshots[num]})
+  }
+
   const goRight = (num) => {
     if (num === headshots.length - 1) {
-      setWobble(1);
       setNum(0);
-      userDispatch(userObject(num));
+      setAvatar(num)
     } else {
-      setWobble(1);
       setNum((num += 1));
-      userDispatch(userObject(num));
+      setAvatar(num)
     }
+    console.log(userState)
   };
 
   const goLeft = (num) => {
     if (num === 0) {
-      setWobble(1);
       setNum(headshots.length - 1);
-      userDispatch(userObject(num));
+      setAvatar(num)
     } else {
-      setWobble(1);
       setNum((num -= 1));
-      userDispatch(userObject(num));
+      setAvatar(num)
     }
+    console.log(userState)
   };
   //console.log(user)
   return (

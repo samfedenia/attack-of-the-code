@@ -12,20 +12,21 @@ const createSocketServer = (server) => {
   // handles the initial connection from client side
   io.on('connection', (socket) => {
     console.log('new socket connection');
-    socket.on('room', (roomCode, playerName) => {
-      if (socket.id) socketMemo[socket.id] = [roomCode, playerName];
+    socket.on('room', (roomCode, playerName, avatar) => {
+      const player = {playerName, socketId: socket.id, roomCode, avatar}
+      if (socket.id) socketMemo[socket.id] = player;
 
       if (rooms[roomCode])
-        rooms[roomCode] = [...rooms[roomCode], [playerName, socket.id]];
-      else rooms[roomCode] = [[playerName, socket.id]];
+        rooms[roomCode] = [...rooms[roomCode], player];
+      else rooms[roomCode] = [player];
       console.log(`player: ${playerName} joined room: ${roomCode}`);
       socket.join(roomCode);
-      socket.to(roomCode).emit('user-joined', { playerName });
+      socket.to(roomCode).emit('user-joined', { playerName, avatar });
       if (rooms[roomCode]) {
         setTimeout(() => {
           io.in(roomCode).emit(
             'user-list',
-            rooms[roomCode]?.map((user) => user[0])
+            rooms[roomCode]?.map((user) => user)
           );
         }, 3000);
       }
