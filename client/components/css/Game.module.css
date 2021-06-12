@@ -33,6 +33,37 @@
   flex-wrap: wrap;
 }
 
+.player {
+  display: flex;
+  align-items: center;
+}
+
+/* .playerAvatar {
+  height: 2rem;
+  margin-right: 0.5rem;
+} */
+
+.playerOuterAvatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.playerInnerAvatar {
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* .game {
   display: flex;
   flex-direction: column;

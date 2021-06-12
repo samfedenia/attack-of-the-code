@@ -28,7 +28,14 @@ const PlayerList = () => {
       <div className={styles.players}>
         {playerList.map((player, idx) => (
           <div className={styles.player} key={idx}>
-            <img src={`/star_wars_characters/${player.avatar}`}/>{player.playerName}
+            <div className={styles.playerOuterAvatar}>
+              <div className={styles.playerInnerAvatar}
+              style={{
+              backgroundImage: `url(/star_wars_characters/${player.avatar})`,
+            }}></div>
+          </div>
+            {/* <img className={styles.playerAvatar}src={`/star_wars_characters/${player.avatar}`}/> */} 
+            {player.playerName}
           </div>
         ))}
       </div>
