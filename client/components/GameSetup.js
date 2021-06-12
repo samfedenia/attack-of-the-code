@@ -11,9 +11,16 @@ const GameSetup = () => {
   const { userState } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
-  const [level, setLevel] = useState('demo');
-  const [totalRounds, setTotalRounds] = useState(2);
-  const arrayOfLevels = ['youngling', 'padawan', 'jedi', 'master', 'sith'];
+  const [level, setLevel] = useState('');
+  const [totalRounds, setTotalRounds] = useState('');
+  const arrayOfLevels = [
+    'demo',
+    'youngling',
+    'padawan',
+    'jedi',
+    'master',
+    'sith',
+  ];
 
   const changeGameState = async (e) => {
     e.preventDefault();
@@ -46,17 +53,33 @@ const GameSetup = () => {
           <select
             name="level"
             value={level}
-            onChange={setLevel}
+            onChange={(e) => setLevel(e.target.value)}
             className="browser-default"
           >
-            <option value="demo">--Choose Level--</option>
+            <option value="" defaultValue>
+              --Choose Level--
+            </option>
             {arrayOfLevels.map((lev, idx) => (
               <option key={idx} value={lev}>
                 {lev}
               </option>
             ))}
           </select>
-          <button type="submit">Play the game</button>
+          <select
+            name="rounds"
+            value={totalRounds}
+            onChange={(e) => setTotalRounds(e.target.value)}
+            className="browser-default"
+          >
+            <option value="" defaultValue>
+              --Choose Number of Rounds--
+            </option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+          <button type="submit" disabled={!totalRounds || !level}>
+            Play the game
+          </button>
         </form>
       </div>
     </div>
