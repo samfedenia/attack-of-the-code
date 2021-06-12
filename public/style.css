@@ -9,13 +9,13 @@
 }
 
 body {
-  background: url('/backgrounds/millenium.jpeg'), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
+  background: url('/backgrounds/millenium.jpeg'),
+    linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
   background-size: cover;
 }
-
 
 a {
   text-decoration: none;
@@ -28,12 +28,6 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
-}
-
-form div {
-  color: white;
-  margin: 1em;
-  display: inline-block;
 }
 
 /* materializecss overrides */
@@ -83,7 +77,6 @@ form div {
   right: 6%;
 }
 
-
 /* Editor Styles */
 .CodeMirror {
   height: 100% !important;
@@ -92,38 +85,33 @@ form div {
 
 /* Variables */
 :root {
-    --editor-bg: #333;
-    --editor-border: #b8b8b8;
+  --editor-bg: #333;
+  --editor-border: #b8b8b8;
 }
 
 /* Reset Styles */
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Courier New'
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New';
 }
 
 .testImg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .testImg img {
-    width: 50%;
-    margin: 1.5rem;
+  width: 50%;
+  margin: 1.5rem;
 }
 
 .switch {
   display: flex;
   justify-content: center;
 }
-
-
-
-
-
 
 /* CSS Grid Tests */
 .grid-container {
@@ -182,10 +170,6 @@ form div {
   content: 'Player List';
   font-family: 'StarJedi';
   color: #fff103;
-}
-
-.grid-item-2::before {
-  /* content: 'Challenge'; */
 }
 
 .grid-item-3::before {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { quotesp } from '../quotes';
 import { GameContext, GAME_ACTIONS } from './context/game';
 import { UserContext } from './context/user';
@@ -11,9 +11,12 @@ const GameSetup = () => {
   const { userState } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
-  const changeGameState = async () => {
-    const level = 'demo';
-    const totalRounds = 2;
+  const [level, setLevel] = useState('demo');
+  const [totalRounds, setTotalRounds] = useState(2);
+  const arrayOfLevels = ['youngling', 'padawan', 'jedi', 'master', 'sith'];
+
+  const changeGameState = async (e) => {
+    e.preventDefault();
     const { data: challenges } = await axios.get(
       `http://localhost:3000/api/gamedata/${level}/${totalRounds}`
     );
@@ -35,9 +38,26 @@ const GameSetup = () => {
 
   return (
     <div>
-      <br />"{quotesp[idx]}"<br /> -prof
       <div>
-        <button onClick={changeGameState}>Play the game</button>
+        <br />"{quotesp[idx]}"<br /> -prof
+      </div>
+      <div>
+        <form onSubmit={changeGameState}>
+          <select
+            name="level"
+            value={level}
+            onChange={setLevel}
+            className="browser-default"
+          >
+            <option value="demo">--Choose Level--</option>
+            {arrayOfLevels.map((lev, idx) => (
+              <option key={idx} value={lev}>
+                {lev}
+              </option>
+            ))}
+          </select>
+          <button type="submit">Play the game</button>
+        </form>
       </div>
     </div>
   );
