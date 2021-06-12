@@ -27,6 +27,7 @@ const PlayerList = () => {
     <div className={styles.playerList}>
       <div className={styles.players}>
         {playerList.map((player, idx) => (
+          <div className="animate__animated animate__bounceInUp" style={{marginBottom: "0.25rem"}}>
           <div className={styles.player} key={idx}>
             <div className={styles.playerOuterAvatar}>
               <div className={styles.playerInnerAvatar}
@@ -34,8 +35,10 @@ const PlayerList = () => {
               backgroundImage: `url(/star_wars_characters/${player.avatar})`,
             }}></div>
           </div>
-            {/* <img className={styles.playerAvatar}src={`/star_wars_characters/${player.avatar}`}/> */} 
-            {player.playerName}
+            <div className={styles.playerName}>
+              {player.playerName}
+            </div> 
+          </div>
           </div>
         ))}
       </div>
