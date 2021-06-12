@@ -7,9 +7,9 @@ export const USER_ACTIONS = {
 };
 
 const initialState = {
-  avatar: '',
-  background: '',
-  playerName: '',
+  avatar: 'star_wars_heads_0000_Layer-3.png',
+  background: 'millenium.jpeg',
+  playerName: 'padawan',
   roomCode: '',
   score: 0,
   submitted: false,

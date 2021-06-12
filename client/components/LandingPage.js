@@ -27,7 +27,7 @@ const LandingPage = () => {
   const [headshots, setHeadshots] = useState([]);
   const [num, setNum] = useState(0); // index for background array
   const [formState, setFormState] = useState({
-    avatar: '',
+    avatar: 'star_wars_heads_0000_Layer-3.png',
     playerName: 'padawan',
     roomCode: '',
   });
@@ -111,7 +111,7 @@ const LandingPage = () => {
         background: userState.background
       })
     );
-    socket.emit('room', formState.roomCode, formState.playerName);
+    socket.emit('room', formState.roomCode, formState.playerName, formState.avatar);
     userDispatch({ type: USER_ACTIONS.UPDATE_USER, payload: formState });
   }
 
@@ -151,7 +151,7 @@ console.log('userState inside LandingPage', userState)
           src="/change_cube_transparent.png"
         />
       </Row>
-      <Cycle headshots={headshots} num={num} setNum={setNum} />
+      <Cycle headshots={headshots} num={num} setNum={setNum} formState={formState} setFormState={setFormState}/>
       <form onSubmit={handleSubmit} autoComplete="off">
         <Row className={styles.form}>
           <TextInput

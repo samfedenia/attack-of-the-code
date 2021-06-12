@@ -21,14 +21,14 @@ const PlayerList = () => {
       updatePlayerList(allPlayers);
       if (playerList.length === 0) updatePlayerList(allPlayers);
     });
+    console.log('playerList', playerList)
   }, [playerList]);
-
   return (
     <div className={styles.playerList}>
       <div className={styles.players}>
         {playerList.map((player, idx) => (
           <div className={styles.player} key={idx}>
-            {player}
+            <img src={`/star_wars_characters/${player.avatar}`}/>{player.playerName}
           </div>
         ))}
       </div>
