@@ -13,9 +13,11 @@ const initialState = {
   roomCode: '',
   score: 0,
   submitted: false,
+  userID: '',
 };
 
 const userReducer = (state, action) => {
+  console.log(state);
   switch (action.type) {
     case USER_ACTIONS.UPDATE_USER:
       return { ...state, ...action.payload };

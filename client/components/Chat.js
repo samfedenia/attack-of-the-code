@@ -33,10 +33,10 @@ const Chat = () => {
         payload: { playerName, message: 'joined' },
       });
     });
-    socket.on('chat-message', ({ playerName, message, socketId }) => {
+    socket.on('chat-message', ({ playerName, message, userID }) => {
       chatDispatch({
         type: CHAT_ACTIONS.CHAT_MESSAGE,
-        payload: { playerName, message, socketId },
+        payload: { playerName, message, userID },
       });
     });
     socket.on('user-left', ({ playerName }) => {
@@ -75,7 +75,8 @@ const Chat = () => {
       'chat-message',
       userState.roomCode,
       userState.playerName,
-      messageInput
+      messageInput,
+      userState.userID
     );
     setMessageInput('');
   }
@@ -102,10 +103,11 @@ const Chat = () => {
                   className={styles.messageCard}
                   style={{
                     backgroundColor:
-                      msg.socketId === socket.id
+                      msg.userID === userState.userID
                         ? 'rgb(55,132,214)'
                         : 'lightgray',
-                    color: msg.socketId === socket.id ? 'whitesmoke' : 'black',
+                    color:
+                      msg.userID === userState.userID ? 'whitesmoke' : 'black',
                   }}
                 >
                   <div className={styles.chatMessageContent}>

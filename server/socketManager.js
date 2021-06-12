@@ -1,7 +1,30 @@
 const { Server } = require('socket.io');
+const { v4: uuidv4 } = require('uuid');
+const { InMemorySessionStore } = require('./sessionStore');
 
 const createSocketServer = (server) => {
   const io = new Server(server);
+
+  const sessionStore = new InMemorySessionStore();
+
+  io.use(async (socket, next) => {
+    const sessionID = socket.handshake.auth.sessionID;
+    if (sessionID) {
+      const session = await sessionStore.findSession(sessionID);
+      if (session) {
+        socket.sessionID = sessionID;
+        socket.userID = session.userID;
+        socket.playerName = session.playerName;
+        socket.roomCode = session.roomCode;
+        return next();
+      }
+    }
+    socket.sessionID = uuidv4();
+    socket.userID = uuidv4();
+    socket.playerName = '';
+    socket.roomCode = '';
+    next();
+  });
 
   // socket.io logic
 
@@ -12,7 +35,36 @@ const createSocketServer = (server) => {
   // handles the initial connection from client side
   io.on('connection', (socket) => {
     console.log('new socket connection');
-    socket.on('room', (roomCode, playerName) => {
+    console.log(sessionStore.findSession(socket.sessionID));
+    // persist session
+    sessionStore.saveSession(socket.sessionID, {
+      userID: socket.userID || null,
+      playerName: socket.playerName || null,
+      roomCode: socket.roomCode || null,
+    });
+
+    // emit session details
+    socket.emit('session', {
+      sessionID: socket.sessionID,
+      userID: socket.userID || null,
+      playerName: socket.playerName || null,
+      roomCode: socket.roomCode || null,
+    });
+
+    // join the "roomCode" room if exists
+    if (socket.roomCode) socket.join(socket.roomCode);
+
+    // ----------------------------------------------
+    socket.on('join-room', (roomCode, playerName) => {
+      // update session
+      const oldSession = sessionStore.findSession(socket.sessionID);
+      sessionStore.saveSession(socket.sessionID, {
+        ...oldSession,
+        playerName: playerName,
+        roomCode: roomCode,
+      });
+      console.log(sessionStore.findSession(socket.sessionID));
+
       if (socket.id) socketMemo[socket.id] = [roomCode, playerName];
 
       if (rooms[roomCode])
@@ -31,7 +83,7 @@ const createSocketServer = (server) => {
       }
     });
 
-    socket.on('chat-message', (roomCode, playerName, message) => {
+    socket.on('chat-message', (roomCode, playerName, message, userID) => {
       console.log(
         `chat-message received in room: ${roomCode}
         from: ${playerName} with socketId: ${socket.id}
@@ -41,7 +93,7 @@ const createSocketServer = (server) => {
       io.in(roomCode).emit('chat-message', {
         playerName,
         message,
-        socketId: socket.id,
+        userID,
       });
     });
 
