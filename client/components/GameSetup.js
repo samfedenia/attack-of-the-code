@@ -27,7 +27,7 @@ const GameSetup = () => {
   const changeGameState = async (e) => {
     e.preventDefault();
     const { data: challenges } = await axios.get(
-      `${window.location}api/gamedata/${level}/${totalRounds}`
+      `/api/gamedata/${level}/${totalRounds}`
     );
 
     const newGameState = {
