@@ -4,14 +4,6 @@ import { GameContext, GAME_ACTIONS } from './context/game';
 import { UserContext } from './context/user';
 import { SocketContext } from './context/socket';
 import axios from 'axios';
-import {
-  Container,
-  Button,
-  TextInput,
-  Dropdown,
-  Divider,
-  Icon,
-} from 'react-materialize';
 
 const GameSetup = () => {
   const idx = Math.floor(Math.random() * quotesp.length);
