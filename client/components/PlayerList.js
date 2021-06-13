@@ -27,8 +27,8 @@ const PlayerList = () => {
     <div className={styles.playerList}>
       <div className={styles.players}>
         {playerList.map((player, idx) => (
-          <div className="animate__animated animate__bounceInUp" style={{marginBottom: "0.25rem"}}>
-          <div className={styles.player} key={idx}>
+          <div key={idx} className="animate__animated animate__bounceInUp" style={{marginBottom: "0.25rem"}}>
+          <div className={styles.player}>
             <div className={styles.playerOuterAvatar}>
               <div className={styles.playerInnerAvatar}
               style={{

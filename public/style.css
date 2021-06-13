@@ -131,6 +131,8 @@ nav a {
   display: grid;
   grid-auto-flow: column;
   gap: 1em;
+  min-width: 800px;
+
 }
 
 .grid-item {

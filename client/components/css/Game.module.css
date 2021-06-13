@@ -95,11 +95,10 @@
   font-family: Verdana;
   margin-top: 1rem;
   border-style: none;
-  box-shadow: 0 0 10px #00c7c7;
-  border-radius: 1rem;
 }
 
 .profQuotes {
+  display: inline-block;
   height: 10vh;
   width: 30vw;
   color:#00e7e7;
