@@ -1,9 +1,14 @@
-import React, { createContext } from 'react';
-import { io } from 'socket.io-client';
+import React, { createContext } from "react";
+import { io } from "socket.io-client";
 
 // exports SocketContext, SocketProvider
 
-const socket = io();
+const http =
+  window.document.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://www.attack-of-the-code.com";
+
+const socket = io(http, { transports: ["websocket"] });
 
 export const SocketContext = createContext();
 

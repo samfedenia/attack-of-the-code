@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./css/Game.module.css";
-import { quotesp } from '../quotes';
-import { GameContext, GAME_ACTIONS } from './context/game';
-import { UserContext } from './context/user';
-import { SocketContext } from './context/socket';
-import axios from 'axios';
-import { Button } from 'react-materialize';
+import { quotesp } from "../quotes";
+import { GameContext, GAME_ACTIONS } from "./context/game";
+import { UserContext } from "./context/user";
+import { SocketContext } from "./context/socket";
+import axios from "axios";
+import { Button } from "react-materialize";
 
 const GameSetup = () => {
   const idx = Math.floor(Math.random() * quotesp.length);
@@ -23,8 +23,6 @@ const GameSetup = () => {
     "master",
     "sith",
   ];
-
-  console.log("location", window.location);
 
   const changeGameState = async (e) => {
     e.preventDefault();
@@ -86,7 +84,11 @@ const GameSetup = () => {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <Button className={styles.playGame} type="submit" disabled={!totalRounds || !level}>
+          <Button
+            className={styles.playGame}
+            type="submit"
+            disabled={!totalRounds || !level}
+          >
             Play the game
           </Button>
         </form>
