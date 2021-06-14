@@ -52,7 +52,13 @@ const createSocketServer = (server) => {
 
     socket.on("disconnect", () => {
       console.log("socket disconnected");
-      const { roomCode, playerName } = socketMemo[socket.id];
+      let roomCode, playerName;
+
+      if (socketMemo[socket.id]) {
+        roomCode = socketMemo[socket.id].roomCode;
+        playerName = socketMemo[socket.id].playerName;
+      }
+
       if (socketMemo[socket.id]) {
         delete socketMemo[socket.id];
       }
