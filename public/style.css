@@ -131,6 +131,8 @@ nav a {
   display: grid;
   grid-auto-flow: column;
   gap: 1em;
+  min-width: 800px;
+
 }
 
 .grid-item {
@@ -170,6 +172,7 @@ nav a {
   content: 'Player List';
   font-family: 'StarJedi';
   color: #fff103;
+  margin-bottom: 1rem;
 }
 
 .grid-item-3::before {

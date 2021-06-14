@@ -64,6 +64,57 @@
   align-items: center;
 }
 
+.playerName {
+  background-color: white;
+  font-family: StarJedi;
+  border-radius: 1em;
+  width: 100%;
+  color: black;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+/* .playGame {
+  border-style: none;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  font-family: Verdana;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+} */
+
+.playGame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00e7e7;
+  color: black;
+  /* font-weight: bold; */
+  font-family: Verdana;
+  margin-top: 1rem;
+  border-style: none;
+}
+
+.profQuotes {
+  display: inline-block;
+  height: 10vh;
+  width: 30vw;
+  color:#00e7e7;
+  font-family: Verdana;
+  text-align: center;
+}
+
+.profQuotes span {
+  color: white;
+  font-family: Verdana;
+}
+
+#rounds {
+  margin-top: 1rem;
+}
+
 /* .game {
   display: flex;
   flex-direction: column;
