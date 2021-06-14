@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { quotesp } from "../quotes";
-import { GameContext, GAME_ACTIONS } from "./context/game";
-import { UserContext } from "./context/user";
-import { SocketContext } from "./context/socket";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from 'react';
+import styles from "./css/Game.module.css";
+import { quotesp } from '../quotes';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext } from './context/user';
+import { SocketContext } from './context/socket';
+import axios from 'axios';
+import { Button } from 'react-materialize';
 
 const GameSetup = () => {
   const idx = Math.floor(Math.random() * quotesp.length);
@@ -50,8 +52,8 @@ const GameSetup = () => {
 
   return (
     <div>
-      <div>
-        <br />"{quotesp[idx]}"<br /> -prof
+      <div className={styles.profQuotes}>
+        <br />"{quotesp[idx]}"<br /> <span>-Prof</span>
       </div>
       <div>
         <form onSubmit={changeGameState}>
@@ -60,6 +62,7 @@ const GameSetup = () => {
             value={level}
             onChange={(e) => setLevel(e.target.value)}
             className="browser-default"
+            id="level"
           >
             <option value="" defaultValue>
               --Choose Level--
@@ -75,6 +78,7 @@ const GameSetup = () => {
             value={totalRounds}
             onChange={(e) => setTotalRounds(e.target.value)}
             className="browser-default"
+            id={styles.rounds}
           >
             <option value="" defaultValue>
               --Choose Number of Rounds--
@@ -82,9 +86,9 @@ const GameSetup = () => {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <button type="submit" disabled={!totalRounds || !level}>
+          <Button className={styles.playGame} type="submit" disabled={!totalRounds || !level}>
             Play the game
-          </button>
+          </Button>
         </form>
       </div>
     </div>
