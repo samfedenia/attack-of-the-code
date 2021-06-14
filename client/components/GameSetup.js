@@ -13,36 +13,41 @@ const GameSetup = () => {
   const { userState } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
-  const [level, setLevel] = useState('');
-  const [totalRounds, setTotalRounds] = useState('');
+  const [level, setLevel] = useState("");
+  const [totalRounds, setTotalRounds] = useState("");
   const arrayOfLevels = [
-    'demo',
-    'youngling',
-    'padawan',
-    'jedi',
-    'master',
-    'sith',
+    "demo",
+    "youngling",
+    "padawan",
+    "jedi",
+    "master",
+    "sith",
   ];
+
+  console.log("location", window.location);
 
   const changeGameState = async (e) => {
     e.preventDefault();
     const { data: challenges } = await axios.get(
-      `http://localhost:3000/api/gamedata/${level}/${totalRounds}`
+      `/api/gamedata/${level}/${totalRounds}`
     );
 
     const newGameState = {
       ...gameState,
-      gameStatus: 'playing',
+      gameStatus: "playing",
       challenges,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
-    socket.emit('new-game-state', newGameState, userState.roomCode);
-    window.sessionStorage.setItem('gameStatus', JSON.stringify(newGameState));
+    socket.emit("new-game-state", newGameState, userState.roomCode);
+    window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
   };
 
   useEffect(() => {
-    const game = JSON.parse(window.sessionStorage.getItem('gameStatus'));
-    if (game) gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: game });
+    const game = JSON.parse(window.sessionStorage.getItem("gameStatus"));
+    if (game) {
+      gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: game });
+      // update playerlist here?
+    }
   }, []);
 
   return (
