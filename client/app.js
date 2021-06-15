@@ -4,11 +4,21 @@ import GameContainer from './components/GameContainer';
 import { UserContext } from './components/context/user';
 import Loading from './components/Loading';
 import { ViewContext, VIEW_ACTIONS } from './components/context/view';
+import { SocketContext } from './components/context/socket';
 
 const App = () => {
+  const socket = useContext(SocketContext);
   const userFromSessionStorage = JSON.parse(
     window.sessionStorage.getItem('user')
   );
+
+  useEffect(() => {
+    if (userFromSessionStorage?.roomCode) {
+      const { roomCode, playerName, avatar } = userFromSessionStorage;
+      socket.emit('room', roomCode, playerName, avatar);
+    }
+  }, []);
+
   const { userState } = useContext(UserContext);
   const { viewState, viewDispatch } = useContext(ViewContext);
 
