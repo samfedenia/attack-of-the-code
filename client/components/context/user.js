@@ -16,6 +16,7 @@ const initialState = {
 };
 
 const userReducer = (state, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case USER_ACTIONS.UPDATE_USER:
       return { ...state, ...action.payload };

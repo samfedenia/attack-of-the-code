@@ -16,7 +16,7 @@ const createSocketServer = (server) => {
       player.socketId = socket.id;
       const { roomCode, playerName, avatar, background, score, submitted } =
         player;
-
+      console.log('PLAYER:', player);
       if (socket.id) socketMemo[socket.id] = player;
 
       if (rooms[roomCode]) rooms[roomCode] = [...rooms[roomCode], player];
@@ -32,6 +32,26 @@ const createSocketServer = (server) => {
           );
         }, 3000);
       }
+      console.log('ROOMS:', rooms);
+    });
+
+    socket.on('update-user', (player) => {
+      const { roomCode, playerName, avatar, background, score, submitted } =
+        player;
+
+      if (socket.id) socketMemo[socket.id] = player;
+
+      rooms[roomCode] = rooms[roomCode].map((user) => {
+        if (user.socketId === socket.id) {
+          user = { ...player, socketId: socket.id };
+          return user;
+        }
+      });
+
+      io.in(roomCode).emit(
+        'user-list',
+        rooms[roomCode]?.map((user) => user)
+      );
     });
 
     socket.on('chat-message', (roomCode, playerName, message) => {

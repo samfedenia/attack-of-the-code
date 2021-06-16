@@ -10,6 +10,7 @@ const PlayerList = () => {
 
   useEffect(() => {
     socket.on('user-list', (allPlayers) => {
+      console.log(allPlayers);
       const sortedPlayers = allPlayers.sort((a, b) => b.score - a.score);
       updatePlayerList(sortedPlayers);
       if (playerList.length === 0) updatePlayerList(sortedPlayers);

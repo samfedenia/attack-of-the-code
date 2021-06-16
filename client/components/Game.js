@@ -1,22 +1,35 @@
-import React, { useState, useEffect, useContext } from "react";
-import "materialize-css";
-import styles from "./css/Game.module.css";
-import editorStyles from "./css/Editor.module.css";
-import Prompt from "./Prompt";
-import CodePenClone from "./CodePenClone";
-import GameSetup from "./GameSetup";
-import { GameContext, GAME_ACTIONS } from "./context/game";
+import React, { useState, useEffect, useContext } from 'react';
+import 'materialize-css';
+import styles from './css/Game.module.css';
+import editorStyles from './css/Editor.module.css';
+import Prompt from './Prompt';
+import CodePenClone from './CodePenClone';
+import GameSetup from './GameSetup';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext, USER_ACTIONS } from './context/user';
+import { SocketContext } from './context/socket';
 
 const Game = () => {
-  const [js, setJs] = useState("");
-  const [srcDoc, setSrcDoc] = useState("");
-  const [result, setResult] = useState("");
+  const [js, setJs] = useState('');
+  const [srcDoc, setSrcDoc] = useState('');
+  const [result, setResult] = useState('');
   const { gameState, gameDispatch } = useContext(GameContext);
+  const { userState, userDispatch } = useContext(UserContext);
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     const { challenges, currentRound } = gameState;
     setJs(challenges[currentRound]?.start);
   }, [gameState]);
+
+  const incScore = () => {
+    console.log('user-state', userState);
+    socket.emit('update-user', { ...userState, score: userState.score + 1 });
+    userDispatch({
+      type: USER_ACTIONS.UPDATE_USER,
+      payload: { score: userState.score + 1 },
+    });
+  };
 
   const runCode = () => {
     setResult(eval(js));
@@ -67,7 +80,7 @@ const Game = () => {
     ) {
       alert(`Winner Winner Chicken Dinner`);
     } else {
-      alert("incorrect");
+      alert('incorrect');
     }
   };
 
@@ -96,12 +109,12 @@ const Game = () => {
 
   useEffect(() => {
     // console.log(await axios.get('/api/gamedata/demo'));
-    console.log("Game state", gameState);
+    console.log('Game state', gameState);
   }, []);
 
   return (
     <div className={styles.game}>
-      {gameState.gameStatus === "setup" ? (
+      {gameState.gameStatus === 'setup' ? (
         <GameSetup />
       ) : (
         <div>
@@ -111,6 +124,7 @@ const Game = () => {
             <button onClick={runCode}>Run</button>
             <button onClick={checkCode}>Submit</button>
             <button onClick={resetCode}>Reset</button>
+            <button onClick={incScore}>Add Points</button>
           </div>
           <div className={editorStyles.pane}>
             <iframe
