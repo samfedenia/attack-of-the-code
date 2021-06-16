@@ -40,13 +40,11 @@ const createSocketServer = (server) => {
         player;
 
       if (socket.id) socketMemo[socket.id] = player;
-
-      rooms[roomCode] = rooms[roomCode].map((user) => {
-        if (user.socketId === socket.id) {
-          user = { ...player, socketId: socket.id };
-          return user;
-        }
-      });
+      rooms[roomCode] = [
+        ...rooms[roomCode].filter((user) => user.socketId !== socket.id),
+        { ...player, socketId: socket.id },
+      ];
+      console.log('rooms[roomCode]: ', rooms[roomCode]);
 
       io.in(roomCode).emit(
         'user-list',
