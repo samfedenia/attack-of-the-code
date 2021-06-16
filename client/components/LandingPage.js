@@ -102,25 +102,26 @@ const LandingPage = () => {
         }),
       2000
     );
-    window.sessionStorage.setItem(
-      'user',
-      JSON.stringify({
-        playerName: formState.playerName,
-        roomCode: formState.roomCode,
-        avatar: formState.avatar,
-        background: userState.background
-      })
-    );
-    socket.emit('room', formState.roomCode, formState.playerName, formState.avatar);
-    userDispatch({ type: USER_ACTIONS.UPDATE_USER, payload: formState });
+
+    const user = {
+      ...userState,
+      ...formState,
+    };
+
+    window.sessionStorage.setItem('user', JSON.stringify(user));
+
+    socket.emit('room', user);
+    userDispatch({
+      type: USER_ACTIONS.UPDATE_USER,
+      payload: user,
+    });
   }
 
   function checkExistingUserSession() {
     const formState = JSON.parse(window.sessionStorage.getItem('user'));
     if (formState) setFormState(formState);
   }
-console.log('formState', formState)
-console.log('userState inside LandingPage', userState)
+
   return (
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
@@ -151,7 +152,13 @@ console.log('userState inside LandingPage', userState)
           src="/change_cube_transparent.png"
         />
       </Row>
-      <Cycle headshots={headshots} num={num} setNum={setNum} formState={formState} setFormState={setFormState}/>
+      <Cycle
+        headshots={headshots}
+        num={num}
+        setNum={setNum}
+        formState={formState}
+        setFormState={setFormState}
+      />
       <form onSubmit={handleSubmit} autoComplete="off">
         <Row className={styles.form}>
           <TextInput
