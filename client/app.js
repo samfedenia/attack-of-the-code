@@ -14,8 +14,7 @@ const App = () => {
 
   useEffect(() => {
     if (userFromSessionStorage?.roomCode) {
-      const { roomCode, playerName, avatar } = userFromSessionStorage;
-      socket.emit('room', roomCode, playerName, avatar);
+      socket.emit('room', userFromSessionStorage);
     }
   }, []);
 
