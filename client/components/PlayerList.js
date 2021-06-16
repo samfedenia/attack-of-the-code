@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import 'materialize-css';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
@@ -6,14 +6,13 @@ import { SocketContext } from './context/socket';
 const PlayerList = () => {
   const socket = useContext(SocketContext);
 
-  const [playerList, updatePlayerList] = useState([]);
+  const [playerList, setPlayerList] = useState([]);
 
   useEffect(() => {
     socket.on('user-list', (allPlayers) => {
-      console.log(allPlayers);
-      const sortedPlayers = allPlayers.sort((a, b) => b.score - a.score);
-      updatePlayerList(sortedPlayers);
-      if (playerList.length === 0) updatePlayerList(sortedPlayers);
+      const allplayersFiltered = allPlayers.sort((a, b) => b.score - a.score);
+
+      setPlayerList(allplayersFiltered);
     });
   }, []);
 
@@ -23,7 +22,7 @@ const PlayerList = () => {
         {playerList.map((player, idx) => (
           <div
             key={idx}
-            className="animate__animated animate__bounceInUp"
+            className='animate__animated animate__bounceInUp'
             style={{ marginBottom: '0.25rem' }}
           >
             <div className={styles.player}>
