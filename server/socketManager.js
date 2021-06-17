@@ -32,7 +32,6 @@ const createSocketServer = (server) => {
           );
         }, 3000);
       }
-      console.log('ROOMS:', rooms);
     });
 
     socket.on('update-user', (player) => {
@@ -44,7 +43,6 @@ const createSocketServer = (server) => {
         ...rooms[roomCode].filter((user) => user.socketId !== socket.id),
         { ...player, socketId: socket.id },
       ];
-      console.log('rooms[roomCode]: ', rooms[roomCode]);
 
       io.in(roomCode).emit(
         'user-list',

@@ -22,15 +22,6 @@ const Game = () => {
     setJs(challenges[currentRound]?.start);
   }, [gameState]);
 
-  const incScore = () => {
-    console.log('user-state', userState);
-    socket.emit('update-user', { ...userState, score: userState.score + 1 });
-    userDispatch({
-      type: USER_ACTIONS.UPDATE_USER,
-      payload: { score: userState.score + 1 },
-    });
-  };
-
   const runCode = () => {
     setResult(eval(js));
     setSrcDoc(`
@@ -59,28 +50,67 @@ const Game = () => {
       totalRounds,
       challenges,
       currentRound,
+      userSubmissions
     } = gameState;
-    /**
-   * {
-    prompt: "Create a function (add) that adds two numbers",
-    start: "const add (num1, num2) => {\n\n}",
-    testCall1: "add(2, 3)",
-    testResult1: "5",
-    testCall2: "add(3, 4)",
-    testResult2: "7",
-  }
-   */
-    let answer1 = eval(js + `\n${challenges[currentRound].testCall1}`);
-    let answer2 = eval(js + `\n${challenges[currentRound].testCall2}`);
+    try {
+      let answer1 = eval(js + `\n${challenges[currentRound].testCall1}`);
+      let answer2 = eval(js + `\n${challenges[currentRound].testCall2}`);
+    
+      if (
+        answer1 === challenges[currentRound].testResult1 &&
+        answer2 === challenges[currentRound].testResult2
+      ) {
+        // look at gameState to determine how many current submissions to determine how many points to get 10, 7, 5
+        let points = 0;
+        if (userSubmissions === 0) points = 10;
+        else if (userSubmissions === 1) points = 7;
+        else if (userSubmissions === 2) points = 5;
 
-    // setResult(eval(js + '\ntest()'));
-    if (
-      answer1 === challenges[currentRound].testResult1 &&
-      answer2 === challenges[currentRound].testResult2
-    ) {
-      alert(`Winner Winner Chicken Dinner`);
-    } else {
-      alert('incorrect');
+        // update gameState increment current submissions by 1
+        gameDispatch({
+          type: GAME_ACTIONS.SET_GAME,
+          payload: { userSubmissions: gameState.userSubmissions + 1}
+        });
+
+        const newGameState = { ...gameState,userSubmissions: gameState.userSubmissions + 1}
+
+        socket.emit("new-game-state", newGameState, userState.roomCode);
+        window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
+        
+        // update user submitted status to true
+        userDispatch({
+          type: USER_ACTIONS.UPDATE_USER,
+          payload: { submitted: true },
+        });
+
+        // emit user with our relevant score
+        socket.emit('update-user', { ...userState, score: userState.score + points });
+
+        userDispatch({
+          type: USER_ACTIONS.UPDATE_USER,
+          payload: { score: userState.score + points },
+        });
+        // alert(`Winner Winner Chicken Dinner`);
+      } else {
+        alert('incorrect');
+      }
+    } catch (error) {
+        setSrcDoc(`
+              <html>
+                <style>
+                  * {
+                    font-family: Verdana;
+                  }
+                </style>
+                  <body>
+                      <div id="result"></div>
+                  </body>
+                  <script>
+                      const result = document.getElementById('result');
+                      result.innerText = '${error}'
+                  </script>
+              </html>
+          `);
     }
   };
 
@@ -105,13 +135,6 @@ const Game = () => {
         `);
   };
 
-  //console.log('result', result)
-
-  useEffect(() => {
-    // console.log(await axios.get('/api/gamedata/demo'));
-    console.log('Game state', gameState);
-  }, []);
-
   return (
     <div className={styles.game}>
       {gameState.gameStatus === 'setup' ? (
@@ -124,7 +147,6 @@ const Game = () => {
             <button onClick={runCode}>Run</button>
             <button onClick={checkCode}>Submit</button>
             <button onClick={resetCode}>Reset</button>
-            <button onClick={incScore}>Add Points</button>
           </div>
           <div className={editorStyles.pane}>
             <iframe

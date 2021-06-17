@@ -28,7 +28,6 @@ const Cycle = ({ headshots, num, setNum, formState, setFormState }) => {
       setNum((num += 1));
       setAvatar(num)
     }
-    console.log(userState)
   };
 
   const goLeft = (num) => {
@@ -39,9 +38,8 @@ const Cycle = ({ headshots, num, setNum, formState, setFormState }) => {
       setNum((num -= 1));
       setAvatar(num)
     }
-    console.log(userState)
   };
-  //console.log(user)
+  
   return (
     <div>
       <div

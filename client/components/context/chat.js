@@ -24,7 +24,6 @@ const handleSaveChatHistory = (state, action) => {
 const initialState = chatHistoryRecovered ? chatHistoryRecovered : [];
 
 const reducer = (state, action) => {
-  console.log('in chat reducer: ', action);
   handleSaveChatHistory(state, action);
   switch (action.type) {
     case CHAT_ACTIONS.USER_JOINED:
