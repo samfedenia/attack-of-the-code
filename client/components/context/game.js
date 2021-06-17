@@ -13,6 +13,7 @@ const initialState = {
   totalRounds: 2,
   challenges: [],
   currentRound: 0,
+  userSubmissions: 0,
 };
 
 const gameReducer = (state, action) => {
