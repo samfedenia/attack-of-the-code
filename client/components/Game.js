@@ -83,8 +83,10 @@ const Game = () => {
           payload: { submitted: true },
         });
 
+        const newUserState = { ...userState, score: userState.score + points }
         // emit user with our relevant score
-        socket.emit('update-user', { ...userState, score: userState.score + points });
+        socket.emit('update-user', newUserState);
+        window.sessionStorage.setItem("user", JSON.stringify(newUserState));
 
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
