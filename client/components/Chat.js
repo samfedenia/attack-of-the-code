@@ -127,6 +127,7 @@ const Chat = () => {
               maxLength='100'
             ></TextInput>
             <Button
+              disabled = {!messageInput}
               type='submit'
               style={{
                 color: 'black',
