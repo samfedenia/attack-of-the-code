@@ -55,17 +55,30 @@ const Game = () => {
     try {
       let answer1 = eval(js + `\n${challenges[currentRound].testCall1}`);
       let answer2 = eval(js + `\n${challenges[currentRound].testCall2}`);
-    
+
       if (
         answer1 === challenges[currentRound].testResult1 &&
         answer2 === challenges[currentRound].testResult2
       ) {
         // look at gameState to determine how many current submissions to determine how many points to get 10, 7, 5
         let points = 0;
+        /*FEEDBACK: in the long term, you probably want to turn this into some object that maps the number of submissions to the number of points
+          const submissionsToPoints = {
+            0: 10,
+            etc...
+          }
+        */
         if (userSubmissions === 0) points = 10;
         else if (userSubmissions === 1) points = 7;
         else if (userSubmissions === 2) points = 5;
 
+        /*FEEDBACK: I recommend grouping game logic that you always want to do at the same time into a separate function and calling it within this function
+        the gameDispatch, socket, and sessionStorage can be separated into a function that updatesUserSubmission.
+
+        same below with the userDispatch, emitting 'update-user' and setting the user in sessionStorage.
+
+        ultimately, i think you want to pull this checkCode function into another file entirely, so that this file mostly holds react component logic
+        */
         // update gameState increment current submissions by 1
         gameDispatch({
           type: GAME_ACTIONS.SET_GAME,
@@ -76,7 +89,7 @@ const Game = () => {
 
         socket.emit("new-game-state", newGameState, userState.roomCode);
         window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
-        
+
         // update user submitted status to true
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,

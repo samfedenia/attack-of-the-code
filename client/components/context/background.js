@@ -27,6 +27,7 @@ export const BackgroundProvider = ({ children }) => {
 
     const [backgroundsState, backgroundsDispatch] = useReducer(reducer, initialState);
 
+        //FEEDBACK: i believe you have to clean this up, right?
     useEffect(() => {
         getBackgrounds().then(response => backgroundsDispatch(
         {
