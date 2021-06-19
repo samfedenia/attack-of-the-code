@@ -4,8 +4,6 @@ import styles from "./css/Game.module.css";
 import editorStyles from "./css/Editor.module.css";
 import Prompt from "./Prompt";
 import CodePenClone from "./CodePenClone";
-import GameSetup from "./GameSetup";
-import Between from "./Between";
 import { GameContext, GAME_ACTIONS } from "./context/game";
 import { UserContext, USER_ACTIONS } from "./context/user";
 import { SocketContext } from "./context/socket";
@@ -21,7 +19,7 @@ const Game = () => {
   useEffect(() => {
     const { challenges, currentRound } = gameState;
     setJs(challenges[currentRound]?.start);
-  }, [gameState]);
+  }, [gameState.challenges]);
 
   const runCode = () => {
     setResult(eval(js));
@@ -78,11 +76,12 @@ const Game = () => {
           userSubmissions: gameState.userSubmissions + 1,
         };
 
-        socket.emit("new-game-state", newGameState, userState.roomCode);
+        // socket.emit("new-game-state", newGameState, userState.roomCode);
         window.sessionStorage.setItem(
           "gameStatus",
           JSON.stringify(newGameState)
         );
+        socket.emit("answer-submission", userState.roomCode);
 
         // update user submitted status to true
         userDispatch({
@@ -150,29 +149,25 @@ const Game = () => {
 
   return (
     <div className={styles.game}>
-      {gameState.gameStatus === "setup" && <GameSetup />}
-      {gameState.gameStatus === "playing" && (
-        <div>
-          <Prompt />
-          <CodePenClone value={js} onChange={setJs} />
-          <div className={editorStyles.runBtn}>
-            <button onClick={runCode}>Run</button>
-            <button onClick={checkCode}>Submit</button>
-            <button onClick={resetCode}>Reset</button>
-          </div>
-          <div className={editorStyles.pane}>
-            <iframe
-              srcDoc={srcDoc}
-              title="output"
-              sandbox="allow-scripts"
-              frameBorder="0"
-              width="100%"
-              height="100%"
-            />
-          </div>
+      <div>
+        <Prompt />
+        <CodePenClone value={js} onChange={setJs} />
+        <div className={editorStyles.runBtn}>
+          <button onClick={runCode}>Run</button>
+          <button onClick={checkCode}>Submit</button>
+          <button onClick={resetCode}>Reset</button>
         </div>
-      )}
-      {gameState.gameStatus === "between" && <Between />}
+        <div className={editorStyles.pane}>
+          <iframe
+            srcDoc={srcDoc}
+            title="output"
+            sandbox="allow-scripts"
+            frameBorder="0"
+            width="100%"
+            height="100%"
+          />
+        </div>
+      </div>
     </div>
   );
 };
