@@ -19,6 +19,7 @@ import { SocketContext } from './context/socket';
 import { UserContext, USER_ACTIONS } from './context/user';
 import { BackgroundContext } from './context/background';
 import { ViewContext, VIEW_ACTIONS } from './context/view';
+import { namesList } from '../../public/namesList';
 
 const LandingPage = () => {
   const [font, setFont] = useState('StarJedi');
@@ -74,7 +75,7 @@ const LandingPage = () => {
     setFormState({
       ...formState,
       avatar: headshots[randomIndex],
-      playerName: 'Anon',
+      playerName: namesList[Math.floor(Math.random() * namesList.length)].toLowerCase(),
       roomCode: createRoomCode(),
     });
   };
