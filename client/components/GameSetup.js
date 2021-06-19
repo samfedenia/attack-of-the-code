@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import styles from './css/Game.module.css';
-import { quotesp } from '../quotes';
-import { GameContext, GAME_ACTIONS } from './context/game';
-import { UserContext } from './context/user';
-import { SocketContext } from './context/socket';
-import axios from 'axios';
-import { Button } from 'react-materialize';
+import React, { useContext, useEffect, useState } from "react";
+import styles from "./css/Game.module.css";
+import { quotesp } from "../quotes";
+import { GameContext, GAME_ACTIONS } from "./context/game";
+import { UserContext } from "./context/user";
+import { SocketContext } from "./context/socket";
+import axios from "axios";
+import { Button } from "react-materialize";
 
-import Between from './Between';
+import Between from "./Between";
 
 const GameSetup = () => {
   const idx = Math.floor(Math.random() * quotesp.length);
@@ -15,15 +15,15 @@ const GameSetup = () => {
   const { userState } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
-  const [level, setLevel] = useState('');
-  const [totalRounds, setTotalRounds] = useState('');
+  const [level, setLevel] = useState("");
+  const [totalRounds, setTotalRounds] = useState("");
   const arrayOfLevels = [
-    'demo',
-    'youngling',
-    'padawan',
-    'jedi',
-    'master',
-    'sith',
+    "demo",
+    "youngling",
+    "padawan",
+    "jedi",
+    "master",
+    "sith",
   ];
 
   const changeGameState = async (e) => {
@@ -34,16 +34,16 @@ const GameSetup = () => {
 
     const newGameState = {
       ...gameState,
-      gameStatus: 'playing',
+      gameStatus: "playing",
       challenges,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
-    socket.emit('new-game-state', newGameState, userState.roomCode);
-    window.sessionStorage.setItem('gameStatus', JSON.stringify(newGameState));
+    socket.emit("new-game-state", newGameState, userState.roomCode);
+    window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
   };
 
   useEffect(() => {
-    const game = JSON.parse(window.sessionStorage.getItem('gameStatus'));
+    const game = JSON.parse(window.sessionStorage.getItem("gameStatus"));
     if (game) {
       gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: game });
       // update playerlist here?

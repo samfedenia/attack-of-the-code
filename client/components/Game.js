@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
-import 'materialize-css';
-import styles from './css/Game.module.css';
-import editorStyles from './css/Editor.module.css';
-import Prompt from './Prompt';
-import CodePenClone from './CodePenClone';
-import GameSetup from './GameSetup';
-import { GameContext, GAME_ACTIONS } from './context/game';
-import { UserContext, USER_ACTIONS } from './context/user';
-import { SocketContext } from './context/socket';
+import React, { useState, useEffect, useContext } from "react";
+import "materialize-css";
+import styles from "./css/Game.module.css";
+import editorStyles from "./css/Editor.module.css";
+import Prompt from "./Prompt";
+import CodePenClone from "./CodePenClone";
+import GameSetup from "./GameSetup";
+import Between from "./Between";
+import { GameContext, GAME_ACTIONS } from "./context/game";
+import { UserContext, USER_ACTIONS } from "./context/user";
+import { SocketContext } from "./context/socket";
 
 const Game = () => {
-  const [js, setJs] = useState('');
-  const [srcDoc, setSrcDoc] = useState('');
-  const [result, setResult] = useState('');
+  const [js, setJs] = useState("");
+  const [srcDoc, setSrcDoc] = useState("");
+  const [result, setResult] = useState("");
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -50,12 +51,12 @@ const Game = () => {
       totalRounds,
       challenges,
       currentRound,
-      userSubmissions
+      userSubmissions,
     } = gameState;
     try {
       let answer1 = eval(js + `\n${challenges[currentRound].testCall1}`);
       let answer2 = eval(js + `\n${challenges[currentRound].testCall2}`);
-    
+
       if (
         answer1 === challenges[currentRound].testResult1 &&
         answer2 === challenges[currentRound].testResult2
@@ -69,23 +70,33 @@ const Game = () => {
         // update gameState increment current submissions by 1
         gameDispatch({
           type: GAME_ACTIONS.SET_GAME,
-          payload: { userSubmissions: gameState.userSubmissions + 1}
+          payload: { userSubmissions: gameState.userSubmissions + 1 },
         });
 
-        const newGameState = { ...gameState,userSubmissions: gameState.userSubmissions + 1}
+        const newGameState = {
+          ...gameState,
+          userSubmissions: gameState.userSubmissions + 1,
+        };
 
         socket.emit("new-game-state", newGameState, userState.roomCode);
-        window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
-        
+        window.sessionStorage.setItem(
+          "gameStatus",
+          JSON.stringify(newGameState)
+        );
+
         // update user submitted status to true
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
           payload: { submitted: true },
         });
 
-        const newUserState = { ...userState, submitted: true, score: userState.score + points }
+        const newUserState = {
+          ...userState,
+          submitted: true,
+          score: userState.score + points,
+        };
         // emit user with our relevant score
-        socket.emit('update-user', newUserState);
+        socket.emit("update-user", newUserState);
         window.sessionStorage.setItem("user", JSON.stringify(newUserState));
 
         userDispatch({
@@ -94,10 +105,10 @@ const Game = () => {
         });
         // alert(`Winner Winner Chicken Dinner`);
       } else {
-        alert('incorrect');
+        alert("incorrect");
       }
     } catch (error) {
-        setSrcDoc(`
+      setSrcDoc(`
               <html>
                 <style>
                   * {
@@ -139,9 +150,8 @@ const Game = () => {
 
   return (
     <div className={styles.game}>
-      {gameState.gameStatus === 'setup' ? (
-        <GameSetup />
-      ) : (
+      {gameState.gameStatus === "setup" && <GameSetup />}
+      {gameState.gameStatus === "playing" && (
         <div>
           <Prompt />
           <CodePenClone value={js} onChange={setJs} />
@@ -162,6 +172,7 @@ const Game = () => {
           </div>
         </div>
       )}
+      {gameState.gameStatus === "between" && <Between />}
     </div>
   );
 };
