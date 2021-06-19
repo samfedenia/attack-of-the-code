@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { GameContext, GAME_ACTIONS } from "./context/game";
-import { UserContext, USER_ACTIONS } from "./context/user";
-import { SocketContext } from "./context/socket";
+import React, { useContext, useEffect, useState } from 'react';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext, USER_ACTIONS } from './context/user';
+import { SocketContext } from './context/socket';
 
-function GameStateHandler() {
+function GameStateHandler({ submissionState, setSubmissionState }) {
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
   const socket = useContext(SocketContext);
-
-  const [submissionState, setSubmissionState] = useState(0);
 
   useEffect(() => {
     if (submissionState === 3) {
@@ -16,27 +14,25 @@ function GameStateHandler() {
         type: GAME_ACTIONS.SET_GAME,
         payload: {
           ...gameState,
-          gameStatus: "between",
+          gameStatus: 'between',
         },
       });
       socket.emit(
-        "new-game-state",
+        'new-game-state',
         {
           ...gameState,
-          gameStatus: "between",
+          gameStatus: 'between',
         },
         userState.roomCode
       );
-      window.sessionStorage.setItem("gameStatus", JSON.stringify(gameState));
+      window.sessionStorage.setItem('gameStatus', JSON.stringify(gameState));
     }
-
-    socket.on("answer-total-update", () => {
+    socket.on('answer-total-update', () => {
       setSubmissionState(submissionState + 1);
       console.log(submissionState);
     });
-
     return () => {
-      socket.off("answer-total-update");
+      socket.off('answer-total-update');
     };
   }, [submissionState]);
 
@@ -48,17 +44,15 @@ function GameStateHandler() {
       totalRounds,
       challenges,
       currentRound,
-      userSubmissions,
     } = gameState;
 
     if (userState.submitted === true) {
-      if (gameStatus !== "between") {
+      if (gameStatus !== 'between') {
         gameDispatch({
           type: GAME_ACTIONS.SET_GAME,
           payload: {
             ...gameState,
-            gameStatus: "between",
-            userSubmissions: 0,
+            gameStatus: 'between',
           },
         });
         userDispatch({
@@ -69,14 +63,13 @@ function GameStateHandler() {
           },
         });
       }
-    } else if (userSubmissions === 3) {
-      if (gameStatus !== "between") {
+    } else if (submissionState === 3) {
+      if (gameStatus !== 'between') {
         gameDispatch({
           type: GAME_ACTIONS.SET_GAME,
           payload: {
             ...gameState,
-            gameStatus: "between",
-            userSubmissions: 0,
+            gameStatus: 'between',
           },
         });
         userDispatch({
@@ -92,12 +85,12 @@ function GameStateHandler() {
         type: GAME_ACTIONS.SET_GAME,
         payload: {
           ...gameState,
-          gameStatus: "gameover",
+          gameStatus: 'gameover',
           totalRounds: 0,
         },
       });
     }
-  }, [gameState]);
+  }, [gameState, userState]);
 
   return <></>;
 }
