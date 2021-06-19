@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import "materialize-css";
 import { Container } from "react-materialize";
 import styles from "./css/Game.module.css";
@@ -8,12 +8,14 @@ import { UserContext, USER_ACTIONS } from "./context/user";
 import PlayerList from "./PlayerList";
 import Chat from "./Chat";
 import Game from "./Game";
+import GameSetup from "./GameSetup";
+import Between from "./Between";
 import GameStateHandler from "./GameStateHandler";
 
 const GameContainer = () => {
   const socket = useContext(SocketContext);
 
-  const { gameDispatch } = useContext(GameContext);
+  const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
 
   useEffect(() => {
@@ -24,6 +26,7 @@ const GameContainer = () => {
 
     return () => {
       socket.off("game-state");
+      socket.off("answer-total-update");
     };
   }, []);
 
@@ -55,7 +58,9 @@ const GameContainer = () => {
         <PlayerList />
       </div>
       <div className="grid-item grid-item-2">
-        <Game />
+        {gameState.gameStatus === "setup" && <GameSetup />}
+        {gameState.gameStatus === "playing" && <Game />}
+        {gameState.gameStatus === "between" && <Between />}
         <GameStateHandler />
       </div>
       <div className="grid-item grid-item-3">
