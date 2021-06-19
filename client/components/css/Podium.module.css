@@ -1,0 +1,66 @@
+body {
+    background-color: black;
+}
+
+.podiumContainer {
+    margin-top: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.standContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stand {
+    background-color: rgb(167, 161, 161);
+    border-radius: 5%;
+    width: 100px;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 50px;
+    font-family: StarJedi;
+    color: white;
+}
+
+#second {
+    height: 100px;
+}
+
+#first {
+    height: 150px;
+}
+
+#third {
+    height: 60px;
+}
+
+#second::after {
+    content: '2';
+}
+
+#first::after {
+    content: '1';
+}
+
+#third::after {
+    content: '3';
+}
+
+.avatarContainer {
+    height: 90px;
+    width: 90px;
+    background-color: white;
+    margin-bottom: 10px;
+    /* border: 5px solid black; */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
