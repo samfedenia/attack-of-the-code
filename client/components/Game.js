@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
-import "materialize-css";
-import styles from "./css/Game.module.css";
-import editorStyles from "./css/Editor.module.css";
-import Prompt from "./Prompt";
-import CodePenClone from "./CodePenClone";
-import { GameContext, GAME_ACTIONS } from "./context/game";
-import { UserContext, USER_ACTIONS } from "./context/user";
-import { SocketContext } from "./context/socket";
+import React, { useState, useEffect, useContext } from 'react';
+import 'materialize-css';
+import styles from './css/Game.module.css';
+import editorStyles from './css/Editor.module.css';
+import Prompt from './Prompt';
+import CodePenClone from './CodePenClone';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext, USER_ACTIONS } from './context/user';
+import { SocketContext } from './context/socket';
 
-const Game = () => {
-  const [js, setJs] = useState("");
-  const [srcDoc, setSrcDoc] = useState("");
-  const [result, setResult] = useState("");
+const Game = ({ submissionState, setSubmissionState }) => {
+  const [js, setJs] = useState('');
+  const [srcDoc, setSrcDoc] = useState('');
+  const [result, setResult] = useState('');
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -49,7 +49,6 @@ const Game = () => {
       totalRounds,
       challenges,
       currentRound,
-      userSubmissions,
     } = gameState;
     try {
       let answer1 = eval(js + `\n${challenges[currentRound].testCall1}`);
@@ -61,27 +60,11 @@ const Game = () => {
       ) {
         // look at gameState to determine how many current submissions to determine how many points to get 10, 7, 5
         let points = 0;
-        if (userSubmissions === 0) points = 10;
-        else if (userSubmissions === 1) points = 7;
-        else if (userSubmissions === 2) points = 5;
+        if (submissionState === 0) points = 10;
+        else if (submissionState === 1) points = 7;
+        else if (submissionState === 2) points = 5;
 
-        // update gameState increment current submissions by 1
-        gameDispatch({
-          type: GAME_ACTIONS.SET_GAME,
-          payload: { userSubmissions: gameState.userSubmissions + 1 },
-        });
-
-        const newGameState = {
-          ...gameState,
-          userSubmissions: gameState.userSubmissions + 1,
-        };
-
-        // socket.emit("new-game-state", newGameState, userState.roomCode);
-        window.sessionStorage.setItem(
-          "gameStatus",
-          JSON.stringify(newGameState)
-        );
-        socket.emit("answer-submission", userState.roomCode);
+        socket.emit('answer-submission', userState.roomCode);
 
         // update user submitted status to true
         userDispatch({
@@ -95,16 +78,15 @@ const Game = () => {
           score: userState.score + points,
         };
         // emit user with our relevant score
-        socket.emit("update-user", newUserState);
-        window.sessionStorage.setItem("user", JSON.stringify(newUserState));
+        socket.emit('update-user', newUserState);
+        window.sessionStorage.setItem('user', JSON.stringify(newUserState));
 
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
           payload: { score: userState.score + points },
         });
-        // alert(`Winner Winner Chicken Dinner`);
       } else {
-        alert("incorrect");
+        alert('incorrect');
       }
     } catch (error) {
       setSrcDoc(`
