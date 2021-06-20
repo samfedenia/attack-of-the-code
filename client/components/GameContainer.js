@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
-import 'materialize-css';
-import { Container } from 'react-materialize';
+// import 'materialize-css';
+// import { Container } from 'react-materialize';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 import { GameContext, GAME_ACTIONS } from './context/game';
@@ -12,6 +12,9 @@ import GameSetup from './GameSetup';
 import Between from './Between';
 import GameStateHandler from './GameStateHandler';
 import Podium from './Podium';
+
+import { Modal, Container, Row, Col, Button, Alert, Breadcrumb, Card, Form, Dropdown, DropdownButton, Nav, Navbar, NavDropdown, FormControl } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const GameContainer = () => {
   const [submissionState, setSubmissionState] = useState(0);
@@ -61,11 +64,12 @@ const GameContainer = () => {
   }, []);
 
   return (
-    <div className="grid-container">
-      <div className="grid-item grid-item-1">
+    <>
+    <Container style={{maxWidth: '90%'}} className="bootstrap-container">
+      <Col className="bootstrap-col col-one">
         <PlayerList playerList={playerList}/>
-      </div>
-      <div className="grid-item grid-item-2">
+      </Col>
+      <Col className="bootstrap-col col-two" xs={5}>
         {gameState.gameStatus === 'gameover' && <Podium playerList={playerList} />}
         {gameState.gameStatus === 'setup' && <GameSetup playerList={playerList}/>}
         {gameState.gameStatus === 'playing' && (
@@ -82,14 +86,15 @@ const GameContainer = () => {
           submissionState={submissionState}
           setSubmissionState={setSubmissionState}
         />
-      </div>
-      <div className="grid-item grid-item-3">
+      </Col>
+      <Col className="bootstrap-col col-three">
         <marquee scrollamount="10" className="marquee-sw">
           May the Force be with You
         </marquee>
         <Chat />
-      </div>
-    </div>
+      </Col>
+    </Container>
+    </>
   );
 };
 
