@@ -7,6 +7,7 @@ import { SocketContext } from "./context/socket";
 import axios from "axios";
 import { Button } from "react-materialize";
 
+import Podium from "./Podium";
 import Between from "./Between";
 
 const GameSetup = () => {
@@ -16,7 +17,7 @@ const GameSetup = () => {
   const socket = useContext(SocketContext);
 
   const [level, setLevel] = useState("");
-  const [totalRounds, setTotalRounds] = useState("");
+  const [totalRounds, setTotalRounds] = useState(1);
   const arrayOfLevels = [
     "demo",
     "youngling",
@@ -36,6 +37,7 @@ const GameSetup = () => {
       ...gameState,
       gameStatus: "playing",
       challenges,
+      totalRounds: totalRounds * 1,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
     socket.emit("new-game-state", newGameState, userState.roomCode);
@@ -74,7 +76,7 @@ const GameSetup = () => {
             ))}
           </select>
           <select
-            name="rounds"
+            name="totalRounds"
             value={totalRounds}
             onChange={(e) => setTotalRounds(e.target.value)}
             className="browser-default"

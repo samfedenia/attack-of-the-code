@@ -11,6 +11,7 @@ import Game from './Game';
 import GameSetup from './GameSetup';
 import Between from './Between';
 import GameStateHandler from './GameStateHandler';
+import Podium from './Podium';
 
 const GameContainer = () => {
   const [submissionState, setSubmissionState] = useState(0);
@@ -19,6 +20,16 @@ const GameContainer = () => {
 
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
+
+  const [playerList, setPlayerList] = useState([]);
+
+  useEffect(() => {
+    socket.on('user-list', (allPlayers) => {
+      const allplayersFiltered = allPlayers.sort((a, b) => b.score - a.score);
+
+      setPlayerList(allplayersFiltered);
+    });
+  }, []);
 
   useEffect(() => {
     socket.on('game-state', (gameState) => {
@@ -52,10 +63,11 @@ const GameContainer = () => {
   return (
     <div className="grid-container">
       <div className="grid-item grid-item-1">
-        <PlayerList />
+        <PlayerList playerList={playerList}/>
       </div>
       <div className="grid-item grid-item-2">
-        {gameState.gameStatus === 'setup' && <GameSetup />}
+        {gameState.gameStatus === 'gameover' && <Podium playerList={playerList} />}
+        {gameState.gameStatus === 'setup' && <GameSetup playerList={playerList}/>}
         {gameState.gameStatus === 'playing' && (
           <Game
             submissionState={submissionState}

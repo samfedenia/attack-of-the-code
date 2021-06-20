@@ -74,6 +74,16 @@
   padding: 0.25rem;
 }
 
+.playerNameSelected {
+  background-color: dodgerblue;
+  font-family: StarJedi;
+  border-radius: 1em;
+  width: 100%;
+  color: black;
+  text-align: center;
+  padding: 0.25rem;
+}
+
 /* .playGame {
   border-style: none;
   margin-top: 1rem;
