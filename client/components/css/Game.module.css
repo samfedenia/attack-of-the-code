@@ -44,14 +44,14 @@
 } */
 
 .playerOuterAvatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0.5rem;
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: white;
 }
 
 .playerInnerAvatar {
@@ -101,7 +101,7 @@
   display: inline-block;
   height: 10vh;
   width: 30vw;
-  color:#00e7e7;
+  color: #00e7e7;
   font-family: Verdana;
   text-align: center;
 }
@@ -193,6 +193,16 @@ button {
 
 .clipboardToast {
   border-radius: 2rem;
+  background-color: #222;
+  color: white;
+  width: fit-content;
+  height: fit-content;
+}
+.chip {
+  background-color: rgba(68, 68, 68, 0.425);
+  color: white;
+  border: solid 1px black;
+  /* box-shadow: 3px 3px #222, -1em 0 0.4em #222; */
 }
 
 .prompt {
