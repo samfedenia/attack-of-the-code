@@ -1,19 +1,19 @@
-import React, { createContext, useReducer, useMemo } from 'react';
+import React, { createContext, useReducer, useMemo } from "react";
 
 export const GameContext = createContext();
 
 export const GAME_ACTIONS = {
-  SET_GAME: 'SET_GAME',
+  SET_GAME: "SET_GAME",
 };
 
 const initialState = {
   timeLimit: 90,
-  gameStatus: 'setup', //playing, between, gameover
-  level: 'demo',
-  totalRounds: 2,
+  gameStatus: "setup", //playing, between, gameover
+  level: "demo",
+  totalRounds: 1,
   challenges: [],
   currentRound: 0,
-  roundComplete: false
+  roundComplete: false,
 };
 
 const gameReducer = (state, action) => {
