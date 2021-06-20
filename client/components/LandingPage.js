@@ -45,6 +45,12 @@ const LandingPage = () => {
   };
 
   useEffect(() => {
+    if (joinCode[0] === 'join' && joinCode[1] !== undefined) {
+      navigator.clipboard.writeText(joinCode[1]);
+    }
+  }, []);
+
+  useEffect(() => {
     checkExistingUserSession();
     getCharacters().then((images) => {
       setHeadshots(images);
