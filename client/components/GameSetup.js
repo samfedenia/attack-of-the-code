@@ -7,6 +7,7 @@ import { SocketContext } from "./context/socket";
 import axios from "axios";
 import { Button } from "react-materialize";
 
+import Podium from './Podium';
 import Between from "./Between";
 
 const GameSetup = () => {

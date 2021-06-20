@@ -16,7 +16,7 @@ const Prompt = () => {
   return (
     <div className={styles.prompt}>
       <div className={styles.challenge}>
-        <p>{challenges[currentRound].prompt}</p>
+        <p>{challenges[currentRound]?.prompt}</p>
       </div>
     </div>
   );

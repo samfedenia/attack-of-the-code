@@ -2,9 +2,11 @@ import React, { useEffect, useContext, useState } from 'react';
 import 'materialize-css';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
+import { UserContext } from "./context/user";
 
 const PlayerList = ({ playerList }) => {
   const socket = useContext(SocketContext);
+  const { userState } = useContext(UserContext);
 
   // const [playerList, setPlayerList] = useState([]);
 

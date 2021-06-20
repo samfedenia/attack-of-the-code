@@ -11,6 +11,7 @@ import Game from './Game';
 import GameSetup from './GameSetup';
 import Between from './Between';
 import GameStateHandler from './GameStateHandler';
+import Podium from './Podium';
 
 const GameContainer = () => {
   const [submissionState, setSubmissionState] = useState(0);
@@ -65,7 +66,8 @@ const GameContainer = () => {
         <PlayerList playerList={playerList}/>
       </div>
       <div className="grid-item grid-item-2">
-        {gameState.gameStatus === 'setup' && <GameSetup />}
+        {gameState.gameStatus === 'gameover' && <Podium playerList={playerList} />}
+        {gameState.gameStatus === 'setup' && <GameSetup playerList={playerList}/>}
         {gameState.gameStatus === 'playing' && (
           <Game
             submissionState={submissionState}

@@ -113,6 +113,7 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
           ...gameState,
           gameStatus: 'gameover',
           totalRounds: 0,
+          currentRound: 0
         },
       });
       window.sessionStorage.setItem('gameStatus', JSON.stringify({
