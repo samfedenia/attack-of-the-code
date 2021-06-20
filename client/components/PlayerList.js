@@ -34,8 +34,14 @@ const PlayerList = ({ playerList }) => {
                   }}
                 ></div>
               </div>
-              <div className={styles.playerName}>
-                {player.playerName}: {player.score}
+              <div 
+                className={
+                  player.playerName === userState.playerName ? styles.playerNameSelected : styles.playerName
+                }>
+                {
+                  player.playerName === userState.playerName ? <span>&nbsp;&#9734;&nbsp;</span> : null
+                }
+                {player.playerName}: {player.score}&nbsp;
               </div>
             </div>
           </div>
