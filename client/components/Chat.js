@@ -142,16 +142,43 @@ const Chat = () => {
       <Col>
         <div className={styles.chatInfo}>
           <Row>
-            <Chip onClick={handleClickCopyRoomCode} className={styles.chip}>
+            <Button
+              onClick={handleClickCopyRoomCode}
+              className={styles.roomCodeButton}
+              style={{
+                color: 'black',
+                backgroundColor: '#fff103',
+                fontFamily: 'Verdana',
+                letterSpacing: '.1em',
+                width: '100%',
+                marginBottom: '.2rem',
+              }}
+            >
               <i className='tiny material-icons'>content_copy</i>
               <span>{'  '}</span>
-              Room: {userState.roomCode}
-            </Chip>
-            <Chip onClick={handleClickLogout} className={styles.chip}>
+              <span
+                className={styles.roomCodeText}
+                style={{ fontFamily: 'Verdana' }}
+              >
+                Room: {userState.roomCode}
+              </span>
+              <span className={styles.inviteLink}></span>
+            </Button>
+
+            <Button
+              onClick={handleClickLogout}
+              style={{
+                color: 'black',
+                backgroundColor: '#fff103',
+                fontFamily: 'Verdana',
+                letterSpacing: '.1em',
+                width: '100%',
+              }}
+            >
               <i className='tiny material-icons'>logout</i>
               <span>{'  '}</span>
               Leave Game
-            </Chip>
+            </Button>
           </Row>
         </div>
         <Row>
