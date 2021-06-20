@@ -212,6 +212,7 @@ button {
   background-color: rgba(68, 68, 68, 0.425);
   color: white;
   border: solid 1px black;
+  cursor: pointer;
   /* box-shadow: 3px 3px #222, -1em 0 0.4em #222; */
 }
 

@@ -1,18 +1,18 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
-import 'materialize-css';
-import {
-  Container,
-  Button,
-  TextInput,
-  Dropdown,
-  Divider,
-  Icon,
-  Card,
-  Row,
-  Col,
-  Select,
-} from 'react-materialize';
+// import 'materialize-css';
+// import {
+//   Container as MaterializeContainer,
+//   Button,
+//   TextInput,
+//   Dropdown,
+//   Divider,
+//   Icon,
+//   Card,
+//   Row,
+//   Col,
+//   Select,
+// } from 'react-materialize';
 import Cycle from './Cycle';
 import styles from './css/LandingPage.module.css';
 import { SocketContext } from './context/socket';
@@ -20,6 +20,9 @@ import { UserContext, USER_ACTIONS } from './context/user';
 import { BackgroundContext } from './context/background';
 import { ViewContext, VIEW_ACTIONS } from './context/view';
 import { namesList } from '../../public/namesList';
+
+import { Modal, Container, Row, Col, Button, Alert, Breadcrumb, Card, Form, Dropdown, DropdownButton, Nav, Navbar, NavDropdown, FormControl } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LandingPage = () => {
   const [font, setFont] = useState('StarJedi');
@@ -162,7 +165,7 @@ const LandingPage = () => {
       />
       <form onSubmit={handleSubmit} autoComplete="off">
         <Row className={styles.form}>
-          <TextInput
+          <FormControl
             type="text"
             placeholder="Name"
             name="playerName"
@@ -176,7 +179,7 @@ const LandingPage = () => {
             }}
           />
 
-          <TextInput
+          <FormControl
             id="TextInput-4"
             placeholder="Room Code"
             name="roomCode"
@@ -198,6 +201,7 @@ const LandingPage = () => {
               fontFamily: 'Verdana',
               letterSpacing: '.1em',
               width: '10rem',
+              borderStyle: 'none'
             }}
             type="submit"
             node="button"
