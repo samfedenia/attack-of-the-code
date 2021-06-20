@@ -27,10 +27,12 @@ const LandingPage = () => {
   const [wobble, setWobble] = useState(0);
   const [headshots, setHeadshots] = useState([]);
   const [num, setNum] = useState(0); // index for background array
+  const joinCode = window.location.pathname.split('/').slice(1);
   const [formState, setFormState] = useState({
     avatar: 'star_wars_heads_0000_Layer-3.png',
     playerName: 'padawan',
-    roomCode: '',
+    roomCode:
+      joinCode[0] === 'join' && joinCode[1] !== undefined ? joinCode[1] : '',
   });
 
   const { userState, userDispatch } = useContext(UserContext);
@@ -75,7 +77,8 @@ const LandingPage = () => {
     setFormState({
       ...formState,
       avatar: headshots[randomIndex],
-      playerName: namesList[Math.floor(Math.random() * namesList.length)].toLowerCase(),
+      playerName:
+        namesList[Math.floor(Math.random() * namesList.length)].toLowerCase(),
       roomCode: createRoomCode(),
     });
   };
@@ -127,9 +130,9 @@ const LandingPage = () => {
     <Container className={styles.container}>
       {/* <Row className={styles.innerContainer} style={{backgroundImage: `url(/attackOfTheCodeLOGO.png)`}}>
             </Row> */}
-      <img className={styles.logo} src="/attackOfTheCodeLOGO.png" />
+      <img className={styles.logo} src='/attackOfTheCodeLOGO.png' />
       <Row className={styles.switch}>
-        <div className="switch">
+        <div className='switch'>
           <label
             style={{
               fontFamily: font,
@@ -139,8 +142,8 @@ const LandingPage = () => {
             }}
           >
             English
-            <input onClick={changeFont} type="checkbox" />
-            <span className="lever"></span>
+            <input onClick={changeFont} type='checkbox' />
+            <span className='lever'></span>
             Aurebesh
           </label>
         </div>
@@ -150,7 +153,7 @@ const LandingPage = () => {
           onClick={randomize}
           onAnimationEnd={() => setWobble(0)}
           wobble={wobble}
-          src="/change_cube_transparent.png"
+          src='/change_cube_transparent.png'
         />
       </Row>
       <Cycle
@@ -160,12 +163,12 @@ const LandingPage = () => {
         formState={formState}
         setFormState={setFormState}
       />
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <form onSubmit={handleSubmit} autoComplete='off'>
         <Row className={styles.form}>
           <TextInput
-            type="text"
-            placeholder="Name"
-            name="playerName"
+            type='text'
+            placeholder='Name'
+            name='playerName'
             onChange={handleChange}
             value={formState.playerName}
             style={{
@@ -177,9 +180,9 @@ const LandingPage = () => {
           />
 
           <TextInput
-            id="TextInput-4"
-            placeholder="Room Code"
-            name="roomCode"
+            id='TextInput-4'
+            placeholder='Room Code'
+            name='roomCode'
             onChange={handleChange}
             value={formState.roomCode}
             style={{
@@ -188,7 +191,7 @@ const LandingPage = () => {
               textShadow: 'black 0px 0px 2px',
               letterSpacing: '.1em',
             }}
-            className="blue-border"
+            className='blue-border'
           />
 
           <Button
@@ -199,9 +202,9 @@ const LandingPage = () => {
               letterSpacing: '.1em',
               width: '10rem',
             }}
-            type="submit"
-            node="button"
-            waves="red"
+            type='submit'
+            node='button'
+            waves='red'
           >
             Join
           </Button>

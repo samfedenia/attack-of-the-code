@@ -111,7 +111,8 @@ const Chat = () => {
       displayLength: 1000,
       classes: styles.clipboardToast,
     });
-    navigator.clipboard.writeText(userState.roomCode);
+    const joinUrl = window.location.origin + '/join/' + userState.roomCode;
+    navigator.clipboard.writeText(joinUrl);
   }
 
   function handleChange(evt) {
