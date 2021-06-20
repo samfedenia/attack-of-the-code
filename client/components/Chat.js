@@ -130,17 +130,27 @@ const Chat = () => {
     setMessageInput('');
   }
 
+  function handleClickLogout(evt) {
+    evt.preventDefault();
+    window.sessionStorage.clear();
+    window.location.reload();
+  }
+
   return (
     <Container className={styles.chat}>
       <Col>
         <div className={styles.chatInfo}>
           <Row>
-            <Chip onClick={handleClickCopyRoomCode}>
+            <Chip onClick={handleClickCopyRoomCode} className={styles.chip}>
               <i className='tiny material-icons'>content_copy</i>
               <span>{'  '}</span>
               Room: {userState.roomCode}
             </Chip>
-            <Chip>Player: {userState.playerName}</Chip>
+            <Chip onClick={handleClickLogout} className={styles.chip}>
+              <i className='tiny material-icons'>logout</i>
+              <span>{'  '}</span>
+              Leave Game
+            </Chip>
           </Row>
         </div>
         <Row>
