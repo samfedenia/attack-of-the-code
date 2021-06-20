@@ -119,6 +119,7 @@ const LandingPage = () => {
       type: USER_ACTIONS.UPDATE_USER,
       payload: user,
     });
+    window.location.replace(window.location.origin);
   }
 
   function checkExistingUserSession() {
