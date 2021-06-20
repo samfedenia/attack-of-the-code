@@ -228,3 +228,15 @@ button {
   padding: 2rem;
   margin: 1.5rem;
 }
+
+/* chat button text */
+
+.roomCodeButton:hover .roomCodeText {
+  display: none;
+  font-family: 'Verdana';
+}
+
+.roomCodeButton:hover .inviteLink:before {
+  content: 'Click to copy invite link!';
+  font-family: 'Verdana';
+}
