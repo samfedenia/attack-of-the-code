@@ -3,18 +3,18 @@ import 'materialize-css';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
 
-const PlayerList = () => {
+const PlayerList = ({ playerList }) => {
   const socket = useContext(SocketContext);
 
-  const [playerList, setPlayerList] = useState([]);
+  // const [playerList, setPlayerList] = useState([]);
 
-  useEffect(() => {
-    socket.on('user-list', (allPlayers) => {
-      const allplayersFiltered = allPlayers.sort((a, b) => b.score - a.score);
+  // useEffect(() => {
+  //   socket.on('user-list', (allPlayers) => {
+  //     const allplayersFiltered = allPlayers.sort((a, b) => b.score - a.score);
 
-      setPlayerList(allplayersFiltered);
-    });
-  }, []);
+  //     setPlayerList(allplayersFiltered);
+  //   });
+  // }, []);
 
   return (
     <div className={styles.playerList}>

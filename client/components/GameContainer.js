@@ -20,6 +20,16 @@ const GameContainer = () => {
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
 
+  const [playerList, setPlayerList] = useState([]);
+
+  useEffect(() => {
+    socket.on('user-list', (allPlayers) => {
+      const allplayersFiltered = allPlayers.sort((a, b) => b.score - a.score);
+
+      setPlayerList(allplayersFiltered);
+    });
+  }, []);
+
   useEffect(() => {
     socket.on('game-state', (gameState) => {
       gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: gameState });
@@ -52,7 +62,7 @@ const GameContainer = () => {
   return (
     <div className="grid-container">
       <div className="grid-item grid-item-1">
-        <PlayerList />
+        <PlayerList playerList={playerList}/>
       </div>
       <div className="grid-item grid-item-2">
         {gameState.gameStatus === 'setup' && <GameSetup />}
