@@ -50,11 +50,6 @@ const GameContainer = () => {
   }, []);
 
   return (
-    // <Container className={styles.container}>
-    //   <PlayerList />
-    //   <Game />
-    //   <Chat />
-    // </Container>
     <div className="grid-container">
       <div className="grid-item grid-item-1">
         <PlayerList />
@@ -67,7 +62,10 @@ const GameContainer = () => {
             setSubmissionState={setSubmissionState}
           />
         )}
-        {gameState.gameStatus === 'between' && <Between />}
+        {gameState.gameStatus === 'between' && <Between 
+            submissionState={submissionState}
+            setSubmissionState={setSubmissionState}
+        />}
         <GameStateHandler
           submissionState={submissionState}
           setSubmissionState={setSubmissionState}

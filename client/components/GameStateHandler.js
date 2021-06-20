@@ -15,6 +15,7 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
         payload: {
           ...gameState,
           gameStatus: 'between',
+          roundComplete: true
         },
       });
       socket.emit(
@@ -25,7 +26,11 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
         },
         userState.roomCode
       );
-      window.sessionStorage.setItem('gameStatus', JSON.stringify(gameState));
+      window.sessionStorage.setItem('gameStatus', JSON.stringify({
+          ...gameState,
+          gameStatus: 'between',
+          roundComplete: true
+        }));
     }
     socket.on('answer-total-update', () => {
       setSubmissionState(submissionState + 1);
@@ -44,6 +49,7 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
       totalRounds,
       challenges,
       currentRound,
+      roundComplete
     } = gameState;
 
     if (userState.submitted === true) {
@@ -53,8 +59,14 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
           payload: {
             ...gameState,
             gameStatus: 'between',
+            roundComplete: true
           },
         });
+        window.sessionStorage.setItem('gameStatus', JSON.stringify({
+          ...gameState,
+          gameStatus: 'between',
+          roundComplete: true
+        }));
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
           payload: {
@@ -62,6 +74,10 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
             submitted: false,
           },
         });
+        window.sessionStorage.setItem('user', JSON.stringify({
+            ...userState,
+            submitted: false,
+          }));
       }
     } else if (submissionState === 3) {
       if (gameStatus !== 'between') {
@@ -70,8 +86,14 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
           payload: {
             ...gameState,
             gameStatus: 'between',
+            roundComplete: true
           },
         });
+        window.sessionStorage.setItem('gameStatus', JSON.stringify({
+          ...gameState,
+          gameStatus: 'between',
+          roundComplete: true
+        }));
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
           payload: {
@@ -79,7 +101,11 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
             submitted: false,
           },
         });
-      }
+        window.sessionStorage.setItem('user', JSON.stringify({
+            ...userState,
+            submitted: false,
+          }));
+      } 
     } else if (currentRound === totalRounds) {
       gameDispatch({
         type: GAME_ACTIONS.SET_GAME,
@@ -89,6 +115,11 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
           totalRounds: 0,
         },
       });
+      window.sessionStorage.setItem('gameStatus', JSON.stringify({
+          ...gameState,
+          gameStatus: 'between',
+          roundComplete: true
+        }));
     }
   }, [gameState, userState]);
 
