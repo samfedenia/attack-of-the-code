@@ -213,8 +213,9 @@ const LandingPage = () => {
             style={{
               color: "white",
               fontFamily: font,
-              textShadow: "black 0px 0px 2px",
-              letterSpacing: ".1em",
+              textShadow: 'black 0px 0px 2px',
+              letterSpacing: '.1em',
+              backgroundColor: 'transparent'
             }}
             className="blue-border"
           />

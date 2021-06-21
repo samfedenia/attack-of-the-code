@@ -1,11 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { quotesp } from "../quotes";
-import styles from "./css/Game.module.css";
-import changeCubeStyles from "./css/LandingPage.module.css";
-import { GameContext, GAME_ACTIONS } from "./context/game";
-import { UserContext, USER_ACTIONS } from "./context/user";
-import { SocketContext } from "./context/socket";
-import { Container, Row, Button } from "react-materialize";
+
+import React, { useContext, useEffect, useState } from 'react';
+import { quotesp } from '../quotes';
+import styles from './css/Game.module.css';
+import changeCubeStyles from './css/LandingPage.module.css';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext, USER_ACTIONS } from './context/user';
+import { SocketContext } from './context/socket';
+// import { Container, Row, Button } from 'react-materialize';
+
+import { Modal, Container, Row, Col, Button, Alert, Breadcrumb, Card, Form, Dropdown, DropdownButton, Nav, Navbar, NavDropdown, FormControl } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Between = ({ submissionState, setSubmissionState }) => {
   const randomize = () => Math.floor(Math.random() * quotesp.length);
