@@ -2,8 +2,19 @@ body {
     background-color: black;
 }
 
+.outerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.winner {
+    margin-top: 5rem;
+    font-family: StarJedi;
+}
+
 .podiumContainer {
-    margin-top: 300px;
+    margin-top: 5rem;
     display: flex;
     justify-content: center;
     align-items: flex-end;
