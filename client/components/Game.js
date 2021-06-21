@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-import 'materialize-css';
-import styles from './css/Game.module.css';
-import editorStyles from './css/Editor.module.css';
-import Prompt from './Prompt';
-import CodePenClone from './CodePenClone';
-import { GameContext, GAME_ACTIONS } from './context/game';
-import { UserContext, USER_ACTIONS } from './context/user';
-import { SocketContext } from './context/socket';
+import React, { useState, useEffect, useContext } from "react";
+import "materialize-css";
+import styles from "./css/Game.module.css";
+import editorStyles from "./css/Editor.module.css";
+import Prompt from "./Prompt";
+import CodePenClone from "./CodePenClone";
+import { GameContext, GAME_ACTIONS } from "./context/game";
+import { UserContext, USER_ACTIONS } from "./context/user";
+import { SocketContext } from "./context/socket";
 
 const Game = ({ submissionState, setSubmissionState }) => {
-  const [js, setJs] = useState('');
-  const [srcDoc, setSrcDoc] = useState('');
-  const [result, setResult] = useState('');
+  const [js, setJs] = useState("");
+  const [srcDoc, setSrcDoc] = useState("");
+  const [result, setResult] = useState("");
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
   const socket = useContext(SocketContext);
@@ -64,13 +64,7 @@ const Game = ({ submissionState, setSubmissionState }) => {
         else if (submissionState === 1) points = 7;
         else if (submissionState === 2) points = 5;
 
-        socket.emit('answer-submission', userState.roomCode);
-
-        // update user submitted status to true
-        userDispatch({
-          type: USER_ACTIONS.UPDATE_USER,
-          payload: { submitted: true },
-        });
+        socket.emit("answer-submission", userState.roomCode);
 
         const newUserState = {
           ...userState,
@@ -78,15 +72,14 @@ const Game = ({ submissionState, setSubmissionState }) => {
           score: userState.score + points,
         };
         // emit user with our relevant score
-        socket.emit('update-user', newUserState);
-        window.sessionStorage.setItem('user', JSON.stringify(newUserState));
+        socket.emit("update-user", newUserState);
 
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
-          payload: { score: userState.score + points },
+          payload: newUserState,
         });
       } else {
-        alert('incorrect');
+        alert("incorrect");
       }
     } catch (error) {
       setSrcDoc(`

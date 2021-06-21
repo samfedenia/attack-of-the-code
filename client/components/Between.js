@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect, useState } from 'react';
 import { quotesp } from '../quotes';
 import styles from './css/Game.module.css';
@@ -17,25 +18,24 @@ const Between = ({ submissionState, setSubmissionState }) => {
   const [wobble, setWobble] = useState(0);
   const socket = useContext(SocketContext);
   const { gameState, gameDispatch } = useContext(GameContext);
-  const { userState } = useContext(UserContext)
+  const { userState } = useContext(UserContext);
 
   useEffect(() => {
     if (submissionState !== 0) {
-      setSubmissionState(0)
+      setSubmissionState(0);
     }
-  }, [submissionState])
+  }, [submissionState]);
 
   const setGame = () => {
     const newGameState = {
       ...gameState,
       gameStatus: "playing",
       currentRound: gameState.currentRound + 1,
-      roundComplete: false
+      roundComplete: false,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
     socket.emit("new-game-state", newGameState, userState.roomCode);
-    window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
-  }
+  };
 
   return (
     <Container className={styles.container}>
@@ -55,9 +55,7 @@ const Between = ({ submissionState, setSubmissionState }) => {
           />
         </Row>
         <Row hidden={gameState.roundComplete}>
-          <Button
-            onClick={setGame}
-          >Next</Button>
+          <Button onClick={setGame}>Next</Button>
         </Row>
       </div>
     </Container>
