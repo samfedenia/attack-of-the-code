@@ -17,9 +17,14 @@ const initialState = {
 };
 
 const gameReducer = (state, action) => {
+  const newGameState = {
+    ...state,
+    ...action.payload,
+  };
   switch (action.type) {
     case GAME_ACTIONS.SET_GAME:
-      return { ...state, ...action.payload };
+      window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
+      return newGameState;
     default:
       return state;
   }

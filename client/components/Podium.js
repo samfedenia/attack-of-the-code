@@ -10,7 +10,6 @@ const Podium = ({ playerList }) => {
     }
   }, [playerList]);
 
-  console.log("Podium Player List:", playerList);
   return (
     <div className={styles.podiumContainer}>
       <h1 style={{ color: "yellow" }}>
