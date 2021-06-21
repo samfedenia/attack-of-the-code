@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
 // import 'materialize-css';
 // import {
 //   Container as MaterializeContainer,
@@ -13,13 +13,13 @@ import React, { useState, useEffect, useContext } from "react";
 //   Col,
 //   Select,
 // } from 'react-materialize';
-import Cycle from "./Cycle";
-import styles from "./css/LandingPage.module.css";
-import { SocketContext } from "./context/socket";
-import { UserContext, USER_ACTIONS } from "./context/user";
-import { BackgroundContext } from "./context/background";
-import { ViewContext, VIEW_ACTIONS } from "./context/view";
-import { namesList } from "../../public/namesList";
+import Cycle from './Cycle';
+import styles from './css/LandingPage.module.css';
+import { SocketContext } from './context/socket';
+import { UserContext, USER_ACTIONS } from './context/user';
+import { BackgroundContext } from './context/background';
+import { ViewContext, VIEW_ACTIONS } from './context/view';
+import { namesList } from '../../public/namesList';
 
 import {
   Modal,
@@ -37,21 +37,21 @@ import {
   Navbar,
   NavDropdown,
   FormControl,
-} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LandingPage = () => {
-  const [font, setFont] = useState("StarJedi");
+  const [font, setFont] = useState('StarJedi');
   const [toggle, setToggle] = useState(false);
   const [wobble, setWobble] = useState(0);
   const [headshots, setHeadshots] = useState([]);
   const [num, setNum] = useState(0); // index for background array
-  const joinCode = window.location.pathname.split("/").slice(1);
+  const joinCode = window.location.pathname.split('/').slice(1);
   const [formState, setFormState] = useState({
-    avatar: "star_wars_heads_0000_Layer-3.png",
-    playerName: "padawan",
+    avatar: 'star_wars_heads_0000_Layer-3.png',
+    playerName: 'padawan',
     roomCode:
-      joinCode[0] === "join" && joinCode[1] !== undefined ? joinCode[1] : "",
+      joinCode[0] === 'join' && joinCode[1] !== undefined ? joinCode[1] : '',
   });
 
   const { userState, userDispatch } = useContext(UserContext);
@@ -59,12 +59,12 @@ const LandingPage = () => {
   const { viewState, viewDispatch } = useContext(ViewContext);
   const socket = useContext(SocketContext);
   const getCharacters = async () => {
-    const { data: images } = await axios.get("/api/headshots");
+    const { data: images } = await axios.get('/api/headshots');
     return images;
   };
 
   useEffect(() => {
-    if (joinCode[0] === "join" && joinCode[1] !== undefined) {
+    if (joinCode[0] === 'join' && joinCode[1] !== undefined) {
       navigator.clipboard.writeText(joinCode[1]);
     }
   }, []);
@@ -77,10 +77,10 @@ const LandingPage = () => {
   }, []);
 
   const changeFont = () => {
-    if (font === "StarJedi") {
-      setFont("Aurebesh");
+    if (font === 'StarJedi') {
+      setFont('Aurebesh');
     } else {
-      setFont("StarJedi");
+      setFont('StarJedi');
     }
   };
 
@@ -88,10 +88,10 @@ const LandingPage = () => {
     setWobble(1);
     const randomNum = Math.floor(Math.random() * backgroundsState.length);
     document.body.style.background = `url(/backgrounds/${backgroundsState[randomNum]}), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
-    document.body.style.backgroundRepeat = "no-repeat";
-    document.body.style.backgroundPosition = "center center";
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center center';
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundAttachment = 'fixed';
     userDispatch({
       type: USER_ACTIONS.UPDATE_USER,
       payload: { background: backgroundsState[randomNum] },
@@ -105,7 +105,7 @@ const LandingPage = () => {
       playerName:
         namesList[Math.floor(Math.random() * namesList.length)].toLowerCase(),
       roomCode:
-        joinCode[0] === "join" && joinCode[1] !== undefined
+        joinCode[0] === 'join' && joinCode[1] !== undefined
           ? joinCode[1]
           : createRoomCode(),
     });
@@ -139,17 +139,16 @@ const LandingPage = () => {
       ...userState,
       ...formState,
     };
-
-    socket.emit("room", user);
+    window.location.replace(window.location.origin);
+    socket.emit('room', user);
     userDispatch({
       type: USER_ACTIONS.UPDATE_USER,
       payload: user,
     });
-    window.location.replace(window.location.origin);
   }
 
   function checkExistingUserSession() {
-    const formState = JSON.parse(window.sessionStorage.getItem("user"));
+    const formState = JSON.parse(window.sessionStorage.getItem('user'));
     if (formState) setFormState(formState);
   }
 
@@ -161,9 +160,9 @@ const LandingPage = () => {
           <label
             style={{
               fontFamily: font,
-              textShadow: "black 0px 0px 2px",
-              color: "white",
-              letterSpacing: ".1em",
+              textShadow: 'black 0px 0px 2px',
+              color: 'white',
+              letterSpacing: '.1em',
             }}
           >
             English
@@ -197,10 +196,10 @@ const LandingPage = () => {
             onChange={handleChange}
             value={formState.playerName}
             style={{
-              color: "white",
+              color: 'white',
               fontFamily: font,
-              textShadow: "black 0px 0px 2px",
-              letterSpacing: ".1em",
+              textShadow: 'black 0px 0px 2px',
+              letterSpacing: '.1em',
             }}
           />
 
@@ -211,23 +210,23 @@ const LandingPage = () => {
             onChange={handleChange}
             value={formState.roomCode}
             style={{
-              color: "white",
+              color: 'white',
               fontFamily: font,
               textShadow: 'black 0px 0px 2px',
               letterSpacing: '.1em',
-              backgroundColor: 'transparent'
+              backgroundColor: 'transparent',
             }}
             className="blue-border"
           />
 
           <Button
             style={{
-              color: "black",
-              backgroundColor: "#fff103",
-              fontFamily: "Verdana",
-              letterSpacing: ".1em",
-              width: "10rem",
-              borderStyle: "none",
+              color: 'black',
+              backgroundColor: '#fff103',
+              fontFamily: 'Verdana',
+              letterSpacing: '.1em',
+              width: '10rem',
+              borderStyle: 'none',
             }}
             type="submit"
             node="button"
