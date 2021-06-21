@@ -21,7 +21,23 @@ import { BackgroundContext } from './context/background';
 import { ViewContext, VIEW_ACTIONS } from './context/view';
 import { namesList } from '../../public/namesList';
 
-import { Modal, Container, Row, Col, Button, Alert, Breadcrumb, Card, Form, Dropdown, DropdownButton, Nav, Navbar, NavDropdown, FormControl } from 'react-bootstrap';
+import {
+  Modal,
+  Container,
+  Row,
+  Col,
+  Button,
+  Alert,
+  Breadcrumb,
+  Card,
+  Form,
+  Dropdown,
+  DropdownButton,
+  Nav,
+  Navbar,
+  NavDropdown,
+  FormControl,
+} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LandingPage = () => {
@@ -88,7 +104,10 @@ const LandingPage = () => {
       avatar: headshots[randomIndex],
       playerName:
         namesList[Math.floor(Math.random() * namesList.length)].toLowerCase(),
-      roomCode: createRoomCode(),
+      roomCode:
+        joinCode[0] === 'join' && joinCode[1] !== undefined
+          ? joinCode[1]
+          : createRoomCode(),
     });
   };
 
@@ -176,9 +195,9 @@ const LandingPage = () => {
       <form onSubmit={handleSubmit} autoComplete='off'>
         <Row className={styles.form}>
           <FormControl
-            type="text"
-            placeholder="Name"
-            name="playerName"
+            type='text'
+            placeholder='Name'
+            name='playerName'
             onChange={handleChange}
             value={formState.playerName}
             style={{
@@ -190,9 +209,9 @@ const LandingPage = () => {
           />
 
           <FormControl
-            id="TextInput-4"
-            placeholder="Room Code"
-            name="roomCode"
+            id='TextInput-4'
+            placeholder='Room Code'
+            name='roomCode'
             onChange={handleChange}
             value={formState.roomCode}
             style={{
@@ -211,7 +230,7 @@ const LandingPage = () => {
               fontFamily: 'Verdana',
               letterSpacing: '.1em',
               width: '10rem',
-              borderStyle: 'none'
+              borderStyle: 'none',
             }}
             type='submit'
             node='button'
