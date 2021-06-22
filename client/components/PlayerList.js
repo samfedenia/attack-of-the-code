@@ -28,14 +28,6 @@ const PlayerList = ({ playerList }) => {
             style={{ marginBottom: '0.25rem' }}
           >
             <div className={styles.player}>
-              <div className={styles.playerOuterAvatar}>
-                <div
-                  className={styles.playerInnerAvatar}
-                  style={{
-                    backgroundImage: `url(/star_wars_characters/${player.avatar})`,
-                  }}
-                ></div>
-              </div>
               <div
                 className={
                   player.socketId === socket.id
@@ -43,9 +35,17 @@ const PlayerList = ({ playerList }) => {
                     : styles.playerName
                 }
               >
-                {player.socketId === socket.id ? (
+                <div className={styles.playerOuterAvatar}>
+                  <div
+                    className={styles.playerInnerAvatar}
+                    style={{
+                      backgroundImage: `url(/star_wars_characters/${player.avatar})`,
+                    }}
+                  ></div>
+                </div>
+                {/* {player.socketId === socket.id ? (
                   <span>&nbsp;&#9734;&nbsp;</span>
-                ) : null}
+                ) : null} */}
                 {player.playerName}: {player.score}&nbsp;
               </div>
             </div>
