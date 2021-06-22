@@ -64,6 +64,7 @@ const GameContainer = () => {
   useEffect(() => {
     const user = JSON.parse(window.sessionStorage.getItem("user"));
     const game = JSON.parse(window.sessionStorage.getItem("gameStatus"));
+    const all = document.querySelectorAll("*");
     if (user) {
       userDispatch({
         type: USER_ACTIONS.UPDATE_USER,
@@ -74,6 +75,11 @@ const GameContainer = () => {
       document.body.style.backgroundPosition = "center center";
       document.body.style.backgroundSize = "cover";
       document.body.style.backgroundAttachment = "fixed";
+      if (user.font === "Aurebesh") {
+        [...all].map((el) =>
+          el.style.setProperty("font-family", user.font, "important")
+        );
+      }
     }
     if (game) gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: game });
   }, []);

@@ -21,6 +21,16 @@ const Game = ({ submissionState, setSubmissionState }) => {
     setJs(challenges[currentRound]?.start);
   }, [gameState.challenges]);
 
+  useEffect(() => {
+    const user = JSON.parse(window.sessionStorage.getItem("user"));
+    const all = document.querySelectorAll("*");
+    if (user?.font === "Aurebesh") {
+      [...all].map((el) =>
+        el.style.setProperty("font-family", user.font, "important")
+      );
+    }
+  }, []);
+
   const runCode = () => {
     setResult(eval(js));
     setSrcDoc(`
