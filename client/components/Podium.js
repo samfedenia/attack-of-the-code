@@ -23,7 +23,9 @@ const Podium = ({ playerList }) => {
               src={`/star_wars_characters/${topThree[1]?.avatar}`}
             />
           </div>
-          <div id={styles.second} className={styles.stand}></div>
+          <div id={styles.second} className={styles.stand}>
+            <div className={styles.standName}>Grand Admiral Thrawn</div>
+          </div>
         </div>
 
         <div className={styles.standContainer}>
@@ -33,7 +35,9 @@ const Podium = ({ playerList }) => {
               src={`/star_wars_characters/${topThree[0]?.avatar}`}
             />
           </div>
-          <div id={styles.first} className={styles.stand}></div>
+          <div id={styles.first} className={styles.stand}>
+            <div className={styles.standName}>Grand Admiral Thrawn</div>
+          </div>
         </div>
 
         <div className={styles.standContainer}>
@@ -43,7 +47,9 @@ const Podium = ({ playerList }) => {
               src={`/star_wars_characters/${topThree[2]?.avatar}`}
             />
           </div>
-          <div id={styles.third} className={styles.stand}></div>
+          <div id={styles.third} className={styles.stand}>
+            <div className={styles.standName}>Grand Admiral Thrawn</div>
+          </div>
         </div>
         </div>
     </div>

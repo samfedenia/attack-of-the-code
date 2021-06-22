@@ -32,23 +32,33 @@ body {
     width: 100px;
     margin: 2px;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
     font-size: 50px;
     font-family: StarJedi;
     color: white;
 }
 
+.standName {
+    font-family: Verdana;
+    font-size: 1rem;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #second {
-    height: 100px;
+    height: 180px;
 }
 
 #first {
-    height: 150px;
+    height: 210px;
 }
 
 #third {
-    height: 60px;
+    height: 150px;
 }
 
 #second::after {
