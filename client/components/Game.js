@@ -8,6 +8,10 @@ import { GameContext, GAME_ACTIONS } from "./context/game";
 import { UserContext, USER_ACTIONS } from "./context/user";
 import { SocketContext } from "./context/socket";
 
+
+import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const Game = ({ submissionState, setSubmissionState }) => {
   const [js, setJs] = useState("");
   const [srcDoc, setSrcDoc] = useState("");
@@ -128,9 +132,9 @@ const Game = ({ submissionState, setSubmissionState }) => {
         <Prompt />
         <CodePenClone value={js} onChange={setJs} />
         <div className={editorStyles.runBtn}>
-          <button onClick={runCode}>Run</button>
-          <button onClick={checkCode}>Submit</button>
-          <button onClick={resetCode}>Reset</button>
+          <Button className={editorStyles.editorBtn} onClick={runCode}>Run</Button>
+          <Button className={editorStyles.editorBtn} onClick={checkCode}>Submit</Button>
+          <Button className={editorStyles.editorBtn} onClick={resetCode}>Reset</Button>
         </div>
         <div className={editorStyles.pane}>
           <iframe
