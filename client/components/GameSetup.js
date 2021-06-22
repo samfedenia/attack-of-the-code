@@ -27,6 +27,18 @@ const GameSetup = () => {
     "sith",
   ];
 
+  // TEST to set dropdowns to Aurebesh font, did not work.
+  // const all = document.querySelectorAll("*");
+
+  // useEffect(() => {
+  //   console.log("FONT", userState.font);
+  //   if (userState.font === "Aurebesh") {
+  //     [...all].map((el) =>
+  //       el.style.setProperty("font-family", userState.font, "important")
+  //     );
+  //   }
+  // }, [userState]);
+
   const changeGameState = async (e) => {
     e.preventDefault();
     const { data: challenges } = await axios.get(
@@ -48,7 +60,6 @@ const GameSetup = () => {
     const game = JSON.parse(window.sessionStorage.getItem("gameStatus"));
     if (game) {
       gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: game });
-      // update playerlist here?
     }
   }, []);
 
