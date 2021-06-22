@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import 'materialize-css';
 import styles from './css/Game.module.css';
 import { SocketContext } from './context/socket';
-import { UserContext } from "./context/user";
+import { UserContext } from './context/user';
 
 const PlayerList = ({ playerList }) => {
   const socket = useContext(SocketContext);
@@ -36,13 +36,16 @@ const PlayerList = ({ playerList }) => {
                   }}
                 ></div>
               </div>
-              <div 
+              <div
                 className={
-                  player.playerName === userState.playerName ? styles.playerNameSelected : styles.playerName
-                }>
-                {
-                  player.playerName === userState.playerName ? <span>&nbsp;&#9734;&nbsp;</span> : null
+                  player.socketId === socket.id
+                    ? styles.playerNameSelected
+                    : styles.playerName
                 }
+              >
+                {player.socketId === socket.id ? (
+                  <span>&nbsp;&#9734;&nbsp;</span>
+                ) : null}
                 {player.playerName}: {player.score}&nbsp;
               </div>
             </div>
