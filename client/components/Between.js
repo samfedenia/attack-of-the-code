@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from 'react';
 import { quotesp } from '../quotes';
 import styles from './css/Game.module.css';
@@ -7,8 +6,25 @@ import { GameContext, GAME_ACTIONS } from './context/game';
 import { UserContext, USER_ACTIONS } from './context/user';
 import { SocketContext } from './context/socket';
 // import { Container, Row, Button } from 'react-materialize';
+import MiniGame from './MiniGame';
 
-import { Modal, Container, Row, Col, Button, Alert, Breadcrumb, Card, Form, Dropdown, DropdownButton, Nav, Navbar, NavDropdown, FormControl } from 'react-bootstrap';
+import {
+  Modal,
+  Container,
+  Row,
+  Col,
+  Button,
+  Alert,
+  Breadcrumb,
+  Card,
+  Form,
+  Dropdown,
+  DropdownButton,
+  Nav,
+  Navbar,
+  NavDropdown,
+  FormControl,
+} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Between = ({ submissionState, setSubmissionState }) => {
@@ -29,12 +45,12 @@ const Between = ({ submissionState, setSubmissionState }) => {
   const setGame = () => {
     const newGameState = {
       ...gameState,
-      gameStatus: "playing",
+      gameStatus: 'playing',
       currentRound: gameState.currentRound + 1,
       roundComplete: false,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
-    socket.emit("new-game-state", newGameState, userState.roomCode);
+    socket.emit('new-game-state', newGameState, userState.roomCode);
   };
 
   return (
@@ -54,6 +70,7 @@ const Between = ({ submissionState, setSubmissionState }) => {
             }}
           />
         </Row>
+        <MiniGame />
         <Row hidden={gameState.roundComplete}>
           <Button onClick={setGame}>Next</Button>
         </Row>
