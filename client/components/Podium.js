@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./css/Podium.module.css";
+import { PlayerlistContext } from "./context/playerlist";
 
-const Podium = ({ playerList }) => {
+const Podium = () => {
+  const { playerlistState } = useContext(PlayerlistContext);
   const [topThree, setTopThree] = useState([]);
 
   useEffect(() => {
     if (topThree.length === 0) {
-      setTopThree([playerList[0], playerList[1], playerList[2]]);
+      setTopThree([playerlistState[0], playerlistState[1], playerlistState[2]]);
     }
-  }, [playerList]);
+  }, [playerlistState]);
 
   return (
     <div className={styles.outerContainer}>
@@ -51,7 +53,7 @@ const Podium = ({ playerList }) => {
             <div className={styles.standName}>Grand Admiral Thrawn</div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   );
 };

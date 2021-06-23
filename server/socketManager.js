@@ -45,12 +45,7 @@ const createSocketServer = (server) => {
       socket.join(roomCode);
       socket.to(roomCode).emit("user-joined", { playerName, avatar });
       if (rooms[roomCode]) {
-        setTimeout(() => {
-          io.in(roomCode).emit(
-            "user-list",
-            rooms[roomCode]?.players?.map((user) => user)
-          );
-        }, 3000);
+        io.in(roomCode).emit("user-list", rooms[roomCode]?.players);
       }
     });
 

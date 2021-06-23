@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { quotesp } from '../quotes';
-import styles from './css/Game.module.css';
-import changeCubeStyles from './css/LandingPage.module.css';
-import { GameContext, GAME_ACTIONS } from './context/game';
-import { UserContext, USER_ACTIONS } from './context/user';
-import { SocketContext } from './context/socket';
+import React, { useContext, useEffect, useState } from "react";
+import { quotesp } from "../quotes";
+import styles from "./css/Game.module.css";
+import changeCubeStyles from "./css/LandingPage.module.css";
+import { GameContext, GAME_ACTIONS } from "./context/game";
+import { UserContext, USER_ACTIONS } from "./context/user";
+import { SocketContext } from "./context/socket";
 // import { Container, Row, Button } from 'react-materialize';
-import MiniGame from './MiniGame';
+import MiniGame from "./MiniGame";
 
 import {
   Modal,
@@ -24,8 +24,8 @@ import {
   Navbar,
   NavDropdown,
   FormControl,
-} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Between = ({ submissionState, setSubmissionState }) => {
   const randomize = () => Math.floor(Math.random() * quotesp.length);
@@ -45,12 +45,12 @@ const Between = ({ submissionState, setSubmissionState }) => {
   const setGame = () => {
     const newGameState = {
       ...gameState,
-      gameStatus: 'playing',
+      gameStatus: "playing",
       currentRound: gameState.currentRound + 1,
       roundComplete: false,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
-    socket.emit('new-game-state', newGameState, userState.roomCode);
+    socket.emit("new-game-state", newGameState, userState.roomCode);
   };
 
   return (
@@ -61,7 +61,7 @@ const Between = ({ submissionState, setSubmissionState }) => {
         </div>
         <Row className={changeCubeStyles.cubeImg}>
           <img
-            src="/change_cube_transparent.png"
+            src='/change_cube_transparent.png'
             wobble={wobble}
             onAnimationEnd={() => setWobble(0)}
             onClick={() => {
@@ -70,7 +70,7 @@ const Between = ({ submissionState, setSubmissionState }) => {
             }}
           />
         </Row>
-        <MiniGame />
+        {/* <MiniGame /> */}
         <Row hidden={gameState.roundComplete}>
           <Button onClick={setGame}>Next</Button>
         </Row>

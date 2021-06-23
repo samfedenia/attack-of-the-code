@@ -8,15 +8,14 @@ import { GameContext, GAME_ACTIONS } from "./context/game";
 import { UserContext, USER_ACTIONS } from "./context/user";
 import { SocketContext } from "./context/socket";
 
-
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Game = ({ submissionState, setSubmissionState }) => {
+const Game = ({ submissionState }) => {
   const [js, setJs] = useState("");
   const [srcDoc, setSrcDoc] = useState("");
-  const [result, setResult] = useState("");
-  const { gameState, gameDispatch } = useContext(GameContext);
+
+  const { gameState } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
@@ -36,7 +35,6 @@ const Game = ({ submissionState, setSubmissionState }) => {
   }, []);
 
   const runCode = () => {
-    setResult(eval(js));
     setSrcDoc(`
             <html>
               <style>
@@ -142,18 +140,24 @@ const Game = ({ submissionState, setSubmissionState }) => {
         <Prompt />
         <CodePenClone value={js} onChange={setJs} />
         <div className={editorStyles.runBtn}>
-          <Button className={editorStyles.editorBtn} onClick={runCode}>Run</Button>
-          <Button className={editorStyles.editorBtn} onClick={checkCode}>Submit</Button>
-          <Button className={editorStyles.editorBtn} onClick={resetCode}>Reset</Button>
+          <Button className={editorStyles.editorBtn} onClick={runCode}>
+            Run
+          </Button>
+          <Button className={editorStyles.editorBtn} onClick={checkCode}>
+            Submit
+          </Button>
+          <Button className={editorStyles.editorBtn} onClick={resetCode}>
+            Reset
+          </Button>
         </div>
         <div className={editorStyles.pane}>
           <iframe
             srcDoc={srcDoc}
-            title="output"
-            sandbox="allow-scripts"
-            frameBorder="0"
-            width="100%"
-            height="100%"
+            title='output'
+            sandbox='allow-scripts'
+            frameBorder='0'
+            width='100%'
+            height='100%'
           />
         </div>
       </div>

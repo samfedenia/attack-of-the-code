@@ -2,29 +2,19 @@ import React, { useEffect, useContext, useState } from "react";
 import "materialize-css";
 import styles from "./css/Game.module.css";
 import { SocketContext } from "./context/socket";
-import { UserContext } from "./context/user";
+import { PlayerlistContext, PlayerlistProvider } from "./context/playerlist";
 
-const PlayerList = ({ playerList }) => {
+const PlayerList = () => {
   const socket = useContext(SocketContext);
-  const { userState } = useContext(UserContext);
-
-  // const [playerList, setPlayerList] = useState([]);
-
-  // useEffect(() => {
-  //   socket.on('user-list', (allPlayers) => {
-  //     const allplayersFiltered = allPlayers.sort((a, b) => b.score - a.score);
-
-  //     setPlayerList(allplayersFiltered);
-  //   });
-  // }, []);
+  const { playerlistState } = useContext(PlayerlistContext);
 
   return (
     <div className={styles.playerList}>
       <div className={styles.players}>
-        {playerList.map((player, idx) => (
+        {playerlistState.map((player, idx) => (
           <div
             key={idx}
-            className="animate__animated animate__bounceInUp"
+            className='animate__animated animate__bounceInUp'
             style={{ marginBottom: "0.25rem" }}
           >
             <div className={styles.player}>
@@ -46,9 +36,6 @@ const PlayerList = ({ playerList }) => {
                     }}
                   ></div>
                 </div>
-                {/* {player.socketId === socket.id ? (
-                  <span>&nbsp;&#9734;&nbsp;</span>
-                ) : null} */}
                 {player.playerName}: {player.score}&nbsp;
               </div>
             </div>
