@@ -38,17 +38,7 @@ const GameContainer = () => {
   const socket = useContext(SocketContext);
 
   const { gameState, gameDispatch } = useContext(GameContext);
-  const { userState, userDispatch } = useContext(UserContext);
-
-  const [playerList, setPlayerList] = useState([]);
-
-  useEffect(() => {
-    socket.on("user-list", (allPlayers) => {
-      const allplayersFiltered = allPlayers.sort((a, b) => b.score - a.score);
-
-      setPlayerList(allplayersFiltered);
-    });
-  }, []);
+  const { userDispatch } = useContext(UserContext);
 
   useEffect(() => {
     socket.on("game-state", (gameState) => {
@@ -86,17 +76,13 @@ const GameContainer = () => {
 
   return (
     <>
-      <Container style={{ maxWidth: "90%" }} className="bootstrap-container">
-        <Col className="bootstrap-col col-one">
-          <PlayerList playerList={playerList} />
+      <Container style={{ maxWidth: "90%" }} className='bootstrap-container'>
+        <Col className='bootstrap-col col-one'>
+          <PlayerList />
         </Col>
-        <Col className="bootstrap-col col-two" xs={5}>
-          {gameState.gameStatus === "gameover" && (
-            <Podium playerList={playerList} />
-          )}
-          {gameState.gameStatus === "setup" && (
-            <GameSetup playerList={playerList} />
-          )}
+        <Col className='bootstrap-col col-two' xs={5}>
+          {gameState.gameStatus === "gameover" && <Podium />}
+          {gameState.gameStatus === "setup" && <GameSetup />}
           {gameState.gameStatus === "playing" && (
             <Game
               submissionState={submissionState}
@@ -114,8 +100,8 @@ const GameContainer = () => {
             setSubmissionState={setSubmissionState}
           />
         </Col>
-        <Col className="bootstrap-col col-three">
-          <marquee scrollamount="10" className="marquee-sw">
+        <Col className='bootstrap-col col-three'>
+          <marquee scrollamount='10' className='marquee-sw'>
             May the Force be with You
           </marquee>
           <Chat />
