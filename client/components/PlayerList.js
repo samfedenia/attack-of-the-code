@@ -1,12 +1,13 @@
-import React, { useEffect, useContext, useState } from "react";
-import "materialize-css";
-import styles from "./css/Game.module.css";
-import { SocketContext } from "./context/socket";
-import { PlayerlistContext, PlayerlistProvider } from "./context/playerlist";
+import React, { useEffect, useContext, useState } from 'react';
+import 'materialize-css';
+import styles from './css/Game.module.css';
+import { SocketContext } from './context/socket';
+import { PlayerlistContext } from './context/playerlist';
 
 const PlayerList = () => {
   const socket = useContext(SocketContext);
   const { playerlistState } = useContext(PlayerlistContext);
+  const user = JSON.parse(window.sessionStorage.getItem('user'));
 
   return (
     <div className={styles.playerList}>
@@ -14,8 +15,8 @@ const PlayerList = () => {
         {playerlistState.map((player, idx) => (
           <div
             key={idx}
-            className='animate__animated animate__bounceInUp'
-            style={{ marginBottom: "0.25rem" }}
+            className="animate__animated animate__bounceInUp"
+            style={{ marginBottom: '0.25rem' }}
           >
             <div className={styles.player}>
               <div
@@ -25,7 +26,7 @@ const PlayerList = () => {
                     : styles.playerName
                 }
                 style={{
-                  fontFamily: `${player.font === "Aurebesh" ? "Aurebesh" : ""}`,
+                  fontFamily: `${user.font === 'Aurebesh' ? 'Aurebesh' : ''}`,
                 }}
               >
                 <div className={styles.playerOuterAvatar}>

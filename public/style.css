@@ -90,11 +90,12 @@ nav a {
 }
 
 /* Reset Styles */
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Courier New';
+  /* font-family: 'Courier New'; */
 }
 
 .testImg {
