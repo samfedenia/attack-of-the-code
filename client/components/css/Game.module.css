@@ -236,10 +236,8 @@ button {
 
 .roomCodeButton:hover .roomCodeText {
   display: none;
-  font-family: 'Verdana';
 }
 
 .roomCodeButton:hover .inviteLink:before {
   content: 'Click to copy invite link!';
-  font-family: 'Verdana';
 }
