@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
-import "materialize-css";
-import styles from "./css/Game.module.css";
-import editorStyles from "./css/Editor.module.css";
-import Prompt from "./Prompt";
-import CodePenClone from "./CodePenClone";
-import { GameContext, GAME_ACTIONS } from "./context/game";
-import { UserContext, USER_ACTIONS } from "./context/user";
-import { SocketContext } from "./context/socket";
+import React, { useState, useEffect, useContext } from 'react';
+import 'materialize-css';
+import styles from './css/Game.module.css';
+import editorStyles from './css/Editor.module.css';
+import Prompt from './Prompt';
+import CodePenClone from './CodePenClone';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext, USER_ACTIONS } from './context/user';
+import { SocketContext } from './context/socket';
 
-import { Button } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Game = ({ submissionState }) => {
-  const [js, setJs] = useState("");
-  const [srcDoc, setSrcDoc] = useState("");
+  const [js, setJs] = useState('');
+  const [srcDoc, setSrcDoc] = useState('');
 
   const { gameState } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
@@ -25,11 +25,11 @@ const Game = ({ submissionState }) => {
   }, [gameState.challenges]);
 
   useEffect(() => {
-    const user = JSON.parse(window.sessionStorage.getItem("user"));
-    const all = document.querySelectorAll("*");
-    if (user?.font === "Aurebesh") {
+    const user = JSON.parse(window.sessionStorage.getItem('user'));
+    const all = document.querySelectorAll('*');
+    if (user?.font === 'Aurebesh') {
       [...all].map((el) =>
-        el.style.setProperty("font-family", user.font, "important")
+        el.style.setProperty('font-family', user.font, 'important')
       );
     }
   }, []);
@@ -76,7 +76,7 @@ const Game = ({ submissionState }) => {
         else if (submissionState === 1) points = 7;
         else if (submissionState === 2) points = 5;
 
-        socket.emit("answer-submission", userState.roomCode);
+        socket.emit('answer-submission', userState.roomCode);
 
         const newUserState = {
           ...userState,
@@ -84,14 +84,14 @@ const Game = ({ submissionState }) => {
           score: userState.score + points,
         };
         // emit user with our relevant score
-        socket.emit("update-user", newUserState);
+        socket.emit('update-user', newUserState);
 
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
           payload: newUserState,
         });
       } else {
-        alert("incorrect");
+        alert('incorrect');
       }
     } catch (error) {
       setSrcDoc(`
@@ -143,21 +143,21 @@ const Game = ({ submissionState }) => {
           <Button className={editorStyles.editorBtn} onClick={runCode}>
             Run
           </Button>
-          <Button className={editorStyles.editorBtn} onClick={checkCode}>
-            Submit
-          </Button>
           <Button className={editorStyles.editorBtn} onClick={resetCode}>
             Reset
+          </Button>
+          <Button className={editorStyles.submitBtn} onClick={checkCode}>
+            Submit
           </Button>
         </div>
         <div className={editorStyles.pane}>
           <iframe
             srcDoc={srcDoc}
-            title='output'
-            sandbox='allow-scripts'
-            frameBorder='0'
-            width='100%'
-            height='100%'
+            title="output"
+            sandbox="allow-scripts"
+            frameBorder="0"
+            width="100%"
+            height="100%"
           />
         </div>
       </div>

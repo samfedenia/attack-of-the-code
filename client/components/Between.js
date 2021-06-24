@@ -70,11 +70,13 @@ const Between = ({ submissionState, setSubmissionState }) => {
             }}
           />
         </Row>
-        <MiniGame />
         <Row hidden={gameState.roundComplete}>
           <Button onClick={setGame}>Next</Button>
         </Row>
       </div>
+      <Row>
+        <MiniGame />
+      </Row>
     </Container>
   );
 };
