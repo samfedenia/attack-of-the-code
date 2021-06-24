@@ -35,6 +35,7 @@ const Between = ({ submissionState, setSubmissionState }) => {
   const socket = useContext(SocketContext);
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState } = useContext(UserContext);
+  const [count, setCount] = useState(5);
 
   useEffect(() => {
     if (submissionState !== 0) {
@@ -51,6 +52,21 @@ const Between = ({ submissionState, setSubmissionState }) => {
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
     socket.emit('new-game-state', newGameState, userState.roomCode);
+
+  };
+
+  useEffect(() => {
+    if (gameState.roundComplete) countDown();
+  }, [gameState.roundComplete]);
+
+  const countDown = () => {
+    const countingDown = setInterval(() => {
+      setCount(count - 1);
+      if (count === 0) {
+        clearInterval(countingDown);
+        setGame();
+      }
+    }, 1000);
   };
 
   return (
@@ -71,8 +87,9 @@ const Between = ({ submissionState, setSubmissionState }) => {
           />
         </Row>
         <MiniGame />
-        <Row hidden={gameState.roundComplete}>
-          <Button onClick={setGame}>Next</Button>
+        <Row hidden={!gameState.roundComplete}>
+          <h3>Next Round Starting in {count}</h3>
+          {/* <Button onClick={setGame}>Next</Button> */}
         </Row>
       </div>
     </Container>
