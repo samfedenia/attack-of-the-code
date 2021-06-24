@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import styles from "./css/Game.module.css";
-import { quotesp } from "../quotes";
-import { GameContext, GAME_ACTIONS } from "./context/game";
-import { UserContext } from "./context/user";
-import { SocketContext } from "./context/socket";
-import axios from "axios";
-import { Button } from "react-materialize";
+import React, { useContext, useEffect, useState } from 'react';
+import styles from './css/Game.module.css';
+import { quotesp } from '../quotes';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext } from './context/user';
+import { SocketContext } from './context/socket';
+import axios from 'axios';
+import { Button } from 'react-materialize';
 
-import Podium from "./Podium";
-import Between from "./Between";
+import Podium from './Podium';
+import Between from './Between';
 
 const GameSetup = () => {
   const idx = Math.floor(Math.random() * quotesp.length);
@@ -16,15 +16,15 @@ const GameSetup = () => {
   const { userState } = useContext(UserContext);
   const socket = useContext(SocketContext);
 
-  const [level, setLevel] = useState("");
+  const [level, setLevel] = useState('');
   const [totalRounds, setTotalRounds] = useState(1);
   const arrayOfLevels = [
-    "demo",
-    "youngling",
-    "padawan",
-    "jedi",
-    "master",
-    "sith",
+    'demo',
+    'youngling',
+    'padawan',
+    'jedi',
+    'master',
+    'sith',
   ];
 
   // TEST to set dropdowns to Aurebesh font, did not work.
@@ -47,17 +47,17 @@ const GameSetup = () => {
 
     const newGameState = {
       ...gameState,
-      gameStatus: "playing",
+      gameStatus: 'playing',
       challenges,
       totalRounds: totalRounds * 1,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
-    socket.emit("new-game-state", newGameState, userState.roomCode);
-    window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
+    socket.emit('new-game-state', newGameState, userState.roomCode);
+    window.sessionStorage.setItem('gameStatus', JSON.stringify(newGameState));
   };
 
   useEffect(() => {
-    const game = JSON.parse(window.sessionStorage.getItem("gameStatus"));
+    const game = JSON.parse(window.sessionStorage.getItem('gameStatus'));
     if (game) {
       gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: game });
     }
@@ -66,7 +66,7 @@ const GameSetup = () => {
   return (
     <div>
       <div className={styles.profQuotes}>
-        <br />"{quotesp[idx]}"<br /> <span>-Prof</span>
+        {/* <br />"{quotesp[idx]}"<br /> <span>-Prof</span> */}
       </div>
       <div>
         <form onSubmit={changeGameState}>
