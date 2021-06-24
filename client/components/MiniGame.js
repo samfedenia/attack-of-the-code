@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import styles from './css/Editor.module.css';
 
 const MiniGame = () => {
   const [count, setCount] = useState(0);
@@ -58,7 +60,9 @@ const MiniGame = () => {
       {!gameOn ? (
         <div>
           <div id="game">
-            <button onClick={startMiniGame}>Start Mini-Game</button>
+            <Button className={styles.submitBtn} onClick={startMiniGame}>
+              Start Mini-Game
+            </Button>
             <h1>Final Score: {count}</h1>
             <div id="character"></div>
             <div id="block"></div>

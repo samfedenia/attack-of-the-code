@@ -86,12 +86,14 @@ const Between = ({ submissionState, setSubmissionState }) => {
             }}
           />
         </Row>
-        <MiniGame />
         <Row hidden={!gameState.roundComplete}>
           <h3>Next Round Starting in {count}</h3>
           {/* <Button onClick={setGame}>Next</Button> */}
         </Row>
       </div>
+      <Row>
+        <MiniGame />
+      </Row>
     </Container>
   );
 };

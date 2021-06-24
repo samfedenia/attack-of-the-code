@@ -65,7 +65,7 @@ const GameSetup = () => {
 
   return (
     <div>
-      <div className={styles.profQuotes}>
+      <div className={styles.profff}>
         {/* <br />"{quotesp[idx]}"<br /> <span>-Prof</span> */}
         <h2>Attack of the Code</h2>
       </div>
