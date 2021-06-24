@@ -77,7 +77,7 @@
 }
 
 .playerNameSelected {
-  background-color: dodgerblue;
+  background-color: #00e7e7;
   font-family: StarJedi;
   border-radius: 0.25rem;
   width: 100%;
@@ -114,8 +114,9 @@
   display: inline-block;
   height: 10vh;
   width: 30vw;
-  color: #00e7e7;
-  font-family: Verdana;
+  /* color: #00e7e7; */
+  color: yellow;
+  font-family: 'StarJedi';
   text-align: center;
 }
 
