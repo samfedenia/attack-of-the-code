@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import BB8 from '../../public/minigame_characters/BB8.png';
-import trooperOne from '../../public/minigame_characters/8-bit-stormtroopers_0002_Layer-0.png';
-import trooperTwo from '../../public/minigame_characters/8-bit-stormtroopers_0001_Layer-1.png';
-import trooperThree from '../../public/minigame_characters/8-bit-stormtroopers_0000_Layer-2.png';
-import background from '../../public/backgrounds/star-wars-backgrounds-25.jpg';
-import styles from './css/MiniGame.module.css';
-import { urlToRequest } from 'loader-utils';
+import { Button } from 'react-bootstrap';
+import styles from './css/Editor.module.css';
 
 const MiniGame = () => {
   const [count, setCount] = useState(0);
@@ -64,13 +59,10 @@ const MiniGame = () => {
     <div>
       {!gameOn ? (
         <div>
-          <div
-            id="game"
-            style={{
-              background: `url(${background})`,
-            }}
-          >
-            <button onClick={startMiniGame}>Start Mini-Game</button>
+          <div id="game">
+            <Button className={styles.submitBtn} onClick={startMiniGame}>
+              Start Mini-Game
+            </Button>
             <h1>Final Score: {count}</h1>
             <div id="character"></div>
             <div id="block"></div>
@@ -84,19 +76,8 @@ const MiniGame = () => {
           tabIndex="0"
         >
           <h2 id="counter">{count}</h2>
-          <div
-            id="character"
-            className="bb8"
-            style={{
-              background: `url(${BB8})`,
-            }}
-          ></div>
-          <div
-            id="block"
-            style={{
-              content: `url(${trooperOne})`,
-            }}
-          ></div>
+          <div id="character" className="bb8"></div>
+          <div id="block" className="stormtrooperOne"></div>
         </div>
       )}
     </div>

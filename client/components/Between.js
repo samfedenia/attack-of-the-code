@@ -35,6 +35,7 @@ const Between = ({ submissionState, setSubmissionState }) => {
   const socket = useContext(SocketContext);
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState } = useContext(UserContext);
+  const [count, setCount] = useState(5);
 
   useEffect(() => {
     if (submissionState !== 0) {
@@ -53,6 +54,20 @@ const Between = ({ submissionState, setSubmissionState }) => {
     socket.emit("new-game-state", newGameState, userState.roomCode);
   };
 
+  useEffect(() => {
+    if (gameState.roundComplete) countDown();
+  }, [gameState.roundComplete]);
+
+  const countDown = () => {
+    const countingDown = setInterval(() => {
+      setCount(count - 1);
+      if (count === 0) {
+        clearInterval(countingDown);
+        setGame();
+      }
+    }, 1000);
+  };
+
   return (
     <Container className={styles.container}>
       <div>
@@ -61,7 +76,7 @@ const Between = ({ submissionState, setSubmissionState }) => {
         </div>
         <Row className={changeCubeStyles.cubeImg}>
           <img
-            src='/change_cube_transparent.png'
+            src="/change_cube_transparent.png"
             wobble={wobble}
             onAnimationEnd={() => setWobble(0)}
             onClick={() => {
@@ -70,11 +85,14 @@ const Between = ({ submissionState, setSubmissionState }) => {
             }}
           />
         </Row>
-        {/* <MiniGame /> */}
         <Row hidden={gameState.roundComplete}>
-          <Button onClick={setGame}>Next</Button>
+          <h3>Next Round Starting in {count}</h3>
+          {/* <Button onClick={setGame}>Next</Button> */}
         </Row>
       </div>
+      <Row>
+        <MiniGame />
+      </Row>
     </Container>
   );
 };

@@ -80,7 +80,6 @@ const LandingPage = () => {
 
   const changeFont = () => {
     const all = document.querySelectorAll("*");
-    console.log(all);
     if (font === "StarJedi") {
       setFont("Aurebesh");
       [...all].map((el) =>
@@ -88,6 +87,7 @@ const LandingPage = () => {
       );
     } else {
       setFont("StarJedi");
+      [...all].map((el) => el.style.setProperty("font-family", ""));
     }
   };
 

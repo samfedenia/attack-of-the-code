@@ -77,7 +77,7 @@
 }
 
 .playerNameSelected {
-  background-color: dodgerblue;
+  background-color: #00e7e7;
   font-family: StarJedi;
   border-radius: 0.25rem;
   width: 100%;
@@ -111,11 +111,23 @@
 }
 
 .profQuotes {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 10vh;
   width: 30vw;
   color: #00e7e7;
   font-family: Verdana;
+  text-align: center;
+}
+
+.profff {
+  display: inline-block;
+  height: 10vh;
+  width: 30vw;
+  color: yellow;
+  font-family: 'StarJedi';
   text-align: center;
 }
 

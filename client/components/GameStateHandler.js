@@ -46,7 +46,26 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
       roundComplete,
     } = gameState;
 
-    if (userState.submitted === true || submissionState === 3) {
+    if (userState.submitted === true && submissionState === 2) {
+      if (gameStatus !== "between") {
+        userDispatch({
+          type: USER_ACTIONS.UPDATE_USER,
+          payload: {
+            ...userState,
+            submitted: false,
+          },
+        });
+      }
+      socket.emit(
+        "new-game-state",
+        {
+          ...gameState,
+          gameStatus: "between",
+          roundComplete: true,
+        },
+        userState.roomCode
+      );
+    } else if (userState.submitted === true) {
       if (gameStatus !== "between") {
         gameDispatch({
           type: GAME_ACTIONS.SET_GAME,
@@ -64,7 +83,8 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
           },
         });
       }
-    } else if (currentRound === totalRounds) {
+    }
+    if (currentRound === totalRounds) {
       gameDispatch({
         type: GAME_ACTIONS.SET_GAME,
         payload: {
