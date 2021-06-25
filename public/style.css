@@ -9,7 +9,7 @@
 }
 
 body {
-  background: url('/backgrounds/millenium.jpeg'),
+  background: url("/backgrounds/millenium.jpeg"),
     linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801));
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -40,30 +40,30 @@ nav a {
   margin-bottom: 1rem;
 }
 
-.switch label input[type='checkbox']:checked + .lever {
+.switch label input[type="checkbox"]:checked + .lever {
   background-color: #fff2035d;
 }
-.switch label input[type='checkbox']:checked + .lever:after {
+.switch label input[type="checkbox"]:checked + .lever:after {
   background-color: #fff103;
 }
 
-.input-field input[type='text'] + label,
+.input-field input[type="text"] + label,
 .materialize-textarea:focus:not([readonly]) + label {
   color: #1a237e !important;
 }
 
-.input-field input[type='text'],
+.input-field input[type="text"],
 .materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #bbb !important;
   box-shadow: 0 1px 0 0 #bbb !important;
 }
 
-.input-field input[type='text']:focus + label,
+.input-field input[type="text"]:focus + label,
 .materialize-textarea:focus:not([readonly]) + label {
   color: #fff103 !important;
 }
 
-.input-field input[type='text']:focus,
+.input-field input[type="text"]:focus,
 .materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #fff103 !important;
   box-shadow: 0 1px 0 0 #fff103 !important;
@@ -149,8 +149,8 @@ nav a {
 }
 
 .col-one::before {
-  content: 'Player List';
-  font-family: 'StarJedi';
+  content: "Player List";
+  font-family: "StarJedi";
   color: #fff103;
   margin-bottom: 1rem;
 }
@@ -159,8 +159,8 @@ nav a {
   border-right: 0.15rem solid rgba(255, 255, 255, 0.5);
 }
 .col-three::before {
-  content: 'Chat';
-  font-family: 'StarJedi';
+  content: "Chat";
+  font-family: "StarJedi";
   color: #fff103;
   padding-left: 0;
   padding-right: 0;
@@ -239,7 +239,7 @@ nav a {
 */
 
 .marquee-sw {
-  font-family: 'Aurebesh';
+  font-family: "Aurebesh";
   color: rgba(255, 255, 255, 0.8);
   text-shadow: 0px 0px 10px white, 0 0 25px dodgerblue, 0 0 25px dodgerblue;
   /* width: 111%; */
@@ -250,9 +250,10 @@ nav a {
   background-color: rgb(207, 207, 207);
 }
 
-
 /* Lightsaber CSS */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -273,15 +274,34 @@ nav a {
   justify-content: center;
   width: 80px;
   height: 10px;
-  border-radius: .2em;
-  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
-    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
-    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
-    
-    linear-gradient(180deg, hsl(0,0%,78%)  0%, 
-    hsl(0,0%,90%) 47%, 
-    rgb(83, 83, 83) 53%,
-    hsl(0,0%,70%)100%);
+  border-radius: 0.2em;
+  background-image: -webkit-repeating-linear-gradient(
+      left,
+      hsla(0, 0%, 100%, 0) 0%,
+      hsla(0, 0%, 100%, 0) 6%,
+      hsla(0, 0%, 100%, 0.1) 7.5%
+    ),
+    -webkit-repeating-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(
+            0,
+            0%,
+            0%,
+            0
+          )
+          4%, hsla(0, 0%, 0%, 0.03) 4.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0, 0%, 100%, 0) 0%, hsla(
+            0,
+            0%,
+            100%,
+            0
+          )
+          1.2%, hsla(0, 0%, 100%, 0.15) 2.2%),
+    linear-gradient(
+      180deg,
+      hsl(0, 0%, 78%) 0%,
+      hsl(0, 0%, 90%) 47%,
+      rgb(83, 83, 83) 53%,
+      hsl(0, 0%, 70%) 100%
+    );
 }
 
 .button {
@@ -299,7 +319,7 @@ nav a {
 }
 
 .blade {
-  content: '';
+  content: "";
   font-size: 0.2rem;
   display: flex;
   align-items: center;
@@ -316,16 +336,15 @@ nav a {
   padding: 1em;
 }
 
-
 .fade-out {
   animation: fadeOut ease 1s;
 }
 @keyframes fadeOut {
   0% {
-    opacity:1;
+    opacity: 1;
   }
   100% {
-    opacity:0;
+    opacity: 0;
   }
 }
 /* MiniGame CSS STYLING */
@@ -335,23 +354,23 @@ nav a {
   width: 400px;
   height: 300px;
   border: 1px solid black;
-  background: url('./backgrounds/star-wars-backgrounds-25.jpg');
+  background: url("./backgrounds/star-wars-backgrounds-25.jpg");
 }
 
 div.bb8 {
-  content: url('./minigame_characters/BB8.png');
+  content: url("./minigame_characters/BB8.png");
 }
 
 div.stormtrooperOne {
-  content: url('./minigame_characters/8-bit-stormtroopers_0002_Layer-0.png');
+  content: url("./minigame_characters/8-bit-stormtroopers_0002_Layer-0.png");
 }
 
 div.stormtrooperTwo {
-  content: url('./minigame_characters/8-bit-stormtroopers_0001_Layer-1.png');
+  content: url("./minigame_characters/8-bit-stormtroopers_0001_Layer-1.png");
 }
 
 div.stormtrooperThree {
-  content: url('./minigame_characters/8-bit-stormtroopers_0000_Layer-2.png');
+  content: url("./minigame_characters/8-bit-stormtroopers_0000_Layer-2.png");
 }
 
 #character {

@@ -1,6 +1,6 @@
 // import axios from 'axios';
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import 'materialize-css';
+import React, { useState, useEffect, useContext, useRef } from "react";
+import "materialize-css";
 import {
   Container,
   Button,
@@ -9,39 +9,39 @@ import {
   Row,
   Col,
   Chip,
-} from 'react-materialize';
-import Picker from 'emoji-picker-react';
-import styles from './css/Game.module.css';
-import { SocketContext } from './context/socket';
-import { UserContext } from './context/user';
-import { ChatContext, CHAT_ACTIONS } from './context/chat';
+} from "react-materialize";
+import Picker from "emoji-picker-react";
+import styles from "./css/Game.module.css";
+import { SocketContext } from "./context/socket";
+import { UserContext } from "./context/user";
+import { ChatContext, CHAT_ACTIONS } from "./context/chat";
 
 const Chat = () => {
   const socket = useContext(SocketContext);
   const { userState } = useContext(UserContext);
   const { chatState, chatDispatch } = useContext(ChatContext);
   const [messages, setMessages] = useState([]);
-  const [messageInput, setMessageInput] = useState('');
+  const [messageInput, setMessageInput] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const ref = useRef(null);
 
   const emojiPickerStyles = {
-    position: 'absolute',
-    backgroundColor: 'white',
-    borderTop: 'none',
-    width: '100%',
-    height: '35%',
-    right: '60px',
-    bottom: '150px',
-    zIndex: '999',
+    position: "absolute",
+    backgroundColor: "white",
+    borderTop: "none",
+    width: "100%",
+    height: "35%",
+    right: "60px",
+    bottom: "150px",
+    zIndex: "999",
   };
 
   useEffect(() => {
     function handleCloseEmojiPicker(evt) {
       evt = evt || window.event;
       var isEscape = false;
-      if ('key' in evt) {
-        isEscape = evt.key === 'Escape' || evt.key === 'Esc';
+      if ("key" in evt) {
+        isEscape = evt.key === "Escape" || evt.key === "Esc";
       } else {
         isEscape = evt.keyCode === 27;
       }
@@ -50,9 +50,9 @@ const Chat = () => {
       }
     }
 
-    document.addEventListener('keydown', handleCloseEmojiPicker);
+    document.addEventListener("keydown", handleCloseEmojiPicker);
     return () => {
-      document.removeEventListener('keydown', handleCloseEmojiPicker);
+      document.removeEventListener("keydown", handleCloseEmojiPicker);
     };
   }, []);
 
@@ -77,29 +77,29 @@ const Chat = () => {
   }, [chatState]);
 
   useEffect(() => {
-    socket.on('user-joined', ({ playerName }) => {
+    socket.on("user-joined", ({ playerName }) => {
       chatDispatch({
         type: CHAT_ACTIONS.USER_JOINED,
-        payload: { playerName, message: 'joined' },
+        payload: { playerName, message: "joined" },
       });
     });
-    socket.on('chat-message', ({ playerName, message, socketId }) => {
+    socket.on("chat-message", ({ playerName, message, socketId }) => {
       chatDispatch({
         type: CHAT_ACTIONS.CHAT_MESSAGE,
         payload: { playerName, message, socketId },
       });
     });
-    socket.on('user-left', ({ playerName }) => {
+    socket.on("user-left", ({ playerName }) => {
       chatDispatch({
         type: CHAT_ACTIONS.USER_LEFT,
-        payload: { playerName, message: 'left' },
+        payload: { playerName, message: "left" },
       });
     });
 
     return () => {
-      socket.off('user-joined');
-      socket.off('chat-message');
-      socket.off('user-left');
+      socket.off("user-joined");
+      socket.off("chat-message");
+      socket.off("user-left");
     };
   }, []);
 
@@ -107,11 +107,11 @@ const Chat = () => {
     evt.preventDefault();
 
     window.M.toast({
-      html: 'Copied to clipboard!',
+      html: "Copied to clipboard!",
       displayLength: 1000,
       classes: styles.clipboardToast,
     });
-    const joinUrl = window.location.origin + '/join/' + userState.roomCode;
+    const joinUrl = window.location.origin + "/join/" + userState.roomCode;
     navigator.clipboard.writeText(joinUrl);
   }
 
@@ -123,12 +123,12 @@ const Chat = () => {
   function handleSubmit(evt) {
     evt.preventDefault();
     socket.emit(
-      'chat-message',
+      "chat-message",
       userState.roomCode,
       userState.playerName,
       messageInput
     );
-    setMessageInput('');
+    setMessageInput("");
   }
 
   function handleClickLogout(evt) {
@@ -146,19 +146,19 @@ const Chat = () => {
               onClick={handleClickCopyRoomCode}
               className={styles.roomCodeButton}
               style={{
-                color: 'black',
-                backgroundColor: '#fff103',
-                fontFamily: 'Verdana',
-                letterSpacing: '.1em',
-                width: '100%',
-                marginBottom: '.2rem',
+                color: "black",
+                backgroundColor: "#00e7e7",
+                fontFamily: "Verdana",
+                letterSpacing: ".1em",
+                width: "100%",
+                marginBottom: ".2rem",
               }}
             >
-              <i className='tiny material-icons'>content_copy</i>
-              <span>{'  '}</span>
+              <i className="tiny material-icons">content_copy</i>
+              <span>{"  "}</span>
               <span
                 className={styles.roomCodeText}
-                style={{ fontFamily: 'Verdana' }}
+                style={{ fontFamily: "Verdana" }}
               >
                 Room: {userState.roomCode}
               </span>
@@ -168,21 +168,21 @@ const Chat = () => {
             <Button
               onClick={handleClickLogout}
               style={{
-                color: 'black',
-                backgroundColor: '#fff103',
-                fontFamily: 'Verdana',
-                letterSpacing: '.1em',
-                width: '100%',
+                color: "white",
+                backgroundColor: "#404040",
+                fontFamily: "Verdana",
+                letterSpacing: ".1em",
+                width: "100%",
               }}
             >
-              <i className='tiny material-icons'>logout</i>
-              <span>{'  '}</span>
+              <i className="tiny material-icons">logout</i>
+              <span>{"  "}</span>
               Leave Game
             </Button>
           </Row>
         </div>
         <Row>
-          <div id='chat-window' className={styles.messageContainer}>
+          <div id="chat-window" className={styles.messageContainer}>
             {messages.map((msg, idx) => {
               return (
                 <Card
@@ -190,10 +190,8 @@ const Chat = () => {
                   className={styles.messageCard}
                   style={{
                     backgroundColor:
-                      msg.socketId === socket.id
-                        ? 'rgb(55,132,214)'
-                        : 'lightgray',
-                    color: msg.socketId === socket.id ? 'whitesmoke' : 'black',
+                      msg.socketId === socket.id ? "#fff103" : "lightgray",
+                    color: "black",
                   }}
                 >
                   <div className={styles.chatMessageContent}>
@@ -205,30 +203,30 @@ const Chat = () => {
           </div>
         </Row>
         <Row>
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <TextInput
-              style={{ color: 'white', overflowWrap: 'break-word' }}
+              style={{ color: "white", overflowWrap: "break-word" }}
               ref={ref}
-              type='text'
+              type="text"
               onChange={handleChange}
               value={messageInput}
-              placeholder='Say something!'
-              maxLength='100'
+              placeholder="Say something!"
+              maxLength="100"
             >
-              <span onClick={onShowEmojiClick} style={{ fontSize: '2rem' }}>
+              <span onClick={onShowEmojiClick} style={{ fontSize: "2rem" }}>
                 ☺️
               </span>
             </TextInput>
 
             <Button
               disabled={!messageInput}
-              type='submit'
+              type="submit"
               style={{
-                color: 'black',
-                backgroundColor: '#fff103',
-                fontFamily: 'Verdana',
-                letterSpacing: '.1em',
-                width: '100%',
+                color: "black",
+                backgroundColor: "#00e7e7",
+                fontFamily: "Verdana",
+                letterSpacing: ".1em",
+                width: "100%",
               }}
             >
               Send
