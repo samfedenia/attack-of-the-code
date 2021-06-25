@@ -40,6 +40,8 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Lightsaber from './Lightsaber';
+
 const LandingPage = () => {
   const [font, setFont] = useState("StarJedi");
   const [toggle, setToggle] = useState(false);
@@ -166,6 +168,8 @@ const LandingPage = () => {
   return (
     <Container className={styles.container}>
       <img className={styles.logo} src="/attackOfTheCodeLOGO.png" />
+      {/* lightsaber here just to see it */}
+      {/* <Lightsaber /> */}
       <Row className={styles.switch}>
         <div className="switch">
           <label
