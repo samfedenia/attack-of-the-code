@@ -7,6 +7,14 @@ const Podium = () => {
   const [topThree, setTopThree] = useState([]);
 
   useEffect(() => {
+    document.body.style.background = `url(/jedi-prof.png), linear-gradient(rgba(5, 8, 46, 0.712), rgba(53, 0, 0, 0.801))`;
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center center";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundAttachment = "fixed";
+  }, []);
+
+  useEffect(() => {
     if (topThree.length === 0) {
       setTopThree([playerlistState[0], playerlistState[1], playerlistState[2]]);
     }
