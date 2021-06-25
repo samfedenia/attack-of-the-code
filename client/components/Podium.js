@@ -26,7 +26,7 @@ const Podium = () => {
             />
           </div>
           <div id={styles.second} className={styles.stand}>
-            <div className={styles.standName}>Grand Admiral Thrawn</div>
+            <div className={styles.standName}>{topThree[1]?.playerName}</div>
           </div>
         </div>
 
@@ -38,7 +38,7 @@ const Podium = () => {
             />
           </div>
           <div id={styles.first} className={styles.stand}>
-            <div className={styles.standName}>Grand Admiral Thrawn</div>
+            <div className={styles.standName}>{topThree[0]?.playerName}</div>
           </div>
         </div>
 
@@ -50,7 +50,7 @@ const Podium = () => {
             />
           </div>
           <div id={styles.third} className={styles.stand}>
-            <div className={styles.standName}>Grand Admiral Thrawn</div>
+            <div className={styles.standName}>{topThree[2]?.playerName}</div>
           </div>
         </div>
       </div>
