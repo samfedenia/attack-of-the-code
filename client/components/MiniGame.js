@@ -15,12 +15,12 @@ const MiniGame = () => {
       setCount(count + 1);
       if (count >= 5 && count <= 10) {
         block.classList.remove('stormtrooperOne');
-        document.getElementById('block').style.width = '100px';
+        document.getElementById('block').style.width = '45px';
         block.classList.add('stormtrooperTwo');
       }
       if (count > 10) {
         block.classList.remove('stormtrooperTwo');
-        document.getElementById('block').style.width = '100px';
+        document.getElementById('block').style.width = '45px';
         block.classList.add('stormtrooperThree');
       }
       console.log(block.classList);
@@ -35,9 +35,8 @@ const MiniGame = () => {
     let blockLeft = parseInt(
       window.getComputedStyle(block).getPropertyValue('left')
     );
-    if (blockLeft < 60 && blockLeft > 20 && characterTop >= 330) {
+    if (blockLeft < 50 && blockLeft > 20 && characterTop >= 150) {
       block.style.animation = 'none';
-      //block.style.display = 'none';
       setGameOn(false);
     }
     if (blockLeft < 20) {
@@ -63,7 +62,14 @@ const MiniGame = () => {
             <Button className={styles.submitBtn} onClick={startMiniGame}>
               Start Mini-Game
             </Button>
-            <h1>Final Score: {count}</h1>
+            <h2
+              style={{
+                color: '#00e7e7',
+                font: 'StarJedi',
+              }}
+            >
+              Final Score: {count}
+            </h2>
             <div id="character"></div>
             <div id="block"></div>
           </div>

@@ -253,9 +253,9 @@ nav a {
 /* MiniGame CSS STYLING */
 
 #game {
-  margin-top: 200px;
-  width: 650px;
-  height: 500px;
+  margin-top: 50px;
+  width: 400px;
+  height: 300px;
   border: 1px solid black;
   background: url('./backgrounds/star-wars-backgrounds-25.jpg');
 }
@@ -277,19 +277,19 @@ div.stormtrooperThree {
 }
 
 #character {
-  width: 50px;
-  height: 100px;
+  width: 25px;
+  height: 50px;
   position: relative;
-  top: 330px;
+  top: 200px;
   left: 20px;
 }
 
 #block {
-  width: 50px;
-  height: 100px;
+  width: 30px;
+  height: 50px;
   position: relative;
-  top: 230px;
-  left: 480px;
+  top: 150px;
+  left: 350px;
   animation: block 1s infinite linear;
 }
 
@@ -311,7 +311,7 @@ h1 {
 
 @keyframes block {
   0% {
-    left: 650px;
+    left: 380px;
   }
   100% {
     left: -20px;
@@ -320,15 +320,15 @@ h1 {
 
 @keyframes jump {
   0% {
-    top: 330px;
+    top: 200px;
   }
   30% {
-    top: 220px;
+    top: 140px;
   }
   70% {
-    top: 220px;
+    top: 140px;
   }
   100% {
-    top: 330px;
+    top: 200px;
   }
 }

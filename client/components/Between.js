@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { quotesp } from "../quotes";
-import styles from "./css/Game.module.css";
-import changeCubeStyles from "./css/LandingPage.module.css";
-import { GameContext, GAME_ACTIONS } from "./context/game";
-import { UserContext, USER_ACTIONS } from "./context/user";
-import { SocketContext } from "./context/socket";
+import React, { useContext, useEffect, useState } from 'react';
+import { quotesp } from '../quotes';
+import styles from './css/Game.module.css';
+import changeCubeStyles from './css/LandingPage.module.css';
+import { GameContext, GAME_ACTIONS } from './context/game';
+import { UserContext, USER_ACTIONS } from './context/user';
+import { SocketContext } from './context/socket';
 // import { Container, Row, Button } from 'react-materialize';
-import MiniGame from "./MiniGame";
+import MiniGame from './MiniGame';
 
 import {
   Modal,
@@ -24,8 +24,8 @@ import {
   Navbar,
   NavDropdown,
   FormControl,
-} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Between = ({ submissionState, setSubmissionState }) => {
   const randomize = () => Math.floor(Math.random() * quotesp.length);
@@ -46,12 +46,12 @@ const Between = ({ submissionState, setSubmissionState }) => {
   const setGame = () => {
     const newGameState = {
       ...gameState,
-      gameStatus: "playing",
+      gameStatus: 'playing',
       currentRound: gameState.currentRound + 1,
       roundComplete: false,
     };
     gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: newGameState });
-    socket.emit("new-game-state", newGameState, userState.roomCode);
+    socket.emit('new-game-state', newGameState, userState.roomCode);
   };
 
   useEffect(() => {
@@ -70,7 +70,13 @@ const Between = ({ submissionState, setSubmissionState }) => {
 
   return (
     <Container className={styles.container}>
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
         <div className={styles.profQuotes}>
           <br />"{quotesp[idx]}"<br /> <span>-Prof</span>
         </div>
@@ -89,10 +95,10 @@ const Between = ({ submissionState, setSubmissionState }) => {
           <h3>Next Round Starting in {count}</h3>
           {/* <Button onClick={setGame}>Next</Button> */}
         </Row>
+        <Row>
+          <MiniGame />
+        </Row>
       </div>
-      <Row>
-        <MiniGame />
-      </Row>
     </Container>
   );
 };
