@@ -250,6 +250,84 @@ nav a {
   background-color: rgb(207, 207, 207);
 }
 
+
+/* Lightsaber CSS */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.seconds {
+  color: white;
+  margin-right: 10px;
+  font-family: helvetica;
+}
+
+.lightsaber {
+  display: flex;
+  align-items: center;
+  margin: 50px;
+}
+
+.hilt {
+  display: flex;
+  justify-content: center;
+  width: 80px;
+  height: 10px;
+  border-radius: .2em;
+  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
+    
+    linear-gradient(180deg, hsl(0,0%,78%)  0%, 
+    hsl(0,0%,90%) 47%, 
+    rgb(83, 83, 83) 53%,
+    hsl(0,0%,70%)100%);
+}
+
+.button {
+  background-color: red;
+  height: 3px;
+  width: 5px;
+  border-radius: 50%;
+}
+
+.blade {
+  width: 500px;
+  height: 0.5em;
+  border-radius: 1.5rem;
+  /* position: relative; */
+}
+
+.blade {
+  content: '';
+  font-size: 0.2rem;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin-left: 78px;
+  width: calc(var(--width, 100) * 1%);
+  min-width: 0.5rem;
+  max-width: calc(100% - 1em);
+  background-color: rgba(255, 255, 255, 0.9);
+  /* box-shadow: 0.25em 0.25em 30px 5px rgb(28, 255, 58); */
+  box-shadow: 0.25em 0.25em 30px 5px red;
+  /* box-shadow: 0.25em 0.25em 30px 5px dodgerblue; */
+  border-radius: 1em;
+  padding: 1em;
+}
+
+
+.fade-out {
+  animation: fadeOut ease 1s;
+}
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
 /* MiniGame CSS STYLING */
 
 #game {
