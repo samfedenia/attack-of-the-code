@@ -93,7 +93,12 @@ const Between = ({ submissionState, setSubmissionState }) => {
         </Row>
         <Row hidden={gameState.roundComplete}>
           {/* <h3>Next Round Starting in {count}</h3> */}
-          <Button onClick={setGame}>Next</Button>
+          <Button
+            onClick={setGame}
+            style={{ backgroundColor: "#00e7e7", color: "black" }}
+          >
+            Next
+          </Button>
         </Row>
         <Row>
           <MiniGame />
