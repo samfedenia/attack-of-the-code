@@ -127,7 +127,7 @@
   height: 10vh;
   width: 30vw;
   color: yellow;
-  font-family: 'StarJedi';
+  font-family: "StarJedi";
   text-align: center;
 }
 
@@ -205,7 +205,7 @@
 }
 
 .chatMessageContent {
-  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .chat h1,
@@ -251,5 +251,5 @@ button {
 }
 
 .roomCodeButton:hover .inviteLink:before {
-  content: 'Click to copy invite link!';
+  content: "Click to copy invite link!";
 }
