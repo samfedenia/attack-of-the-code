@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import styles from "./css/Editor.module.css";
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 const MiniGame = () => {
   const [count, setCount] = useState(0);
   const [gameOn, setGameOn] = useState(false);
 
   const jump = async () => {
-    if (character.classList !== "animate") {
-      const jump = await character.classList.add("animate");
+    if (character.classList !== 'animate') {
+      const jump = await character.classList.add('animate');
       setTimeout(function () {
-        character.classList.remove("animate");
+        character.classList.remove('animate');
       }, 450);
       setCount(count + 1);
       if (count >= 5 && count <= 10) {
-        block.classList.remove("stormtrooperOne");
-        document.getElementById("block").style.width = "45px";
-        block.classList.add("stormtrooperTwo");
+        block.classList.remove('stormtrooperOne');
+        document.getElementById('block').style.width = '45px';
+        block.classList.add('stormtrooperTwo');
       }
       if (count > 10) {
-        block.classList.remove("stormtrooperTwo");
-        document.getElementById("block").style.width = "45px";
-        block.classList.add("stormtrooperThree");
+        block.classList.remove('stormtrooperTwo');
+        document.getElementById('block').style.width = '45px';
+        block.classList.add('stormtrooperThree');
       }
       return jump;
     }
@@ -29,13 +28,13 @@ const MiniGame = () => {
 
   setInterval(() => {
     let characterTop = parseInt(
-      window.getComputedStyle(character).getPropertyValue("top")
+      window.getComputedStyle(character).getPropertyValue('top')
     );
     let blockLeft = parseInt(
-      window.getComputedStyle(block).getPropertyValue("left")
+      window.getComputedStyle(block).getPropertyValue('left')
     );
     if (blockLeft < 50 && blockLeft > 20 && characterTop >= 150) {
-      block.style.animation = "none";
+      block.style.animation = 'none';
       setGameOn(false);
     }
     if (blockLeft < 20) {
@@ -43,7 +42,7 @@ const MiniGame = () => {
   });
 
   const onSpacebar = (e) => {
-    if (e.key === " ") {
+    if (e.key === ' ') {
       jump();
     }
   };
@@ -63,8 +62,8 @@ const MiniGame = () => {
             </Button>
             <h2
               style={{
-                color: "#fff103",
-                font: "StarJedi",
+                color: '#fff103',
+                font: 'StarJedi',
               }}
             >
               Final Score: {count}
