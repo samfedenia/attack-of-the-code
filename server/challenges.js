@@ -13,49 +13,142 @@
 
 const demo = [
   {
-    prompt: "Create a function (str) that returns a STRING",
-    start: "const str = (someString) => {\n\n}",
+    prompt: 'Create a function (str) that returns a STRING',
+    start: 'const str = (someString) => {\n\n}',
     testCall1: "str('Hello World!')",
-    testResult1: "Hello World!",
+    testResult1: 'Hello World!',
     testCall2: "str('Hello ITAI!')",
-    testResult2: "Hello ITAI!",
+    testResult2: 'Hello ITAI!',
   },
   {
-    prompt: "Create a function (add) that adds two numbers",
-    start: "const add = (num1, num2) => {\n\n}",
-    testCall1: "add(2, 3)",
+    prompt: 'Create a function (add) that adds two numbers',
+    start: 'const add = (num1, num2) => {\n\n}',
+    testCall1: 'add(2, 3)',
     testResult1: 5,
-    testCall2: "add(3, 4)",
+    testCall2: 'add(3, 4)',
     testResult2: 7,
   },
   {
-    prompt: "Create a function (mult) that muliplies two numbers",
-    start: "const mult = (num1, num2) => {\n\n}",
-    testCall1: "mult(2, 3)",
+    prompt: 'Create a function (mult) that muliplies two numbers',
+    start: 'const mult = (num1, num2) => {\n\n}',
+    testCall1: 'mult(2, 3)',
     testResult1: 6,
-    testCall2: "mult(3, 4)",
+    testCall2: 'mult(3, 4)',
     testResult2: 12,
   },
   {
     prompt:
-      "Create a function (bool) that determines if the inputs are the same",
-    start: "const bool = (num1, num2) => {\n\n}",
-    testCall1: "bool(2, 3)",
+      'Create a function (bool) that determines if the inputs are the same',
+    start: 'const bool = (num1, num2) => {\n\n}',
+    testCall1: 'bool(2, 3)',
     testResult1: false,
     testCall2: "bool('test', 'test')",
     testResult2: true,
   },
 ];
 
-const youngling = [];
+const youngling = [
+  {
+    prompt:
+      'Given a month as an integer from 1 to 12, return to which quarter of the year it belongs as an integer number. For example: month 2 (February), is part of the first quarter; month 6 (June), is part of the second quarter; and month 11 (November), is part of the fourth quarter.',
+    start: 'const quarterOf = (month) => {\n\n}',
+    testCall1: 'quarterOf(2)',
+    testResult1: 1,
+    testCall2: 'quarterOf(6)',
+    testResult2: 2,
+    //   //return Math.ceil(month/3)
+  },
+  {
+    prompt:
+      'Write a function which calculates the average of the numbers in a given (array) list.',
+    start: 'const findAverage = (array) => {\n\n}',
+    testCall1: 'findAverage([1,2,3])',
+    testResult1: 2,
+    testCall2: 'findAverage([1,2,3,4])',
+    testResult2: 2.5,
+    //var sum = array.reduce((a, b) => a + b, 0); return sum/array.length;
+  },
+];
 
-const padawan = [];
+const padawan = [
+  {
+    prompt:
+      'Complete the solution so that it returns true if the first argument(string) passed in ends with the 2nd argument (also a string). Examples: solution("abc", "bc") // returns true, solution("abc", "d") // returns false',
+    start: 'const solution = (str, ending) => {\n\n}',
+    testCall1: 'solution("abcde", "cde")',
+    testResult1: true,
+    testCall2: 'solution("abcde", "abc")',
+    testResult2: false,
+    //   //return str.endsWith(ending)
+  },
+  {
+    prompt:
+      'You will be given an array and a limit value. You must check that all values in the array are below or equal to the limit value. If they are, return true. Else, return false.',
+    start: 'const smallEnough = (array, limit) => {\n\n}',
+    testCall1: 'smallEnough([66, 101], 200)',
+    testResult1: true,
+    testCall2: 'smallEnough([78, 117, 110, 99, 104, 117, 107, 115], 100)',
+    testResult2: false,
+    //return Math.max(...array) <= limit;
+  },
+];
 
-const jedi = [];
+const jedi = [
+  {
+    prompt: '',
+    start: '',
+    testCall1: '',
+    testResult1: '',
+    testCall2: '',
+    testResult2: '',
+  },
+  {
+    prompt: '',
+    start: '',
+    testCall1: '',
+    testResult1: '',
+    testCall2: '',
+    testResult2: '',
+  },
+];
 
-const master = [];
+const master = [
+  {
+    prompt: '',
+    start: '',
+    testCall1: '',
+    testResult1: '',
+    testCall2: '',
+    testResult2: '',
+  },
+  {
+    prompt: '',
+    start: '',
+    testCall1: '',
+    testResult1: '',
+    testCall2: '',
+    testResult2: '',
+  },
+];
 
-const sith = [];
+const sith = [
+  {
+    prompt: '',
+    start: '',
+    testCall1: '',
+    testResult1: '',
+    testCall2: '',
+    testResult2: '',
+  },
+  {
+    prompt: '',
+    start: '',
+    testCall1: '',
+    testResult1: '',
+    testCall2: '',
+    testResult2: '',
+  },
+];
 
 module.exports = {
   demo,
