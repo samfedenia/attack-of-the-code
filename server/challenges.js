@@ -146,9 +146,9 @@ const sith = [
       "Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*' where: \n\n '.' matches any single character and \n\n '*' matches zero or more of the preceding element \n\n See Leetcode #10: https://leetcode.com/problems/regular-expression-matching/",
     start: "const isMatch = function(s, p) => {\n\n}",
     testCall1: "isMatch('aa', 'a')",
-    testResult1: "false",
+    testResult1: false,
     testCall2: "isMatch('aa', 'a*')",
-    testResult2: "true",
+    testResult2: true,
   },
 ];
 
