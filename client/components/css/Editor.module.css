@@ -65,6 +65,20 @@
   background-color: #c8c8c8;
 }
 
+.editorBtn:focus,
+.editorBtn:active,
+.editorBtn:visited {
+  background-color: #fff103;
+  color: black;
+}
+
+.submitBtn:focus,
+.submitBtn:active,
+.submitBtn:visited {
+  background-color: #00e7e7;
+  color: black;
+}
+
 .runBtn {
   display: flex;
   width: 80%;
