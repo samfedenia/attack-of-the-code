@@ -2,14 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { GameContext, GAME_ACTIONS } from "./context/game";
 import { UserContext, USER_ACTIONS } from "./context/user";
 import { SocketContext } from "./context/socket";
+import { PlayerlistContext } from "./context/playerlist";
 
 function GameStateHandler({ submissionState, setSubmissionState }) {
   const { gameState, gameDispatch } = useContext(GameContext);
   const { userState, userDispatch } = useContext(UserContext);
+  const { playerlistState } = useContext(PlayerlistContext);
   const socket = useContext(SocketContext);
 
+  const playerCount = playerlistState.length;
+  const submissionLimit = playerCount > 2 ? playerCount - 1 : 1;
+
   useEffect(() => {
-    if (submissionState === 3) {
+    if (submissionState === submissionLimit) {
       gameDispatch({
         type: GAME_ACTIONS.SET_GAME,
         payload: {
@@ -46,7 +51,10 @@ function GameStateHandler({ submissionState, setSubmissionState }) {
       roundComplete,
     } = gameState;
 
-    if (userState.submitted === true && submissionState === 2) {
+    if (
+      userState.submitted === true &&
+      submissionState === submissionLimit - 1
+    ) {
       if (gameStatus !== "between") {
         userDispatch({
           type: USER_ACTIONS.UPDATE_USER,
