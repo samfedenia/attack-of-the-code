@@ -12,7 +12,7 @@ const GameSetup = () => {
   const socket = useContext(SocketContext);
 
   const [level, setLevel] = useState("");
-  const [totalRounds, setTotalRounds] = useState(1);
+  const [totalRounds, setTotalRounds] = useState("");
   const [challengeCount, setChallengeCount] = useState({});
   const arrayOfLevels = [
     "demo",
@@ -89,13 +89,13 @@ const GameSetup = () => {
             </option>
             <option value="1">1</option>
             <option value="2">2</option>
-            <option value="2" hidden={challengeCount[level] < 3}>
+            <option value="3" hidden={challengeCount[level] < 3}>
               3
             </option>
-            <option value="2" hidden={challengeCount[level] < 4}>
+            <option value="4" hidden={challengeCount[level] < 4}>
               4
             </option>
-            <option value="2" hidden={challengeCount[level] < 5}>
+            <option value="5" hidden={challengeCount[level] < 5}>
               5
             </option>
           </select>

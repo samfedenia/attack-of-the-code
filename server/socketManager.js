@@ -121,4 +121,6 @@ const createSocketServer = (server) => {
   return io;
 };
 
-module.exports = createSocketServer;
+module.exports = {
+  createSocketServer,
+};
