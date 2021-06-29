@@ -1,23 +1,23 @@
-const path = require('path');
-const fs = require('fs');
-const app = require('../app');
-const router = require('express').Router();
-const challenges = require('../challenges');
+const path = require("path");
+const fs = require("fs");
+const app = require("../app");
+const router = require("express").Router();
+const challenges = require("../challenges");
 module.exports = router;
 
-router.get('/headshots', (req, res, next) => {
+router.get("/headshots", (req, res, next) => {
   try {
     const imagesArr = [];
-    const images = path.join(__dirname, '../../public/star_wars_characters');
+    const images = path.join(__dirname, "../../public/star_wars_characters");
     fs.readdir(images, (err, files) => {
       try {
         files.forEach((file) => {
-          if (!file.includes('.DS_Store')) {
+          if (!file.includes(".DS_Store")) {
             imagesArr.push(file);
           }
         });
       } catch (error) {
-        console.log('files error', error);
+        console.log("files error", error);
       }
       res.send(imagesArr);
     });
@@ -26,19 +26,19 @@ router.get('/headshots', (req, res, next) => {
   }
 });
 
-router.get('/backgrounds', (req, res, next) => {
+router.get("/backgrounds", (req, res, next) => {
   try {
     const bgArr = [];
-    const bgs = path.join(__dirname, '../../public/backgrounds');
+    const bgs = path.join(__dirname, "../../public/backgrounds");
     fs.readdir(bgs, (err, files) => {
       try {
         files.forEach((file) => {
-          if (!file.includes('.DS_Store')) {
+          if (!file.includes(".DS_Store")) {
             bgArr.push(file);
           }
         });
       } catch (error) {
-        console.log('files error', error);
+        console.log("files error", error);
       }
       res.send(bgArr);
     });
@@ -47,12 +47,14 @@ router.get('/backgrounds', (req, res, next) => {
   }
 });
 
-router.get('/gamedata/:level/:rounds', (req, res, next) => {
+router.get("/gamedata/:level/:rounds", (req, res, next) => {
   const { rounds, level } = req.params;
   if (challenges[level] && challenges[level].length >= rounds) {
     const gameData = new Set();
     while (gameData.size < rounds) {
-      gameData.add(challenges[level][Math.floor(Math.random() * rounds)]);
+      gameData.add(
+        challenges[level][Math.floor(Math.random() * challenges[level].length)]
+      );
     }
 
     if (challenges[level]) res.send([...gameData]);
@@ -60,7 +62,7 @@ router.get('/gamedata/:level/:rounds', (req, res, next) => {
 });
 
 router.use((req, res, next) => {
-  const error = new Error('Not Found');
+  const error = new Error("Not Found");
   error.status = 404;
   next(error);
 });
