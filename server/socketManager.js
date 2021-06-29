@@ -27,20 +27,25 @@ const createSocketServer = (server) => {
         player;
       if (socket.id) socketMemo[socket.id] = player;
 
-      if (rooms[roomCode])
+      if (rooms[roomCode]) {
         rooms[roomCode].players = [
           ...rooms[roomCode].players,
           { ...player, socketId: socket.id },
         ];
+        if (rooms[roomCode].hasOwnProperty("gameState")) {
+          socket.emit("existing-game-state", rooms[roomCode].gameState);
+        }
+      }
       // rooms[roomCode] = [
       //   ...rooms[roomCode],
       //   { ...player, socketId: socket.id },
       // ];
-      else
+      else {
         rooms[roomCode] = {
           players: [{ ...player, socketId: socket.id }],
           gameState: {},
         };
+      }
       console.log(`player: ${playerName} joined room: ${roomCode}`);
       socket.join(roomCode);
       socket.to(roomCode).emit("user-joined", { playerName, avatar });

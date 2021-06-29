@@ -4,7 +4,9 @@ import GameContainer from "./components/GameContainer";
 import { UserContext } from "./components/context/user";
 import Loading from "./components/Loading";
 import { ViewContext, VIEW_ACTIONS } from "./components/context/view";
+import { GameContext, GAME_ACTIONS } from "./components/context/game";
 import { SocketContext } from "./components/context/socket";
+
 import {
   PlayerlistContext,
   PLAYERLIST_ACTIONS,
@@ -13,6 +15,7 @@ import {
 const App = () => {
   const socket = useContext(SocketContext);
   const { playerlistDispatch } = useContext(PlayerlistContext);
+  const { gameDispatch } = useContext(GameContext);
 
   const userFromSessionStorage = JSON.parse(
     window.sessionStorage.getItem("user")
@@ -55,6 +58,15 @@ const App = () => {
       playerlistDispatch({
         type: PLAYERLIST_ACTIONS.UPDATE_PLAYERLIST,
         payload: allplayersSorted,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("existing-game-state", (gameState) => {
+      gameDispatch({
+        type: GAME_ACTIONS.SET_GAME,
+        payload: gameState,
       });
     });
   }, []);
