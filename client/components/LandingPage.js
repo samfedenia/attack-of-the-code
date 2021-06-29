@@ -1,18 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-// import 'materialize-css';
-// import {
-//   Container as MaterializeContainer,
-//   Button,
-//   TextInput,
-//   Dropdown,
-//   Divider,
-//   Icon,
-//   Card,
-//   Row,
-//   Col,
-//   Select,
-// } from 'react-materialize';
 import Cycle from "./Cycle";
 import styles from "./css/LandingPage.module.css";
 import { SocketContext } from "./context/socket";
@@ -20,7 +7,6 @@ import { UserContext, USER_ACTIONS } from "./context/user";
 import { BackgroundContext } from "./context/background";
 import { ViewContext, VIEW_ACTIONS } from "./context/view";
 import { namesList } from "../../public/namesList";
-
 import {
   Modal,
   Container,
@@ -40,7 +26,7 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Lightsaber from './Lightsaber';
+import Lightsaber from "./Lightsaber";
 
 const LandingPage = () => {
   const [font, setFont] = useState("StarJedi");
@@ -87,7 +73,7 @@ const LandingPage = () => {
       );
     } else {
       setFont("StarJedi");
-      [...all].map((el) => el.style.setProperty("font-family", ""));
+      [...all].map((el) => el.style.removeProperty("font-family"));
     }
   };
 
@@ -152,7 +138,6 @@ const LandingPage = () => {
       "",
       window.location.origin
     );
-    // window.location.replaceState(window.location.origin);
     socket.emit("room", user);
     userDispatch({
       type: USER_ACTIONS.UPDATE_USER,
