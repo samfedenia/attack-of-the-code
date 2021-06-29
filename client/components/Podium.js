@@ -26,7 +26,10 @@ const Podium = () => {
         Winner is {topThree[0]?.playerName}!!!!
       </h1>
       <div className={styles.podiumContainer}>
-        <div className={styles.standContainer}>
+        <div
+          className={styles.standContainer}
+          hidden={playerlistState.length < 2}
+        >
           <div className={styles.avatarContainer}>
             <img
               className={styles.avatar}
@@ -50,7 +53,10 @@ const Podium = () => {
           </div>
         </div>
 
-        <div className={styles.standContainer}>
+        <div
+          className={styles.standContainer}
+          hidden={playerlistState.length < 3}
+        >
           <div className={styles.avatarContainer}>
             <img
               className={styles.avatar}
