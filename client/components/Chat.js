@@ -30,7 +30,7 @@ const Chat = () => {
     backgroundColor: "white",
     borderTop: "none",
     width: "100%",
-    height: "35%",
+    height: "55%",
     right: "60px",
     bottom: "150px",
     zIndex: "999",
@@ -154,7 +154,7 @@ const Chat = () => {
                 marginBottom: ".2rem",
               }}
             >
-              <i className="tiny material-icons">content_copy</i>
+              <i className='tiny material-icons'>content_copy</i>
               <span>{"  "}</span>
               <span
                 className={styles.roomCodeText}
@@ -175,14 +175,14 @@ const Chat = () => {
                 width: "100%",
               }}
             >
-              <i className="tiny material-icons">logout</i>
+              <i className='tiny material-icons'>logout</i>
               <span>{"  "}</span>
               Leave Game
             </Button>
           </Row>
         </div>
         <Row>
-          <div id="chat-window" className={styles.messageContainer}>
+          <div id='chat-window' className={styles.messageContainer}>
             {messages.map((msg, idx) => {
               return (
                 <Card
@@ -202,35 +202,51 @@ const Chat = () => {
             })}
           </div>
         </Row>
-        <Row>
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <TextInput
-              style={{ color: "white", overflowWrap: "break-word" }}
-              ref={ref}
-              type="text"
-              onChange={handleChange}
-              value={messageInput}
-              placeholder="Say something!"
-              maxLength="100"
-            >
-              <span onClick={onShowEmojiClick} style={{ fontSize: "2rem" }}>
-                ☺️
-              </span>
-            </TextInput>
+        <Row className={styles.inputRow}>
+          <form
+            className={styles.messageForm}
+            onSubmit={handleSubmit}
+            autoComplete='off'
+          >
+            <Row>
+              <TextInput
+                style={{ color: "white", overflowWrap: "break-word" }}
+                ref={ref}
+                type='text'
+                onChange={handleChange}
+                value={messageInput}
+                placeholder='Say something!'
+                maxLength='100'
+              />
 
-            <Button
-              disabled={!messageInput}
-              type="submit"
-              style={{
-                color: "black",
-                backgroundColor: "#00e7e7",
-                fontFamily: "Verdana",
-                letterSpacing: ".1em",
-                width: "100%",
-              }}
-            >
-              Send
-            </Button>
+              <div
+                onClick={onShowEmojiClick}
+                style={{
+                  fontSize: "2.5rem",
+                  marginTop: "auto",
+                  marginBottom: "auto",
+                }}
+              >
+                ☺️
+              </div>
+
+              <Button
+                disabled={!messageInput}
+                type='submit'
+                style={{
+                  color: "black",
+                  backgroundColor: "#00e7e7",
+                  fontFamily: "Verdana",
+                  letterSpacing: ".1em",
+                  width: "max-content",
+                  float: "right",
+                  marginTop: "auto",
+                  marginBottom: "auto",
+                }}
+              >
+                Send
+              </Button>
+            </Row>
           </form>
           {showEmojiPicker && (
             <Picker
@@ -238,8 +254,6 @@ const Chat = () => {
               groupVisibility={{
                 flags: false,
               }}
-              disableSearchBar={true}
-              disableSkinTonePicker={true}
               pickerStyle={emojiPickerStyles}
             />
           )}

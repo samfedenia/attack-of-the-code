@@ -69,6 +69,12 @@ nav a {
   box-shadow: 0 1px 0 0 #fff103 !important;
 }
 
+#TextInput-3 {
+  width: 100% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* positioning toast continer (override materialize css) */
 #toast-container {
   bottom: auto !important;
