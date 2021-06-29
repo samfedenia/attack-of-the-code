@@ -47,6 +47,21 @@ router.get("/backgrounds", (req, res, next) => {
   }
 });
 
+router.get("/challengecount", (req, res, next) => {
+  try {
+    res.send({
+      demo: challenges.demo.length,
+      youngling: challenges.youngling.length,
+      padawan: challenges.padawan.length,
+      jedi: challenges.jedi.length,
+      master: challenges.master.length,
+      sith: challenges.sith.length,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/gamedata/:level/:rounds", (req, res, next) => {
   const { rounds, level } = req.params;
   if (challenges[level] && challenges[level].length >= rounds) {

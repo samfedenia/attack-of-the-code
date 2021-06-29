@@ -13,6 +13,7 @@ const GameSetup = () => {
 
   const [level, setLevel] = useState("");
   const [totalRounds, setTotalRounds] = useState(1);
+  const [challengeCount, setChallengeCount] = useState({});
   const arrayOfLevels = [
     "demo",
     "youngling",
@@ -39,11 +40,17 @@ const GameSetup = () => {
     window.sessionStorage.setItem("gameStatus", JSON.stringify(newGameState));
   };
 
+  const getChallengeCount = async () => {
+    const { data: count } = await axios.get("/api/challengecount");
+    setChallengeCount(count);
+  };
+
   useEffect(() => {
     const game = JSON.parse(window.sessionStorage.getItem("gameStatus"));
     if (game) {
       gameDispatch({ type: GAME_ACTIONS.SET_GAME, payload: game });
     }
+    getChallengeCount();
   }, []);
 
   return (
@@ -75,12 +82,22 @@ const GameSetup = () => {
             onChange={(e) => setTotalRounds(e.target.value)}
             className="browser-default"
             id={styles.rounds}
+            hidden={!level}
           >
             <option value="" defaultValue>
               --Choose Number of Rounds--
             </option>
             <option value="1">1</option>
             <option value="2">2</option>
+            <option value="2" hidden={challengeCount[level] < 3}>
+              3
+            </option>
+            <option value="2" hidden={challengeCount[level] < 4}>
+              4
+            </option>
+            <option value="2" hidden={challengeCount[level] < 5}>
+              5
+            </option>
           </select>
           <Button
             className={styles.playGame}
