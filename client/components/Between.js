@@ -100,7 +100,9 @@ const Between = ({ submissionState, setSubmissionState }) => {
             Next
           </Button>
         </Row>
-        <Row>{/* <MiniGame /> */}</Row>
+        <Row>
+          <MiniGame />
+        </Row>
       </div>
     </Container>
   );
