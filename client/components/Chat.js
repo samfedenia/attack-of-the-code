@@ -202,7 +202,13 @@ const Chat = () => {
             })}
           </div>
         </Row>
-        <Row className={styles.inputRow}>
+        <Row
+          className={styles.inputRow}
+          style={{
+            marginLeft: 0,
+            marginRight: 0,
+          }}
+        >
           <form
             className={styles.messageForm}
             onSubmit={handleSubmit}
