@@ -127,7 +127,7 @@ export const quotes = [
   "If there is no path before you, create your own.",
   "Mistakes are valuable lessons often learned too late.",
   "Who you were does not have to define who you are.",
-  "You can change who you are, but you cannot run from yourself."
+  "You can change who you are, but you cannot run from yourself.",
 ];
 
 // const string = `S5-E16 – Morality separates heroes from villains.
@@ -181,40 +181,6 @@ export const quotes = [
 // //   }
 // // });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const quotesp = [
   "I'm gonna cheat a little bit.",
   "You could end up...",
@@ -261,5 +227,6 @@ export const quotesp = [
   "I just want you to know what it's doing under the covers.",
   "Code Smell",
   "Let's just say, for the sake of argument...",
-  "I'm gonna cheat a little bit."
+  "I'm gonna cheat a little bit.",
+  "What the hell else were you gonna do?",
 ];
