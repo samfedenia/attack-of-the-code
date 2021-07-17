@@ -1,6 +1,7 @@
-# FS-App-Template
+deploy demo at:
+https://attack-of-the-code-demo.herokuapp.com
 
-## Setup
+## Setup (left over from group work)
 
 To use this as boilerplate, you'll need to take the following steps:
 
